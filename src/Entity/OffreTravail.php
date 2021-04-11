@@ -91,5 +91,12 @@ class OffreTravail
      */
     private $titre;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="valide", type="integer", nullable=false)
+     */
+    private $valide;
+
 
 }
