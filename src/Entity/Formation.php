@@ -52,9 +52,9 @@ class Formation
     /**
      * @var string|null
      *
-     * @ORM\Column(name="cours", type="blob", length=0, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="cours", type="blob", length=0, nullable=true)
      */
-    private $cours = 'NULL';
+    private $cours;
 
     /**
      * @var string
@@ -63,19 +63,82 @@ class Formation
      */
     private $image;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Personnes", mappedBy="id")
-     */
-    private $idUser;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function getId(): ?int
     {
-        $this->idUser = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->id;
     }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(float $prix): self
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getDifficulte(): ?string
+    {
+        return $this->difficulte;
+    }
+
+    public function setDifficulte(string $difficulte): self
+    {
+        $this->difficulte = $difficulte;
+
+        return $this;
+    }
+
+    public function getCours()
+    {
+        return $this->cours;
+    }
+
+    public function setCours($cours): self
+    {
+        $this->cours = $cours;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 
 }
