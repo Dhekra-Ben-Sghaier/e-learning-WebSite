@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formation{% endblock %}
+
+{% block body %}
+    <h1>La liste des formations</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Réference</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Difficulte</th>
+                <th>Cours</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for formation in formations %}
+            <tr>
+                <td>{{ formation.id }}</td>
+                <td>{{ formation.titre }}</td>
+                <td>{{ formation.description }}</td>
+                <td>{{ formation.prix }}</td>
+                <td>{{ formation.difficulte }}</td>
+                <td>{{ formation.cours }}</td>
+                <td>{{ formation.image }}</td>
+                <td>
+                    <button class="btn btn-primary btn-icon-split" ><a href="{{ path('formation_show', {'id': formation.id}) }}"><span class="text" style="color: white">Détails</span></a></button>
+                    <button class="btn btn-secondary btn-icon-split" ><a href="{{ path('formation_edit', {'id': formation.id}) }}"><span class="text" style="color: white">Modifier</span></a></button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <button class="btn btn-success btn-icon-split" ><a href="{{ path('formation_new') }}"><span class="text" style="color: white">Ajouter une formation</span></a></button>
+{% endblock %}

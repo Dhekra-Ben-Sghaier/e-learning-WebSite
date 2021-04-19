@@ -1,0 +1,98 @@
+Personnes:
+    type: entity
+    table: personnes
+    id:
+        idUser:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_user
+            generator:
+                strategy: IDENTITY
+    fields:
+        cin:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+                default: '''NULL'''
+        nom:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+                default: '''NULL'''
+        prenom:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+                default: '''NULL'''
+        email:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 10000
+            options:
+                fixed: false
+        nomutilisateur:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: nomUtilisateur
+        centreinteret:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+                default: '''NULL'''
+            column: centreInteret
+        domaine:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+                default: '''NULL'''
+        role:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        code:
+            type: string
+            nullable: true
+            length: 1000
+            options:
+                fixed: false
+                default: '''NULL'''
+        image:
+            type: blob
+            nullable: true
+            length: 0
+            options:
+                fixed: false
+                default: 'NULL'
+        nomsociete:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+                default: '''NULL'''
+            column: nomSociete
+    lifecycleCallbacks: {  }

@@ -1,0 +1,19 @@
+PostulerStage:
+    type: entity
+    table: postuler_stage
+    id:
+        idStage:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: Id_Stage
+        idSociete:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: Id_Societe
+    lifecycleCallbacks: {  }

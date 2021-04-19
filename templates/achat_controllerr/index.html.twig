@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Achat index{% endblock %}
+
+{% block body %}
+    <h1>Achat index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for achat in achats %}
+            <tr>
+                <td>{{ achat.id }}</td>
+                <td>
+                    <a href="{{ path('achat_controllerr_show', {'id': achat.id}) }}">show</a>
+                    <a href="{{ path('achat_controllerr_edit', {'id': achat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('achat_controllerr_new') }}">Create new</a>
+{% endblock %}
