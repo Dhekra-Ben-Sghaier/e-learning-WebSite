@@ -4,13 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Formation;
 use App\Form\FormationType;
+use App\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\DomCrawler\Image;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/formation")
  */
@@ -29,6 +33,19 @@ class FormationController extends AbstractController
             'formations' => $formations,
         ]);
     }
+    /**
+     * @Route("/indexApprenant", name="apprenant_index", methods={"GET"})
+     */
+    public function indexApprenant(): Response
+    {
+        $formations = $this->getDoctrine()
+            ->getRepository(Formation::class)
+            ->findAll();
+
+        return $this->render('formation/index_Apprenant.html.twig', [
+            'formations' => $formations,
+        ]);
+    }
 
     /**
      * @Route("/new", name="formation_new", methods={"GET","POST"})
@@ -40,37 +57,52 @@ class FormationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-                // On récupère les images transmises
-                $images = $form->get('image')->getData();
-
-                // On boucle sur les images
-                foreach ($images as $image) {
-                    // On génère un nouveau nom de fichier
-                    $fichier = md5(uniqid()) . '.' . $image->guessExtension();
-
-                    // On copie le fichier dans le dossier uploads
-                    $image->move(
-                        $this->getParameter('images_directory'),
-                        $fichier
+            $coursFile = $form->get('cours')->getData();
+            if ($coursFile) {
+                $originalFilename = pathinfo($coursFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$coursFile->guessExtension();
+                try {
+                    $coursFile->move(
+                        $this->getParameter('cours_directory'),
+                        $newFilename
                     );
-
-                    // On crée l'image dans la base de données
-
-                    $formation->setImage($fichier);
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
                 }
+                $formation->setCours($newFilename);
+            }
+            // On récupère les images transmises
+            $images = $form->get('image')->getData();
 
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($formation);
-                $entityManager->flush();
+            // On boucle sur les images
+            foreach ($images as $image) {
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                // On crée l'image dans la base de données
+
+                $formation->setImage($fichier);
             }
 
 
 
-            return $this->render('formation/new.html.twig', [
-                'formation' => $formation,
-                'form' => $form->createView(),
-            ]);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($formation);
+            $entityManager->flush();
+        }
+
+
+
+        return $this->render('formation/new.html.twig', [
+            'formation' => $formation,
+            'form' => $form->createView(),
+        ]);
 
     }
 
@@ -80,6 +112,15 @@ class FormationController extends AbstractController
     public function show(Formation $formation): Response
     {
         return $this->render('formation/show.html.twig', [
+            'formation' => $formation,
+        ]);
+    }
+    /**
+     * @Route("/details/{id}", name="formation_details", methods={"GET"})
+     */
+    public function showDetails(Formation $formation): Response
+    {
+        return $this->render('formation/details.html.twig', [
             'formation' => $formation,
         ]);
     }
@@ -162,4 +203,33 @@ class FormationController extends AbstractController
             return new JsonResponse(['error' => 'Token Invalide'], 400);
         }
     }
+
+    /**
+     * @Route("formation/searchStudentx ", name="searchFormationtx")
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     */
+    public function searchFormation(Request $request,NormalizerInterface $Normalizer)
+    {
+        $repository = $this->getDoctrine()->getRepository(Formation::class);
+        $requestString=$request->get('searchValue');
+        //dd($requestString);
+        $formations = $repository->findByTitre($requestString);
+        //dd($formations);
+        $jsonContent = $Normalizer->normalize($formations, 'json',['groups'=>'post:read']);
+        //dd($jsonContent);
+        $retour = json_encode($jsonContent);
+        return new Response($retour);
+    }
+    /*  /**
+       * @Route("/search/{searchString}", name="search")
+       */
+    /*public function search($searchString)
+    {
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $repository = $this->getDoctrine()->getRepository(FormationRepository::class);
+        $produits = $repository->findByTitre($searchString);
+
+        $data=$serializer->normalize($produits);
+        return new JsonResponse($data);
+    }*/
 }

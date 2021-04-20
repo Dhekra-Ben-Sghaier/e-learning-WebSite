@@ -17,7 +17,10 @@ class FormationType extends AbstractType
             ->add('description')
             ->add('prix')
             ->add('difficulte')
-            ->add('cours')
+            ->add('cours', FileType::class,[
+                'mapped' => false
+            ])
+
             ->add('image', FileType::class,[
                 'label' => false,
                 'multiple' => true,

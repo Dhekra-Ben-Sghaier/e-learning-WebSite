@@ -1,11 +1,29 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}Formation{% endblock %}
 
 {% block body %}
+
     <h1>La liste des formations</h1>
 
-    <table class="table">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="get" action="">
+            <div class="intro-banner-search-form margin-top-95">
+                <!-- Search Field -->
+
+                <div class="intro-search-field">
+                    <label for ="intro-keywords" class="field-title ripple-effect">Chercher : </label>
+                    <input for ="intro-keywords" name="chercher" id="search" type="text">
+
+
+
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table" id="t">
         <thead>
             <tr>
                 <th>Réference</th>
@@ -18,7 +36,7 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="all">
         {% for formation in formations %}
             <tr>
                 <td>{{ formation.id }}</td>
@@ -30,7 +48,10 @@
                 <td>{{ formation.image }}</td>
                 <td>
                     <button class="btn btn-primary btn-icon-split" ><a href="{{ path('formation_show', {'id': formation.id}) }}"><span class="text" style="color: white">Détails</span></a></button>
+                    {{ include('formation/_delete_form.html.twig') }}
                     <button class="btn btn-secondary btn-icon-split" ><a href="{{ path('formation_edit', {'id': formation.id}) }}"><span class="text" style="color: white">Modifier</span></a></button>
+
+
                 </td>
             </tr>
         {% else %}
@@ -39,7 +60,78 @@
             </tr>
         {% endfor %}
         </tbody>
+        <tbody id="search">
+        <tr>
+            <td>no records found</td>
+        </tr>
+        </tbody>
     </table>
 
     <button class="btn btn-success btn-icon-split" ><a href="{{ path('formation_new') }}"><span class="text" style="color: white">Ajouter une formation</span></a></button>
+{% endblock %}
+{% block JS %}
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".intro-search-field").on("change keyup",":input",function(e){
+                /* La variable value va prendre la valeur insérer dans le champ de texte
+                afin d’effectuer la recherche */
+                var value = $(this).val();
+                console.log(value)
+                var minlength = 1;
+                if( $(this).val().length === 0 ) {
+                    $( '#t tbody#all' ).show();
+                }
+                /* Ajax est lancé lors du remplissage du champ texte dont l’id est
+                « search » pour faire la recherche */
+                $.ajax({
+                    /* l’url est une chaine de caractères contenant l’adresse où la requête est
+                    envoyée */
+                    url : "{{ path('searchFormationtx') }}",
+                    /* La méthode utilisée pour transférer les données est GET */
+                    type : 'GET',
+                    /*Ici search value va prendre la chaine entrée par un utilisateur dans la
+                    zone de recherche et sera placée après l’url */
+                    data: {
+                        'searchValue' : value
+                    },
+
+                    /*Cette fonction permet de vider le contenu du tableau pour recevoir le
+                    nouveau contenu*/
+
+                    success : function(retour){
+                        console.log('retour')
+                        console.log(retour)
+                        if(retour){
+                            $('#t tbody#search').empty();
+                            $.each(JSON.parse(retour), function(i, obj) {
+                                    $('#t tbody#all').hide();
+                                    $('#t tbody#search').append('<tr><td>' + obj.id + '</td><td>' + obj.titre + '</td><td>' + obj.description + '</td><td>' + obj.prix + '</td><td>' + obj.difficulte + '</td>'+
+                                '<td>'+obj.cours +'</td>'+
+                                '<td>'+obj.image + '</td>' +
+                                '<td>' +
+                                    '<button class="btn btn-primary btn-icon-split" ><a href=""><span class="text" style="color: white">Détails</span></a></button>'
+                                   + '<button class="btn btn-secondary btn-icon-split" ><a href=""><span class="text" style="color: white">Modifier</span></a></button>' +
+
+
+                                '</td>' +
+                            '</tr>');
+                            });
+                        }
+                        else
+                        {
+                            $('#t tbody#all').hide();
+                            $('#t tbody#search').show();
+                            $('#t tbody#search').fadeIn('fast');
+                        }
+                    },
+
+                });
+                return false;
+            });
+        });
+    </script>
 {% endblock %}

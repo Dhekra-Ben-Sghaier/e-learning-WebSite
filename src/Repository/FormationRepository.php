@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Formation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use PhpParser\Builder\Property;
 
 /**
  * @method Formation|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +20,41 @@ class FormationRepository extends ServiceEntityRepository
         parent::__construct($registry, Formation::class);
     }
 
+    /**
+     *  @return Formation[]
+     */
+    public function findAllVisible(): array
+    {
+        return $this->findAll()
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    /*/**
+     * @param $type
+     * @return int|mixed|string
+     */
+   /* function searchByNom($nom){
+        return $this->createQueryBuilder('f')
+            ->where('f. =:nom')
+            ->setParameter('nom' , $nom)
+            ->getQuery()->getResult();
+    }*/
+
+
+    /**
+     * @param $titre
+     * @return int|mixed|string
+     */
+    public function findByTitre($titre)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.titre LIKE :titre')
+            ->setParameter('titre',REGEXP('%'.$titre.'%'))
+            ->getQuery()
+            ->execute();
+    }
     // /**
     //  * @return Formation[] Returns an array of Formation objects
     //  */

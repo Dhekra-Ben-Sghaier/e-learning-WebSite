@@ -27,14 +27,22 @@ class AchatController extends AbstractController
 
     /**
      * @Route("/new", name="achat_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param $entityManager
+     * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, $entityManager): Response
     {
         $achat = new Achat();
         $form = $this->createForm(AchatType::class, $achat);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $achat->setIdUser(1);
+            $query = $entityManager->createQuery("SELECT f FROM App\Entity\Formation f WHERE f.formationId = :id");
+            $query->setParameter('id',$request->attributes->get('id'));
+            $formation = $query->getSingleResult();
+            $achat->setId($formation);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($achat);
             $entityManager->flush();
@@ -67,12 +75,19 @@ class AchatController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $achat->setIdUser(1);
+            $achat->setIdUser(1);
+            $query =  $this->createQuery("SELECT f FROM App\Entity\Formation f WHERE f.formationId = :id");
+            $query->setParameter('id',$request->attributes->get('id'));
+            $formation = $query->getSingleResult();
+            $achat->setId($formation);
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('achat_index');
         }
 
-        return $this->render('achat/edit.html.twig', [
+        return $this->render('formation/details.html.twig', [
             'achat' => $achat,
             'form' => $form->createView(),
         ]);
