@@ -1,0 +1,101 @@
+Personnes:
+    type: entity
+    table: personnes
+    id:
+        idUser:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_user
+            generator:
+                strategy: IDENTITY
+    fields:
+        cin:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+        nom:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+        prenom:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 10000
+            options:
+                fixed: false
+        nomutilisateur:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: nomUtilisateur
+        centreinteret:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: centreInteret
+        domaine:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        role:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        code:
+            type: string
+            nullable: true
+            length: 1000
+            options:
+                fixed: false
+        image:
+            type: blob
+            nullable: true
+            length: 0
+            options:
+                fixed: false
+    manyToMany:
+        id:
+            targetEntity: Formation
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: idUser
+            joinTable:
+                name: achat
+                joinColumns:
+                    -
+                        name: id_user
+                        referencedColumnName: id_user
+                inverseJoinColumns:
+                    -
+                        name: id
+                        referencedColumnName: id
+            orderBy: null
+    lifecycleCallbacks: {  }

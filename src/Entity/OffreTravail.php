@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * OffreTravail
  *
  * @ORM\Table(name="offre_travail")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\OffreTravailRepository")
  */
 class OffreTravail
 {
@@ -97,6 +97,162 @@ class OffreTravail
      * @ORM\Column(name="valide", type="integer", nullable=false)
      */
     private $valide;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Logo", type="blob", length=65535, nullable=false)
+     */
+    private $logo;
+
+    public function getIdTravail(): ?int
+    {
+        return $this->idTravail;
+    }
+
+    public function getNomSoc(): ?string
+    {
+        return $this->nomSoc;
+    }
+
+    public function setNomSoc(string $nomSoc): self
+    {
+        $this->nomSoc = $nomSoc;
+
+        return $this;
+    }
+
+    public function getAdrMailSoc(): ?string
+    {
+        return $this->adrMailSoc;
+    }
+
+    public function setAdrMailSoc(string $adrMailSoc): self
+    {
+        $this->adrMailSoc = $adrMailSoc;
+
+        return $this;
+    }
+
+    public function getAdrSoc(): ?string
+    {
+        return $this->adrSoc;
+    }
+
+    public function setAdrSoc(string $adrSoc): self
+    {
+        $this->adrSoc = $adrSoc;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDatePub(): ?string
+    {
+        return $this->datePub;
+    }
+
+    public function setDatePub(string $datePub): self
+    {
+        $this->datePub = $datePub;
+
+        return $this;
+    }
+
+    public function getNivEtude(): ?string
+    {
+        return $this->nivEtude;
+    }
+
+    public function setNivEtude(string $nivEtude): self
+    {
+        $this->nivEtude = $nivEtude;
+
+        return $this;
+    }
+
+    public function getCertificat(): ?string
+    {
+        return $this->certificat;
+    }
+
+    public function setCertificat(string $certificat): self
+    {
+        $this->certificat = $certificat;
+
+        return $this;
+    }
+
+    public function getTypeContrat(): ?string
+    {
+        return $this->typeContrat;
+    }
+
+    public function setTypeContrat(string $typeContrat): self
+    {
+        $this->typeContrat = $typeContrat;
+
+        return $this;
+    }
+
+    public function getIdSociete(): ?int
+    {
+        return $this->idSociete;
+    }
+
+    public function setIdSociete(int $idSociete): self
+    {
+        $this->idSociete = $idSociete;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getValide(): ?int
+    {
+        return $this->valide;
+    }
+
+    public function setValide(int $valide): self
+    {
+        $this->valide = $valide;
+
+        return $this;
+    }
+
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    public function setLogo($logo): self
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
 
 
 }

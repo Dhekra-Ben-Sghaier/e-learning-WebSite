@@ -1,0 +1,62 @@
+Formation:
+    type: entity
+    table: formation
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        titre:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+        description:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+        prix:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+        difficulte:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+        certificat:
+            type: boolean
+            nullable: true
+        cours:
+            type: blob
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        image:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+            column: Image
+    manyToMany:
+        idUser:
+            targetEntity: Personnes
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: id
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

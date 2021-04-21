@@ -1,0 +1,29 @@
+InscriCertif:
+    type: entity
+    table: inscri_certif
+    id:
+        idInscri:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_inscri
+            generator:
+                strategy: IDENTITY
+    fields:
+        nomUtilisateur:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+            column: nom_utilisateur
+        nomCertificat:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+            column: nom_certificat
+    lifecycleCallbacks: {  }

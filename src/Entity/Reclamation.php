@@ -22,13 +22,6 @@ class Reclamation
     private $idReclamation;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="adressem", type="string", length=50, nullable=true, options={"default"="NULL"})
-     */
-    private $adressem = 'NULL';
-
-    /**
      * @var string
      *
      * @ORM\Column(name="examen", type="string", length=50, nullable=false)
@@ -36,9 +29,9 @@ class Reclamation
     private $examen;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="date", type="string", length=100, nullable=false)
+     * @ORM\Column(name="date", type="date", nullable=false)
      */
     private $date;
 
@@ -55,6 +48,59 @@ class Reclamation
      * @ORM\Column(name="description", type="string", length=50, nullable=false)
      */
     private $description;
+
+    public function getIdReclamation(): ?int
+    {
+        return $this->idReclamation;
+    }
+
+    public function getExamen(): ?string
+    {
+        return $this->examen;
+    }
+
+    public function setExamen(string $examen): self
+    {
+        $this->examen = $examen;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getNomFormateur(): ?string
+    {
+        return $this->nomFormateur;
+    }
+
+    public function setNomFormateur(string $nomFormateur): self
+    {
+        $this->nomFormateur = $nomFormateur;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 
 
 }

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}Devworks{% endblock %}
+
+{% block body %}
+    <p><a href="{{ path('add') }}">Ajouter une offre</a></p>
+    <div class="site-section">
+    <div class="container">
+    <div class="row mb-5 justify-content-center text-center">
+        <div class="col-lg-4 mb-5">
+            <h2 class="section-title-underline mb-5">
+                <span>Liste mes offres</span>
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+    {% for OffreStage in OffreStages %}
+        <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
+
+            <div class="feature-1 border person text-center">
+                <img src="images/person_1.jpg" alt="Image" class="img-fluid">
+                <div class="feature-1-content">
+                    <h2><a href="{{ path('OffreStage', {'id': OffreStage.idStage}) }}">{{ OffreStage.nomSoc }}</a></h2>
+                    <span class="position mb-3 d-block">{{ OffreStage.adrSoc }}</span>
+                    <span class="position mb-3 d-block">{{ OffreStage.dateDebut|date("d/m/Y")  }}</span>
+                    <p>{{ OffreStage.description}}</p>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+    </div>
+    </div>
+    </div>
+{% endblock %}

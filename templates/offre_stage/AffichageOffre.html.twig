@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Devworks{% endblock %}
+{% block body %}
+    <h1>Page Offre Stage</h1>
+    <p>Titre : {{ OffreStage.titre }}</p>
+    <p>Nom société : {{ OffreStage.nomSoc }}</p>
+    <p>Adresse mail : {{ OffreStage.adrMailSoc }}</p>
+    <p>Adresse : {{ OffreStage.adrSoc }}</p>
+    <p>Date publication : {{ OffreStage.datePub|date("d/m/Y") }}</p>
+    <p>Niveau d etude : {{ OffreStage.nivEtude }}</p>
+    <p>Certificat : {{ OffreStage.certificat }}</p>
+    <p>Durée : {{ OffreStage.duree }}</p>
+    <p>Date debut: {{ OffreStage.dateDebut|date("d/m/Y") }}</p>
+    <p>Date fin: {{ OffreStage.dateFin|date("d/m/Y") }}</p>
+{% endblock %}

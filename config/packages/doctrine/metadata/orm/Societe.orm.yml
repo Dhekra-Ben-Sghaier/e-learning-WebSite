@@ -1,0 +1,49 @@
+Societe:
+    type: entity
+    table: societe
+    id:
+        idSoc:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_soc
+            generator:
+                strategy: IDENTITY
+    fields:
+        nomSoc:
+            type: string
+            nullable: false
+            length: 1000
+            options:
+                fixed: false
+            column: nom_soc
+        adrMailSoc:
+            type: string
+            nullable: false
+            length: 1000
+            options:
+                fixed: false
+            column: adr_mail_soc
+        adrSoc:
+            type: string
+            nullable: false
+            length: 1000
+            options:
+                fixed: false
+            column: adr_soc
+        password:
+            type: string
+            nullable: false
+            length: 10000
+            options:
+                fixed: false
+        nomutilisateur:
+            type: string
+            nullable: false
+            length: 1000
+            options:
+                fixed: false
+            column: nomUtilisateur
+    lifecycleCallbacks: {  }

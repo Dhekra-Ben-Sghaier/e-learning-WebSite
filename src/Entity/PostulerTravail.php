@@ -30,5 +30,15 @@ class PostulerTravail
      */
     private $idSociete;
 
+    public function getIdTravail(): ?int
+    {
+        return $this->idTravail;
+    }
+
+    public function getIdSociete(): ?int
+    {
+        return $this->idSociete;
+    }
+
 
 }

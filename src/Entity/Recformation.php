@@ -22,13 +22,6 @@ class Recformation
     private $idFormation;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="adressemail", type="string", length=50, nullable=true, options={"default"="NULL"})
-     */
-    private $adressemail = 'NULL';
-
-    /**
      * @var string
      *
      * @ORM\Column(name="formation", type="string", length=50, nullable=false)
@@ -48,6 +41,47 @@ class Recformation
      * @ORM\Column(name="description", type="string", length=50, nullable=false)
      */
     private $description;
+
+    public function getIdFormation(): ?int
+    {
+        return $this->idFormation;
+    }
+
+    public function getFormation(): ?string
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(string $formation): self
+    {
+        $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function getNomFormateur(): ?string
+    {
+        return $this->nomFormateur;
+    }
+
+    public function setNomFormateur(string $nomFormateur): self
+    {
+        $this->nomFormateur = $nomFormateur;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 
 
 }
