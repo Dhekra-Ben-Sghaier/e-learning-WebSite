@@ -28,5 +28,22 @@ class Quizz
      */
     private $nom;
 
+    public function getQuizid(): ?int
+    {
+        return $this->quizid;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
 
 }

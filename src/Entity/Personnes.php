@@ -3,14 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * Personnes
  *
  * @ORM\Table(name="personnes")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PersonnesRepository")
  */
-class Personnes
+class Personnes implements userInterface
 {
     /**
      * @var int
@@ -25,20 +28,31 @@ class Personnes
      * @var string|null
      *
      * @ORM\Column(name="cin", type="string", length=30, nullable=true, options={"default"="NULL"})
+     * @Assert\NotBlank(message="Cette valeur ne doit pas être vide.")
+     *  @Assert\Length(
+     *      min = 8,
+     *      max = 8,
+     *      minMessage = "votre cin doit être  {{ limit }} caractéres"
+     * )
      */
     private $cin = 'NULL';
-
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
     /**
      * @var string|null
      *
      * @ORM\Column(name="nom", type="string", length=30, nullable=true, options={"default"="NULL"})
+     *  @Assert\NotBlank(message="Cette valeur ne doit pas être vide.")
      */
     private $nom = 'NULL';
 
     /**
      * @var string|null
-     *
+
      * @ORM\Column(name="prenom", type="string", length=30, nullable=true, options={"default"="NULL"})
+     ** @Assert\NotBlank(message="Cette valeur ne doit pas être vide.")
      */
     private $prenom = 'NULL';
 
@@ -46,6 +60,8 @@ class Personnes
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=50, nullable=false)
+     *   @Assert\Email(
+     *     message="Cet e-mail '{{ value }}' n'est pas une adresse e-mail valide.")
      */
     private $email;
 
@@ -76,6 +92,11 @@ class Personnes
      * @ORM\Column(name="domaine", type="string", length=50, nullable=true, options={"default"="NULL"})
      */
     private $domaine = 'NULL';
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $reset_token;
+
 
     /**
      * @var string
@@ -105,27 +126,204 @@ class Personnes
      */
     private $nomsociete = 'NULL';
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Formation", inversedBy="idUser")
-     * @ORM\JoinTable(name="achat",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="id", referencedColumnName="id")
-     *   }
-     * )
-     */
-    private $id;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function getIdUser(): ?int
     {
-        $this->id = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->idUser;
     }
 
+    public function getCin(): ?string
+    {
+        return $this->cin;
+    }
+
+    public function setCin(?string $cin): self
+    {
+        $this->cin = $cin;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(?string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getNomutilisateur(): ?string
+    {
+        return $this->nomutilisateur;
+    }
+
+    public function setNomutilisateur(string $nomutilisateur): self
+    {
+        $this->nomutilisateur = $nomutilisateur;
+
+        return $this;
+    }
+
+    public function getCentreinteret(): ?string
+    {
+        return $this->centreinteret;
+    }
+
+    public function setCentreinteret(?string $centreinteret): self
+    {
+        $this->centreinteret = $centreinteret;
+
+        return $this;
+    }
+
+    public function getDomaine(): ?string
+    {
+        return $this->domaine;
+    }
+
+    public function setDomaine(?string $domaine): self
+    {
+        $this->domaine = $domaine;
+
+        return $this;
+    }
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getNomsociete(): ?string
+    {
+        return $this->nomsociete;
+    }
+
+    public function setNomsociete(?string $nomsociete): self
+    {
+        $this->nomsociete = $nomsociete;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResetToken()
+    {
+        return $this->reset_token;
+    }
+
+    /**
+     * @param mixed $reset_token
+     */
+    public function setResetToken($reset_token): void
+    {
+        $this->reset_token = $reset_token;
+    }
+
+
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
 }
+

@@ -1,0 +1,91 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Formateurs{% endblock %}
+
+{% block content %}
+    <html>
+<head>
+    <style>
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4c7aaf;
+            color: white;
+        }
+    </style>
+</head>
+
+<table border ="1" id="customers">
+    <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>NomUtilisateur</th>
+        <th>Email</th>
+        <th>Domaine</th>
+        <th>  </th>
+
+
+    </tr>
+    <tbody id="all">
+    {% for user in personnes %}
+        <tr>
+            <td>{{ user.idUser }}</td>
+            <td>{{ user.nom }}</td>
+            <td>{{ user.prenom }}</td>
+
+            <td>{{ user.nomUtilisateur }}</td>
+            <td>{{ user.email }}</td>
+
+            <td>{{ user.domaine}}</td>
+
+
+            <td>
+
+
+
+                <a href="{{ path('formateur_edit', {'idUser': user.idUser}) }}" class="btn btn-info btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-info-circle"></i>
+
+                    </span>
+                <span class="text">Edit</span>
+
+                </a>
+
+            </td>
+        </tr>
+
+
+    {%endfor%}
+    </tbody>
+
+
+    </td>
+    </tr>
+
+
+
+
+</table>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <link href="{{ asset("css/form.css") }}" rel="stylesheet">
+    <div class="body">
+<div class="projectThumb">
+    <div class="projectCopy">
+        <a href="{{ path('appregister') }}"> S'inscrire en tant que apprenant </a>
+    </div>
+    <div class="overlay">
+        <img src="{{ asset('img/unnamed.jpg') }}">
+    </div>
+</div>
+
+<div class="projectThumb">
+    <div class="projectCopy">
+        <a> S'inscrire en tant que formateur</a>
+    </div>
+    <div class="overlay">
+        <img src="{{ asset('img/formateur.jpg') }}">
+    </div>
+</div>
+
+
+<div class="projectThumb">
+    <div class="projectCopy">
+        hey there
+    </div>
+    <div class="overlay">
+        <img src="https://images.unsplash.com/photo-1564032236772-dfc27a12feda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80">
+    </div>
+</div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script src="">
+    document.querySelector('.overlay').onmousemove = (e) => {
+
+        const x = e.pageX - e.target.offsetLeft
+        const y = e.pageY - e.target.offsetTop
+
+        e.target.style.setProperty('--x', `${ x }px`)
+        e.target.style.setProperty('--y', `${ y }px`)
+
+    }
+
+</script>
+{% endblock %}

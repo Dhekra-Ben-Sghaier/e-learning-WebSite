@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <link href="{{ asset("css/form.css") }}" rel="stylesheet">
+    <div class="body">
+        <div class="projectThumb">
+            <div class="projectCopy">
+                <a href="{{ path('appregister') }}"> S'inscrire en tant que apprenant </a>
+            </div>
+            <div class="overlay">
+                <img class="imgapp" src="http://www.provenceducation.com/wp-content/uploads/2017/07/residence-etudiante-etudiants1.jpg">
+                <!--<img src="{{ asset('img/unnamed.jpg') }}">-->
+            </div>
+        </div>
+
+        <div class="projectThumb">
+            <div class="projectCopy">
+                <a href="{{ path('inscritform') }}"> S'inscrire en tant que formateur</a>
+            </div>
+            <div class="overlay">
+                <img src="http://www.academiedesormes.com/wp-content/uploads/2017/02/formation-devenir-formateur-academie-des-ormes-01.jpg">
+
+               <!-- <img src="{{ asset('img/formateur.jpg') }}">-->
+            </div>
+        </div>
+
+
+        <div class="projectThumb">
+            <div class="projectCopy">
+                <a href="{{ path('socregister') }}"> S'inscrire en tant que société</a>
+            </div>
+            <div class="overlay">
+                <img src="https://media.ooreka.fr/public/image/entreprise-reunion-groupe-travail-societe-main-13111969.jpg">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="">
+        document.querySelector('.overlay').onmousemove = (e) => {
+
+            const x = e.pageX - e.target.offsetLeft
+            const y = e.pageY - e.target.offsetTop
+
+            e.target.style.setProperty('--x', `${ x }px`)
+            e.target.style.setProperty('--y', `${ y }px`)
+
+        }
+
+    </script>
+{% endblock %}

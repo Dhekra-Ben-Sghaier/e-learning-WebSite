@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Avis
  *
- * @ORM\Table(name="avis", indexes={@ORM\Index(name="id_form_fk", columns={"id_form"}), @ORM\Index(name="id_user_fk", columns={"id_us"})})
+ * @ORM\Table(name="avis", indexes={@ORM\Index(name="id_user_fk", columns={"id_us"}), @ORM\Index(name="id_form_fk", columns={"id_form"})})
  * @ORM\Entity
  */
 class Avis
@@ -36,6 +36,28 @@ class Avis
      * @ORM\Column(name="avisuser", type="integer", nullable=false)
      */
     private $avisuser;
+
+    public function getIdUs(): ?int
+    {
+        return $this->idUs;
+    }
+
+    public function getIdForm(): ?int
+    {
+        return $this->idForm;
+    }
+
+    public function getAvisuser(): ?int
+    {
+        return $this->avisuser;
+    }
+
+    public function setAvisuser(int $avisuser): self
+    {
+        $this->avisuser = $avisuser;
+
+        return $this;
+    }
 
 
 }

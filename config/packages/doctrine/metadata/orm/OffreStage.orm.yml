@@ -1,0 +1,96 @@
+OffreStage:
+    type: entity
+    table: offre_stage
+    id:
+        idStage:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: Id_Stage
+            generator:
+                strategy: IDENTITY
+    fields:
+        nomSoc:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Nom_soc
+        adrMailSoc:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Adr_mail_soc
+        adrSoc:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Adr_soc
+        description:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Description
+        datePub:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Date_pub
+        nivEtude:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Niv_etude
+        certificat:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Certificat
+        duree:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: Duree
+        dateDebut:
+            type: date
+            nullable: false
+            column: Date_debut
+        dateFin:
+            type: date
+            nullable: false
+            column: Date_fin
+        idSociete:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: Id_societe
+        titre:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Titre
+        valide:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+    lifecycleCallbacks: {  }

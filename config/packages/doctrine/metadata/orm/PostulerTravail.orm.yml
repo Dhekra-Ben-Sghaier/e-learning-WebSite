@@ -1,0 +1,19 @@
+PostulerTravail:
+    type: entity
+    table: postuler_travail
+    id:
+        idTravail:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: Id_travail
+        idSociete:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: Id_Societe
+    lifecycleCallbacks: {  }

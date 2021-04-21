@@ -1,0 +1,25 @@
+Achat:
+    type: entity
+    table: achat
+    indexes:
+        id_user_fk:
+            columns:
+                - id_users
+        id_form_fk:
+            columns:
+                - id
+    id:
+        idUsers:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_users
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+    lifecycleCallbacks: {  }

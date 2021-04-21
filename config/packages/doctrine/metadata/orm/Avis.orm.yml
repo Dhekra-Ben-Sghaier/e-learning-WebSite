@@ -1,0 +1,32 @@
+Avis:
+    type: entity
+    table: avis
+    indexes:
+        id_user_fk:
+            columns:
+                - id_us
+        id_form_fk:
+            columns:
+                - id_form
+    id:
+        idUs:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_us
+        idForm:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_form
+    fields:
+        avisuser:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+    lifecycleCallbacks: {  }
