@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Achat;
+use App\Entity\Formation;
+use App\Entity\Personnes;
 use App\Form\AchatType;
 use App\Repository\AchatRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * @Route("/achat")
@@ -26,43 +29,69 @@ class AchatController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="achat_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="achat_new", methods={"GET","POST"})
      * @param Request $request
      * @param $entityManager
      * @return Response
      */
-    public function new(Request $request, $entityManager): Response
+    public function new($id, \Swift_Mailer $mailer): Response
     {
-        $achat = new Achat();
-        $form = $this->createForm(AchatType::class, $achat);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $achat->setIdUser(1);
-            $query = $entityManager->createQuery("SELECT f FROM App\Entity\Formation f WHERE f.formationId = :id");
-            $query->setParameter('id',$request->attributes->get('id'));
-            $formation = $query->getSingleResult();
-            $achat->setId($formation);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($achat);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('achat_index');
+        $verif=$this->getDoctrine()->getManager()->getRepository(Achat::class)->findById($id);
+
+        $allAchat = array();
+
+        foreach ($verif as $p){
+            array_push($allAchat,$p);
+        }
+        foreach ($allAchat as $ac) {
+
+            if($ac->getId()==$id){
+
+                return  new Response(
+                    '<html><body><script lang="javascript"> alert("déjà acheté")</script> </body></html>');
+
+
         }
 
-        return $this->render('achat/new.html.twig', [
-            'achat' => $achat,
-            'form' => $form->createView(),
+        }
+
+        $achat = new Achat();
+        $achat->setIdUser($this->getDoctrine()->getManager()->getReference(Personnes::class, 1));
+
+        $achat->setId($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($achat);
+        $this->getDoctrine()->getManager()->flush();
+        $message = (new \Swift_Message('Commande passée'))
+            ->setFrom('pidevbrainovation@gmail.com')
+            ->setTo('dhekra.bensghaier@esprit.tn')
+            ->setBody(
+                $this->renderView('formation/mail_Achat.html.twig'),
+                'text/html'
+            );
+        $mailer->send($message);
+        return $this->render('base.html.twig', [
+            'achat' => $achat
+
         ]);
+
     }
 
     /**
      * @Route("/{id}", name="achat_show", methods={"GET"})
      */
-    public function show(Achat $achat): Response
+    public function show($id): Response
     {
-        return $this->render('achat/show.html.twig', [
-            'achat' => $achat,
+
+
+
+        //dump($formation);
+       // die;
+        return $this->render('formation/achat.html.twig', [
+            'id' => (int)$id
+
         ]);
     }
 
@@ -75,7 +104,6 @@ class AchatController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $achat->setIdUser(1);
             $achat->setIdUser(1);
             $query =  $this->createQuery("SELECT f FROM App\Entity\Formation f WHERE f.formationId = :id");
             $query->setParameter('id',$request->attributes->get('id'));

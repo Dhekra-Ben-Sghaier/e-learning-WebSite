@@ -46,5 +46,21 @@ class AchatRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+
     */
+    /**
+     * @param $id
+     * @return int|mixed|string
+     */
+
+    public function findById($id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT s FROM App\Entity\Achat s WHERE s.id =$id ");
+        return $query->getResult();
+
+    }
+
+
 }

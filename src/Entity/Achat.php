@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Achat
 {
+
+
     /**
      * @var int
      *
@@ -22,7 +24,7 @@ class Achat
     private $id;
 
     /**
-     * @var \Personnes
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
@@ -32,6 +34,8 @@ class Achat
      * })
      */
     private $idUser;
+
+
 
     public function getId(): ?int
     {
@@ -57,6 +61,7 @@ class Achat
 
         return $this;
     }
+
 
 
 }

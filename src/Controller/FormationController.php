@@ -124,6 +124,15 @@ class FormationController extends AbstractController
             'formation' => $formation,
         ]);
     }
+    /**
+     * @Route("/achat/{id}", name="formation_achat", methods={"GET"})
+     */
+    public function acheter(Formation $formation): Response
+    {
+        return $this->render('formation/achat.html.twig', [
+            'formation' => $formation,
+        ]);
+    }
 
     /**
      * @Route("/{id}/edit", name="formation_edit", methods={"GET","POST"})
