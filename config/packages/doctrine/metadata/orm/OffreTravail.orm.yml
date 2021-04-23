@@ -1,0 +1,84 @@
+OffreTravail:
+    type: entity
+    table: offre_travail
+    id:
+        idTravail:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: Id_travail
+            generator:
+                strategy: IDENTITY
+    fields:
+        nomSoc:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Nom_soc
+        adrMailSoc:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Adr_mail_soc
+        adrSoc:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Adr_soc
+        description:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Description
+        datePub:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Date_pub
+        nivEtude:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Niv_etude
+        certificat:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Certificat
+        typeContrat:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Type_contrat
+        idSociete:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            column: Id_societe
+        titre:
+            type: string
+            nullable: false
+            length: 500
+            options:
+                fixed: false
+            column: Titre
+    lifecycleCallbacks: {  }

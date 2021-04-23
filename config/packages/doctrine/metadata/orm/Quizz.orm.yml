@@ -1,0 +1,21 @@
+Quizz:
+    type: entity
+    table: quizz
+    id:
+        quizid:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: quizID
+            generator:
+                strategy: IDENTITY
+    fields:
+        nom:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

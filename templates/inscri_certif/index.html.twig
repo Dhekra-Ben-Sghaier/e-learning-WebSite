@@ -1,0 +1,37 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}InscriCertif index{% endblock %}
+
+{% block content %}
+    <h1>InscriCertif index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdInscri</th>
+                <th>NomUtilisateur</th>
+                <th>NomCertificat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for inscri_certif in inscri_certifs %}
+            <tr>
+                <td>{{ inscri_certif.idInscri }}</td>
+                <td>{{ inscri_certif.nomUtilisateur }}</td>
+                <td>{{ inscri_certif.nomCertificat }}</td>
+                <td>
+                    <a href="{{ path('inscri_certif_show', {'idInscri': inscri_certif.idInscri}) }}">show</a>
+                    <a href="{{ path('inscri_certif_edit', {'idInscri': inscri_certif.idInscri}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('inscri_certif_new') }}">Create new</a>
+{% endblock %}
