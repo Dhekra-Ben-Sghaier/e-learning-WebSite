@@ -63,19 +63,5 @@ class Formation
      */
     private $image;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Personnes", mappedBy="id")
-     */
-    private $idUser;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->idUser = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 }

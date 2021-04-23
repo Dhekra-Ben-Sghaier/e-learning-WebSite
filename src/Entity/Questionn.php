@@ -64,12 +64,9 @@ class Questionn
     private $reponse;
 
     /**
-     * @var \Quizz
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Quizz")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idQuiz", referencedColumnName="quizID")
-     * })
+     * @ORM\Column(name="idQuiz", type="integer", nullable=false)
      */
     private $idquiz;
 

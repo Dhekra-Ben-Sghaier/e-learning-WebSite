@@ -105,27 +105,5 @@ class Personnes
      */
     private $nomsociete = 'NULL';
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Formation", inversedBy="idUser")
-     * @ORM\JoinTable(name="achat",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="id", referencedColumnName="id")
-     *   }
-     * )
-     */
-    private $id;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->id = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 }
