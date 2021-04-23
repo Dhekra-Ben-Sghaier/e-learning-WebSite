@@ -19,38 +19,19 @@ class OffreStageeRepository extends ServiceEntityRepository
         parent::__construct($registry, OffreStage::class);
     }
 
-    // /**
-    //  * @return OffreStage[] Returns an array of OffreStage objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
+   public function FindOS($criteria){
+        $now= new \DateTime('today');
+        return $this->createQueryBuilder('off')
+            ->andWhere('off.nivEtude = :n')
+            ->setParameter('n', $criteria['nivEtude'])
+            ->andWhere('off.certificat = :c')
+            ->setParameter('c', $criteria['certificat'])
+            ->andWhere('off.dateDebut <= :d and off.dateDebut >= :no')
+            ->setParameter('d', $criteria['dateDebut'])
+            ->setParameter('no', $now)
             ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+            ->getResult();
 
-    /*
-    public function findOneBySomeField($value): ?OffreStage
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-    public function findOffreParNom($nom)
-    {
-        $query=$this->getEntityManager()->createQuery("select m from OffreStage m where  m.nomSoc Like '%".$nom."%' ");
+   }
 
-        return $query->getResult();
-    }
 }

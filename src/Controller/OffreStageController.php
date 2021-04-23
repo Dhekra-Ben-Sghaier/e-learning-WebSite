@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\OffreStage;
 use App\Form\OffreStageType;
+use App\Form\SearchOSType;
+use App\Repository\OffreStageeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +39,7 @@ class OffreStageController extends AbstractController
             $Offre->setDatePub(new \DateTime());
             $Offre->setIdSociete(1);
             $Offre->setValide(0);
+            $Offre->setLogo('a');
             $x=$this->getDoctrine()->getManager();
            $x->persist($Offre);
             $x->flush();
@@ -54,17 +57,8 @@ class OffreStageController extends AbstractController
             ]);
 
     }
-    /**
-     * @Route("/offre/stage/OffreStages", name="OffreStages")
-     */
-    public function OffreStages()
-    {
-        $Affichages = $this->getDoctrine()->getRepository(OffreStage::class)->findAll();
 
-        return $this->render('offre_stage/AffichageOffres.html.twig', [
-            "OffreStages" => $Affichages,
-        ]);
-    }
+
     /**
      * @Route("/offre/stage/OffreStage/{id}", name="OffreStage")
      */
@@ -109,18 +103,24 @@ class OffreStageController extends AbstractController
 
         return $this->redirectToRoute("OffreStages");
     }
-    public function RechercheParNomOffreAction(Request $request)
-    {
+    /**
+     * @Route("/offre/stage/OffreStages", name="OffreStages")
+     */
+   public function SearchOS(Request $request,OffreStageeRepository $OffreStageRepository ):Response{
 
-        $nom =  $request->get("type");
-        $em = $this->getDoctrine()->getManager();
-        $modele = $em->getRepository(OffreStage::class)->findOffreParNom($nom);
+       $Offres =[];
+       $SearchOSTForm = $this->createForm(SearchOSType::class, $Offres);
+       $SearchOSTForm->handleRequest($request);
 
+       if( $SearchOSTForm->isSubmitted() &&  $SearchOSTForm->isValid()){
+           $criteria =  $SearchOSTForm->getData();
 
+           $Offres = $OffreStageRepository->FindOS($criteria);
 
-
-        return $this->render("offre_stage/AffichageOffres.html.twig",
-            array('OffreStages'=>$modele));
-
-    }
+       }
+       return $this->render('offre_stage/AffichageOffres.html.twig', [
+            'search_form' =>$SearchOSTForm->createView(),
+            'Offres' => $Offres,
+           ]);
+   }
 }

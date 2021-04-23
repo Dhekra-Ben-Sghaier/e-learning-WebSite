@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\OffreStage;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -12,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\Choice;
 
 
 class OffreStageType extends AbstractType
@@ -24,12 +26,29 @@ class OffreStageType extends AbstractType
             ->add('adrMailSoc',EmailType::class, ['attr'=>['class'=>'form-control form-control-lg']])
             ->add('adrSoc',TextType::class, ['attr'=>['class'=>'form-control form-control-lg']])
             ->add('description',TextType::class, ['attr'=>['class'=>'form-control form-control-lg']])
-            ->add('nivEtude', TextType::class, ['attr'=>['class'=>'form-control form-control-lg']])
-            ->add('certificat', TextType::class, ['attr'=>['class'=>'form-control form-control-lg']])
+            ->add('nivEtude', ChoiceType::class,[
+                'choices' => [
+                'Secondaire' => 'Secondaire',
+                'Bac' => 'Bac',
+                'Bac+1' => 'Bac+1',
+                'Bac+2' => 'Bac+2',
+                'Bac+3' => 'Bac+3',
+                'Bac+4' => 'Bac+4',
+                'Bac+5' => 'Bac+5',
+                 ]])
+            ->add('certificat', ChoiceType::class,[
+                'choices' => [
+                    'Anglais' => 'Anglais',
+                    'Français' => 'Français',
+                    'Mecanique' => 'Mecanique',
+                    'Electrique' => 'Electrique',
+                    'Informatique' => 'Informatique',
+                    'Office' => 'Office',
+                ]])
             ->add('dateDebut')
             ->add('dateFin')
             ->add('duree', NumberType::class, ['attr'=>['class'=>'form-control form-control-lg']])
-            //->add('logo', Filetype::class)
+            ->add('logo', Filetype::class)
             ->add('Ajouter offre', SubmitType::class, ['attr'=>['class'=>'btn btn-primary btn-lg px-5']])
         ;
     }

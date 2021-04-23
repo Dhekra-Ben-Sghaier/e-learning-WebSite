@@ -12,4 +12,6 @@
     <p>Durée : {{ OffreStage.duree }}</p>
     <p>Date debut: {{ OffreStage.dateDebut|date("d/m/Y") }}</p>
     <p>Date fin: {{ OffreStage.dateFin|date("d/m/Y") }}</p>
+    <td><a href="{{ path('modifyOffre', {'id': OffreStage.idStage}) }}">Modifier</a></td>
+    <td><a href="{{ path('deleteOffre', {'id': OffreStage.idStage}) }}">Supprimer</a></td>
 {% endblock %}

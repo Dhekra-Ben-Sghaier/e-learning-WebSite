@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -69,10 +69,7 @@
 
         </div>
     </header><!-- End Header -->
-    <br>
-    <br>
-    <br>
-    <br>
+
 {% endblock %}
 {% block flash_message %}
 {% for message in app.flashes('notice') %}
