@@ -3,4 +3,4 @@ web_profiler:
     intercept_redirects: true
 
 framework:
-    profiler: { only_exceptions: false }
+    profiler: { only_exceptions: true }

@@ -51,8 +51,6 @@ class AchatController extends AbstractController
 
                 return  new Response(
                     '<html><body><script lang="javascript"> alert("déjà acheté")</script> </body></html>');
-
-
         }
 
         }
@@ -94,6 +92,30 @@ class AchatController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route("/mesFormations", name="mes_achats", methods={"GET"})
+     */
+    public function mesAchat(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+       /* $achats = $this->getDoctrine()
+            ->getRepository(Formation::class)
+            ->findAll();*/
+
+        $query = $em->createQuery("SELECT * from formation f , achat a WHERE f.id = a.id AND a.id_user = :id");
+        $query->setParameter('id',1);
+        $achats = $query->getResult();
+        dump($achats);
+        die;
+        return $this->render('formation/mes_achat.html.twig', [
+            'formations' => $achats,
+
+        ]);
+    }
+
+
 
     /**
      * @Route("/{id}/edit", name="achat_edit", methods={"GET","POST"})

@@ -22,44 +22,53 @@
     <link href="{{ asset("css/style.css") }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
-    <section id="courses" class="courses">
-    <div class="container" data-aos="fade-up">
-
-    <div class="row" data-aos="zoom-in" data-aos-delay="100">
-    <h1>La liste des formations</h1>
+    <h1>Formation</h1>
 
 
 
+    <section id="course-details" class="course-details">
+        <div class="container" data-aos="fade-up">
 
-        {% for formation in formations %}
+            <div class="row">
+                <div class="col-lg-8">
+                    <img src="{{ asset('uploads/' ~  formation.image ) }}" class="img-fluid" alt="">
+                    <h3>Formation {{ formation.titre }}</h3>
+                    <p>
+                        {{ formation.description }}
+                    </p>
+                </div>
+                <div class="col-lg-4">
 
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="course-item">
-                    <img src="{{ asset('uploads/' ~  formation.image )|imagine_filter('carre') }}">
-                    <div class="course-content">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <a href="{{ path('formation_details', {'id': formation.id}) }}"><h4>{{ formation.titre }}</h4></a>
-                            <p class="price">{{ formation.prix }} DT</p>
-                        </div>
-                        <h3><a href="course-details.html">{{ formation.description }}</a></h3>
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Difficulté</h5>
                         <p>{{ formation.difficulte }}</p>
                     </div>
+
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Prix</h5>
+                        <p>{{ formation.prix }} DT</p>
+                    </div>
+
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5> <button class="btn"><a href="{{ path('showPDF', {'id': formation.id}) }}">Voir cours</a></button></h5>
+
+                    </div>
+
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5> <button class="btn"><a href="{{ path('apprenant_index') }}">Retourner à la liste des formations</a></button></h5>
+
+                    </div>
+
                 </div>
             </div>
 
-
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-
-
-
-    </div>
-    </div>
+        </div>
     </section>
+
+
+
+
+
 {% endblock %}
 {% block Js %}
 

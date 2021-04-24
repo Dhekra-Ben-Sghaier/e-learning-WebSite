@@ -12,8 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\DomCrawler\Image;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
-
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use App\Service\UploaderHelper;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\Stream;
 use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/formation")
@@ -46,6 +48,42 @@ class FormationController extends AbstractController
             'formations' => $formations,
         ]);
     }
+
+    /**
+     * @Route("/mesFormationsAchats", name="mes_achats_formations", methods={"GET"})
+     */
+    public function showAchatFormation(){
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT a from App\Entity\Achat a WHERE a.idUser = :id");
+
+        $query->setParameter('id',1);
+        $achats = $query->getResult();
+        $formations = array();
+
+        foreach($achats as $a)
+        {
+            $queryformation = $em->createQuery("SELECT f from App\Entity\Formation f WHERE f.id = :id");
+            $queryformation->setParameter('id',$a->getId());
+
+            $formation = $queryformation->getResult();
+            array_push($formations,$formation);
+
+
+
+        }
+        //dump($formations);
+        //die();
+
+        return $this->render('formation/mes_formations_achats.html.twig', [
+            'formations' => $formations
+
+        ]);
+
+    }
+
+
+
+
 
     /**
      * @Route("/new", name="formation_new", methods={"GET","POST"})
@@ -124,6 +162,39 @@ class FormationController extends AbstractController
             'formation' => $formation,
         ]);
     }
+
+    /**
+     * @Route("/detailsMaFormation/{id}", name="ma_formation_details", methods={"GET"})
+     */
+    public function showDetailsMaFormation(Formation $formation): Response
+    {
+        return $this->render('formation/mes_achat.html.twig', [
+            'formation' => $formation
+        ]);
+    }
+
+    /**
+     * @Route("/showPDF/{id}", name="showPDF")
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $item = $em->getRepository(Formation::class)->find($id);
+
+        if (!$item) {
+            throw $this->createNotFoundException("File with ID $id does not exist!");
+        }
+        $pdfFile = stream_get_contents($item->getCours());
+        //$pdfFile = $item->getCours(); //returns pdf file stored as mysql blob
+        $stream = new Stream("C:\\Users\\Asus\\Desktop\\P\webPidevv\\PidevWeb\\public\\uploads\\Cours\\".$pdfFile);
+
+        //$response = new Response( readfile($pdfFile), 200, array('Content-Type' => 'application/pdf'));
+
+        return new BinaryFileResponse($stream);
+
+    }
+
+
     /**
      * @Route("/achat/{id}", name="formation_achat", methods={"GET"})
      */
