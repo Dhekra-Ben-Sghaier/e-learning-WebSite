@@ -8,9 +8,14 @@ use App\Form\SearchOSType;
 use App\Repository\OffreStageeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\FileUploader;
+use Symfony\Component\DomCrawler\Image;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 
 class OffreStageController extends AbstractController
 {
@@ -32,16 +37,30 @@ class OffreStageController extends AbstractController
 
         $form = $this->createForm(OffreStageType::class,$Offre);
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid() ){
-
             $Offre =$form->getData();
+            $images = $form->get('logo')->getData();
+            foreach ($images as $logo) {
+
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $logo->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $logo->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+            }
+            // On crée l'image dans la base de données
+
+
+            $Offre->setLogo($fichier);
+
             $Offre->setDatePub(new \DateTime());
             $Offre->setIdSociete(1);
             $Offre->setValide(0);
-            $Offre->setLogo('a');
             $x=$this->getDoctrine()->getManager();
-           $x->persist($Offre);
+            $x->persist($Offre);
             $x->flush();
             $this->addFlash(
                 'notice',
@@ -75,6 +94,8 @@ class OffreStageController extends AbstractController
      */
     public function ModifyOffre(Request $request, int $id): Response
     {
+        $product = new OffreStage();
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $product = $entityManager->getRepository(OffreStage::class)->find($id);
@@ -83,6 +104,23 @@ class OffreStageController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $images = $form->get('logo')->getData();
+
+            // On boucle sur les images
+            foreach ($images as $logo) {
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $logo->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $logo->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                // On crée l'image dans la base de données
+
+                $product->setLogo($fichier);
+            }
             $entityManager->flush();
         }
 
@@ -101,7 +139,7 @@ class OffreStageController extends AbstractController
         $entityManager->remove($product);
         $entityManager->flush();
 
-        return $this->redirectToRoute("OffreStages");
+        return $this->redirectToRoute("MyOffreStages");
     }
     /**
      * @Route("/offre/stage/OffreStages", name="OffreStages")
@@ -123,4 +161,26 @@ class OffreStageController extends AbstractController
             'Offres' => $Offres,
            ]);
    }
+    /**
+     * @Route("/offre/stage/MyOffreStages/{id}", name="MyOffreStages")
+     */
+    public function ShowMyOffre(int $id =1): Response
+    {
+        $ListOffres = $this->getDoctrine()->getRepository(OffreStage::class)->GetOSById($id);
+
+        return $this->render("offre_stage/AffichageMesOffres.html.twig", [
+            "ListOffres" => $ListOffres,
+        ]);
+    }
+    /**
+     * @Route("/offre/stage/Modify/{id}", name="Modify")
+     */
+    public function Modify($id): Response
+    {
+        $Affichages = $this->getDoctrine()->getRepository(OffreStage::class)->find($id);
+
+        return $this->render("offre_stage/Modify.html.twig", [
+            "OffreStage" => $Affichages,
+        ]);
+    }
 }

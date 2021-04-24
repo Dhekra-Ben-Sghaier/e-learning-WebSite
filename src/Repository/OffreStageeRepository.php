@@ -33,5 +33,12 @@ class OffreStageeRepository extends ServiceEntityRepository
             ->getResult();
 
    }
+   public function GetOSById($id){
+        return $this->createQueryBuilder('off')
+            ->andWhere('off.idSociete = :i')
+            ->setParameter('i', $id)
+            ->getQuery()
+            ->getResult();
+   }
 
 }

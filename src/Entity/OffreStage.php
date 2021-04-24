@@ -117,7 +117,7 @@ class OffreStage
     /**
      * @var string
      *
-     * @ORM\Column(name="Logo", type="blob", length=65535, nullable=false)
+     * @ORM\Column(name="Logo", type="string", length=65535, nullable=false)
      */
     private $logo;
 
@@ -362,9 +362,10 @@ class OffreStage
     /**
      * @param string $logo
      */
-    public function setLogo(string $logo): void
+    public function setLogo( ?string $logo ): self
     {
         $this->logo = $logo;
+        return $this;
     }
 
 

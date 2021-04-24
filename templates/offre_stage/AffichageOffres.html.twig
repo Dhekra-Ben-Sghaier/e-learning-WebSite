@@ -2,50 +2,71 @@
 {% block title %}Devworks{% endblock %}
 
 {% block body %}
+
     <div class="breadcrumbs">
-        <div class="container">
-            <h2>Listes des offres de stage</h2>
+        <div class="container" >
+            <h2>Listes des offres de stages</h2>
         </div>
     </div>
-    <div class="container">
+    <div class="container" >
         <div class="section">
+            <a href="{{ path('add') }}" class="btn btn-primary btn-icon-split">
+                <span class="text">Ajouter une offre</span>
+            </a>
+            <a href="{{ path('MyOffreStages') }}" class="btn btn-primary btn-icon-split">
+                <span class="text">Modifier mes offres</span>
+            </a>
         <div class="row justify-content-center">
             <div class="col-md-5">
+
                 <div class="row">
+
                     {{ form(search_form)}}
                 </div>
             </div>
         </div>
             {% if app.request.method == 'POST' %}
-                <div class="row justify-content-center">
-                    <div class="col-md-5">
-                        <div class="row">
+
+
                         {% if Offres |length == 0 %}
                             <h1>Aucune offre disponible</h1>
                             {% else %}
                             <h1>Resultat de la recherche</h1>
-                                {% for OffreStage in Offres %}
-                                    <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
+            <section id="courses" class="courses">
+                                <div class="container"  >
+                                <div class="row"  data-aos-delay="100">
 
-                                        <div class="feature-1 border person text-center">
-                                            <img src= "{{ asset('/img/testimonials/testimonials_1.jpg') }}" alt="Image" class="img-fluid">
-                                            <div class="feature-1-content">
-                                                <h2><a href="{{ path('OffreStage', {'id': OffreStage.idStage}) }}"> {{OffreStage.nomSoc }}</a></h2>
-                                                <span class="position mb-3 d-block"> Adresse :{{ OffreStage.adrSoc }}</span>
-                                                <span class="position mb-3 d-block"> Date debut :{{ OffreStage.dateDebut|date("d/m/Y")  }}</span>
-                                                <p>Description :{{ OffreStage.description}}</p>
+
+                                {% for OffreStage in Offres %}
+                                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                                        <div class="course-item">
+                                        <img src="/uploads/{{ OffreStage.logo }}" class="img-fluid" alt="Image">
+                                        <div class="course-content">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h4>{{OffreStage.titre }}</h4>
+                                                <p class="price">Date:{{ OffreStage.dateDebut|date("d/m/Y")  }}</p>
                                             </div>
+
+                                            <h3><a href="{{ path('OffreStage', {'id': OffreStage.idStage}) }}"> {{OffreStage.nomSoc }}</a></h3>
+                                            <p>Description :{{ OffreStage.description}}</p>
                                         </div>
-                                    </div>
-                        </div>
+
+
+                                        </div>
+                                        </div>
 
                                 {% endfor %}
+
+
+                                </div>
+                                </div>
+            </section>
                         {% endif %}
-                    </div>
-                </div>
+
             {% endif %}
     </div>
     </div>
+
 
 {% endblock %}
 

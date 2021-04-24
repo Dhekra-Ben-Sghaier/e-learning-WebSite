@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block title %}Devworks{% endblock %}
+
+{% block body %}
+    <div class="breadcrumbs">
+        <div class="container" >
+            <h2>Listes mes offres de stages</h2>
+        </div>
+    </div>
+    <section id="courses" class="courses">
+        <div class="container"  >
+            <div class="row"  data-aos-delay="100">
+                {% for OffreStage in ListOffres %}
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                        <div class="course-item">
+                            <img src="/uploads/{{ OffreStage.logo }}" class="img-fluid" alt="Image">
+                            <div class="course-content">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4>{{OffreStage.titre }}</h4>
+                                    <p class="price">Date:{{ OffreStage.dateDebut|date("d/m/Y")  }}</p>
+                                </div>
+
+                                <h3><a href="{{ path('Modify', {'id': OffreStage.idStage}) }}"> {{OffreStage.nomSoc }}</a></h3>
+                                <p>Description :{{ OffreStage.description}}</p>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

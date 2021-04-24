@@ -15,6 +15,7 @@ class SearchOSType extends AbstractType{
    public function buildForm(FormBuilderInterface $builder, array $options)
 {
     $builder->add('nivEtude', ChoiceType::class,[
+        'attr'=>['class'=>'btn btn-light dropdown-toggle'],
         'label' => 'Niveau d etude : ',
         'choices' => [
             'Null' => null,
@@ -27,6 +28,7 @@ class SearchOSType extends AbstractType{
         'Bac+5' => 'Bac+5',
          ]]);
     $builder->add('certificat', ChoiceType::class,[
+        'attr'=>['class'=>'btn btn-light dropdown-toggle'],
         'label' => 'Certificat : ',
     'choices' => [
         'Null' => null,
@@ -38,6 +40,7 @@ class SearchOSType extends AbstractType{
         'Office' => 'Office',
     ]]);
     $builder->add('dateDebut', ChoiceType::class,[
+        'attr'=>['class'=>'btn btn-light dropdown-toggle'],
         'label' => 'Date debut : ',
         'choices' => [
             'Null' => null,

@@ -27,6 +27,8 @@ class OffreStageType extends AbstractType
             ->add('adrSoc',TextType::class, ['attr'=>['class'=>'form-control form-control-lg']])
             ->add('description',TextType::class, ['attr'=>['class'=>'form-control form-control-lg']])
             ->add('nivEtude', ChoiceType::class,[
+                'label' => 'Niveau d etude : ',
+                'attr'=>['class'=>'btn btn-light dropdown-toggle'],
                 'choices' => [
                 'Secondaire' => 'Secondaire',
                 'Bac' => 'Bac',
@@ -37,6 +39,8 @@ class OffreStageType extends AbstractType
                 'Bac+5' => 'Bac+5',
                  ]])
             ->add('certificat', ChoiceType::class,[
+                'attr'=>['class'=>'btn btn-light dropdown-toggle'],
+                'label' => 'Certificat : ',
                 'choices' => [
                     'Anglais' => 'Anglais',
                     'Français' => 'Français',
@@ -48,7 +52,12 @@ class OffreStageType extends AbstractType
             ->add('dateDebut')
             ->add('dateFin')
             ->add('duree', NumberType::class, ['attr'=>['class'=>'form-control form-control-lg']])
-            ->add('logo', Filetype::class)
+            ->add('logo', Filetype::class,[
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
+            ])
             ->add('Ajouter offre', SubmitType::class, ['attr'=>['class'=>'btn btn-primary btn-lg px-5']])
         ;
     }
