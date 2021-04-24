@@ -1,12 +1,14 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+
     <center>
-    {% if res >= 80  %}
+        {% if res >= 80  %}
         <h1>Félicitations votre score est {{ res }} %</h1>
-        <img src="">
         {% else %}
             <h1>Malheuresement , vous avez echoué ,  votre score est {{ res }} %</h1>
+        {% endif %}
+
     </center>
-    {% endif %}
+
 {% endblock %}

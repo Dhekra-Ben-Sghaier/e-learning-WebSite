@@ -6,12 +6,15 @@ use App\Entity\Questionn;
 use App\Entity\Quizz;
 use App\Form\QuestionnType;
 use App\Form\QuizType;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\InscriCertif;
 use App\Form\InscriCertifType;
+
 
 class AjouterQuizController extends AbstractController
 {
@@ -41,7 +44,6 @@ class AjouterQuizController extends AbstractController
             $entityManager->persist($question);
             $entityManager->flush();
 
-            return $this->redirectToRoute('inscri_certif_index');
         }
 
         return $this->render('ajout_quiz/AjoutQuiz.html.twig', [
@@ -60,7 +62,6 @@ class AjouterQuizController extends AbstractController
             $entityManager->persist($quiz);
             $entityManager->flush();
 
-            return $this->redirectToRoute('inscri_certif_index');
         }
 
         return $this->render('ajout_quiz/AjoutQuiz.html.twig', [
@@ -119,5 +120,14 @@ class AjouterQuizController extends AbstractController
         return $this->render("quizz/res.html.twig",[
             'res' => $res/count($qts)* 100 
         ]);
+
     }
+    /**
+     * @Route("/pdf", name="p_df", methods={"GET","POST"})
+     */
+    public function pf(Request $request): Response
+    {
+
+    }
+
 }
