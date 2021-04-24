@@ -62,7 +62,7 @@ class AchatController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($achat);
         $this->getDoctrine()->getManager()->flush();
-        $message = (new \Swift_Message('Commande passée'))
+        $message = (new \Swift_Message('Formation'))
             ->setFrom('pidevbrainovation@gmail.com')
             ->setTo('dhekra.bensghaier@esprit.tn')
             ->setBody(
@@ -87,22 +87,20 @@ class AchatController extends AbstractController
 
         //dump($formation);
        // die;
-        return $this->render('formation/achat.html.twig', [
-            'id' => (int)$id
-
-        ]);
+        return new Response(
+            '<html><body><script lang="javascript"> alert("achat effectué avec succés")</script> </body></html>');
     }
 
-    /**
+    /*
      * @Route("/mesFormations", name="mes_achats", methods={"GET"})
-     */
+     *
     public function mesAchat(): Response
     {
         $em = $this->getDoctrine()->getManager();
 
-       /* $achats = $this->getDoctrine()
+       $achats = $this->getDoctrine()
             ->getRepository(Formation::class)
-            ->findAll();*/
+            ->findAll();
 
         $query = $em->createQuery("SELECT * from formation f , achat a WHERE f.id = a.id AND a.id_user = :id");
         $query->setParameter('id',1);
@@ -113,7 +111,7 @@ class AchatController extends AbstractController
             'formations' => $achats,
 
         ]);
-    }
+    }*/
 
 
 

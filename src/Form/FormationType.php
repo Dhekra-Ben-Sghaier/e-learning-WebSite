@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Formation;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -14,7 +15,9 @@ class FormationType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('description')
+            ->add('description', CKEditorType::class,[
+                'required' => true
+            ])
             ->add('prix')
             ->add('difficulte')
             ->add('cours', FileType::class,[

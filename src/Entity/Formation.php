@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -28,6 +29,7 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=30, nullable=false)
+     * @Assert\NotBlank(message="champs obligatoire")
      * @Groups("post:read")
      */
     private $titre;
@@ -36,6 +38,7 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=500, nullable=false)
+     * @Assert\NotBlank(message="champs obligatoire")
      * @Groups("post:read")
      */
     private $description;
