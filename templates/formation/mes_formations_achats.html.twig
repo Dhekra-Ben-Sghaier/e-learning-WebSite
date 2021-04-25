@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'personnes/indexuser.html.twig' %}
 
 {% block title %}Formation{% endblock %}
 {% block stylesheets %}
@@ -39,7 +39,7 @@
                             <img src="{{ asset('uploads/' ~  formation.image )|imagine_filter('carre') }}">
                             <div class="course-content">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <a href="{{ path('ma_formation_details', {'id': formation.id}) }}"><h4>{{ formation.titre }}</h4></a>
+                                    <a href="{{ path('ma_formation_details', {'id': formation.id,'iduser':app.user.idUser}) }}"><h4>{{ formation.titre }}</h4></a>
                                     <p class="price">{{ formation.prix }} DT</p>
                                 </div>
                                 <h3>{{ formation.description | raw}}</h3>

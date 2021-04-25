@@ -29,12 +29,12 @@ class AchatController extends AbstractController
     }
 
     /**
-     * @Route("/new/{id}", name="achat_new", methods={"GET","POST"})
+     * @Route("/new/{id}/{iduser}", name="achat_new", methods={"GET","POST"})
      * @param Request $request
      * @param $entityManager
      * @return Response
      */
-    public function new($id, \Swift_Mailer $mailer): Response
+    public function new($id,$iduser, \Swift_Mailer $mailer): Response
     {
 
 
@@ -48,7 +48,8 @@ class AchatController extends AbstractController
         foreach ($allAchat as $ac) {
 
             if($ac->getId()==$id){
-
+                //dump($iduser);
+                //die();
                 return  new Response(
                     '<html><body><script lang="javascript"> alert("déjà acheté")</script> </body></html>');
         }
@@ -56,9 +57,10 @@ class AchatController extends AbstractController
         }
 
         $achat = new Achat();
-        $achat->setIdUser($this->getDoctrine()->getManager()->getReference(Personnes::class, 1));
-
+        $achat->setIdUser($this->getDoctrine()->getManager()->getReference(Personnes::class, $iduser));
+    //$achat->setIdUser($iduser);
         $achat->setId($id);
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($achat);
         $this->getDoctrine()->getManager()->flush();
@@ -75,9 +77,9 @@ class AchatController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="achat_show", methods={"GET"})
+     * @Route("/{id}/{iduser}", name="achat_show", methods={"GET"})
      */
-    public function show($id): Response
+    public function show($id,$iduser): Response
     {
 
 
@@ -85,7 +87,8 @@ class AchatController extends AbstractController
         //dump($formation);
        // die;
         return $this->render('formation/achat.html.twig', [
-            'id' => (int)$id
+            'id' => (int)$id,
+            'iduser' => (int)$iduser
 
         ]);
     }
@@ -123,7 +126,7 @@ class AchatController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $achat->setIdUser(1);
+            $achat->setIdUser(app.user.id);
             $query =  $this->createQuery("SELECT f FROM App\Entity\Formation f WHERE f.formationId = :id");
             $query->setParameter('id',$request->attributes->get('id'));
             $formation = $query->getSingleResult();

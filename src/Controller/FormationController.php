@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Formation;
+use App\Entity\Personnes;
 use App\Form\FormationType;
 use App\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,13 +51,15 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/mesFormationsAchats", name="mes_achats_formations", methods={"GET"})
+     * @Route("/mesFormationsAchats/{iduser}", name="mes_achats_formations", methods={"GET"})
      */
-    public function showAchatFormation(){
+    public function showAchatFormation($iduser){
         $em = $this->getDoctrine()->getManager();
+
         $query = $em->createQuery("SELECT a from App\Entity\Achat a WHERE a.idUser = :id");
 
-        $query->setParameter('id',1);
+
+        $query->setParameter('id',$iduser);
         $achats = $query->getResult();
         $formations = array();
 
@@ -75,7 +78,8 @@ class FormationController extends AbstractController
         //die();
 
         return $this->render('formation/mes_formations_achats.html.twig', [
-            'formations' => $formations
+            'formations' => $formations,
+            'iduser' => $iduser
 
         ]);
 
@@ -164,12 +168,13 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/detailsMaFormation/{id}", name="ma_formation_details", methods={"GET"})
+     * @Route("/detailsMaFormation/{id}/{iduser}", name="ma_formation_details", methods={"GET"})
      */
-    public function showDetailsMaFormation(Formation $formation): Response
+    public function showDetailsMaFormation(Formation $formation, $iduser): Response
     {
         return $this->render('formation/mes_achat.html.twig', [
-            'formation' => $formation
+            'formation' => $formation,
+            'iduser' => $iduser
         ]);
     }
 
@@ -186,7 +191,7 @@ class FormationController extends AbstractController
         }
         $pdfFile = stream_get_contents($item->getCours());
         //$pdfFile = $item->getCours(); //returns pdf file stored as mysql blob
-        $stream = new Stream("C:\\Users\\Asus\\Desktop\\P\webPidevv\\PidevWeb\\public\\uploads\\Cours\\".$pdfFile);
+        $stream = new Stream("C:\\Users\\benha\\Desktop\\PidevWeb-PidevWebUser\\PidevWeb-PidevWebUser\\public\\uploads\\Cours\\".$pdfFile);
 
         //$response = new Response( readfile($pdfFile), 200, array('Content-Type' => 'application/pdf'));
 

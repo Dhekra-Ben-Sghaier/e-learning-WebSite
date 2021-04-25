@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -141,6 +142,13 @@ class Personnes implements userInterface
      */
     private $etat;
     protected $captchaCode;
+
+    public function __construct()
+    {
+
+        $this->etat = true ;
+
+    }
     public function getIdUser(): ?int
     {
         return $this->idUser;
@@ -363,14 +371,14 @@ class Personnes implements userInterface
         $this->captchaCode=$captchaCode;
     }
 
-    public function getEnabled()
+    public function getEtat()
     {
         return $this->etat;
     }
 
-    public function setEnabled($enabled): void
+    public function setEtat($etat): void
     {
-        $this->etat = $enabled;
+        $this->etat = $etat;
     }
 
 }

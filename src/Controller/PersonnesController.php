@@ -73,6 +73,14 @@ class PersonnesController extends AbstractController
         return $this->render('personnes/indexuser.html.twig');
     }
     /**
+     * @Route("/cmptdesactive", name="cmptdesactive", methods={"GET"})
+     */
+    public function indexcpt(): Response
+    {
+
+        return $this->render('personnes/CompteDesactive.html.twig');
+    }
+    /**
      * @Route("/inscription", name="inscription")
      */
     public function inscription(): Response
@@ -141,8 +149,9 @@ class PersonnesController extends AbstractController
     public function editApp(Request $request, Personnes $personne): Response
     {
         $form = $this->createForm(ApprenantType::class, $personne);
-        $form->handleRequest($request);
         $form->remove('plainPassword');
+        $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 

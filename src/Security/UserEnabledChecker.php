@@ -15,11 +15,11 @@ class UserEnabledChecker implements UserCheckerInterface
 
     public function checkPreAuth(UserInterface $user)
     {
-        if (!$user instanceof User) {
+        if (!$user instanceof Personnes) {
             return;
         }
 
-        if (!$user->getEnabled()) {
+        if (!$user->getEtat()) {
             throw new DisabledException();
         }
     }

@@ -56,7 +56,7 @@ class ApprenantType extends AbstractType
                     ]),
                 ],
             ))
-            ->add('enabled',choiceType::class ,[
+            ->add('etat',choiceType::class ,[
                 'choices'=> [
                     'Activé'=>'1',
                     'Désactivé'=>'0',

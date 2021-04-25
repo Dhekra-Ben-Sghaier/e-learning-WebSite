@@ -55,9 +55,11 @@ class RegistrationController extends AbstractController
         $form ->add('centreinteret',TextType::class, [
             'data' => ' '
         ]);
+        $form->remove('etat');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+             $personne->setEtat(1);
+             $personne->setPhoto('profil.png');
             $var=$personne->getRole();
             //dd($personne->getPassword());
             if($var=="apprenant"){
