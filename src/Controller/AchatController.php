@@ -70,10 +70,7 @@ class AchatController extends AbstractController
                 'text/html'
             );
         $mailer->send($message);
-        return $this->render('base.html.twig', [
-            'achat' => $achat
-
-        ]);
+        return $this->render('formation/succes_achat.html.twig');
 
     }
 
@@ -87,8 +84,10 @@ class AchatController extends AbstractController
 
         //dump($formation);
        // die;
-        return new Response(
-            '<html><body><script lang="javascript"> alert("achat effectué avec succés")</script> </body></html>');
+        return $this->render('formation/achat.html.twig', [
+            'id' => (int)$id
+
+        ]);
     }
 
     /*

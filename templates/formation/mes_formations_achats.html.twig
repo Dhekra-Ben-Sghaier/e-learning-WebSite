@@ -30,7 +30,7 @@
 
 
 
-                {% for f in formations %}
+            {% for f in formations %}
                 {% for formation in f %}
 
 
@@ -42,19 +42,20 @@
                                     <a href="{{ path('ma_formation_details', {'id': formation.id}) }}"><h4>{{ formation.titre }}</h4></a>
                                     <p class="price">{{ formation.prix }} DT</p>
                                 </div>
-                                <h3>{{ formation.description }}</h3>
+                                <h3>{{ formation.description | raw}}</h3>
                                 <p>{{ formation.difficulte }}</p>
                             </div>
                         </div>
                     </div>
 
 
-                {% else %}
-                    <tr>
-                        <td colspan="8">no records found</td>
-                    </tr>
+
                 {% endfor %}
-                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
 
 
 

@@ -4,9 +4,9 @@ liip_imagine:
     driver: "gd"
     filter_sets: # Contient la liste des filtres
         carre: # Nom du filtre
-            quality: 85 # Qualité de l'image
+            quality: 75 # Qualité de l'image
             filters: # Liste des filtres à appliquer
                 scale: # Filtre "Thumbnail"
-                    dim: [ 900, 900 ] # Taille de l'image de sortie
+                    dim: [ 400, 400 ] # Taille de l'image de sortie
                     #mode: outbound # Découpage de l'image
                     #allow_upscale: true

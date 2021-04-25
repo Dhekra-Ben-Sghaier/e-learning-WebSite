@@ -2,7 +2,7 @@
 
 {% block title %}Formation{% endblock %}
 
-{% block content %}
+{% block body %}
     <h1>Modifier formation</h1>
 
     {{ include('formation/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
@@ -13,6 +13,8 @@
     {% block javascripts %}
         <script src="{{ asset('js/images.js') }}"></script>
     {% endblock %}
+
+
 
 
 {% endblock %}

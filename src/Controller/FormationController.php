@@ -211,6 +211,7 @@ class FormationController extends AbstractController
     public function edit(Request $request, Formation $formation): Response
     {
         $form = $this->createForm(FormationType::class, $formation);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -232,18 +233,20 @@ class FormationController extends AbstractController
                 // On crée l'image dans la base de données
 
                 $formation->setImage($fichier);
+
             }
 
 
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('formation_index');
-        }
 
+        }
         return $this->render('formation/edit.html.twig', [
             'formation' => $formation,
             'form' => $form->createView(),
         ]);
+
     }
 
     /**

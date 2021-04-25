@@ -41,7 +41,7 @@
             <tr>
                 <td>{{ formation.id }}</td>
                 <td>{{ formation.titre }}</td>
-                <td>{{ formation.description }}</td>
+                <td>{{ formation.description | raw }}</td>
                 <td>{{ formation.prix }}</td>
                 <td>{{ formation.difficulte }}</td>
                 <td>{{ formation.cours }}</td>
@@ -60,11 +60,7 @@
             </tr>
         {% endfor %}
         </tbody>
-        <tbody id="search">
-        <tr>
-            <td>no records found</td>
-        </tr>
-        </tbody>
+
     </table>
 
     <button class="btn btn-success btn-icon-split" ><a href="{{ path('formation_new') }}"><span class="text" style="color: white">Ajouter une formation</span></a></button>

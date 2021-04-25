@@ -34,7 +34,7 @@
                     <img src="{{ asset('uploads/' ~  formation.image ) }}" class="img-fluid" alt="">
                     <h3>Formation {{ formation.titre }}</h3>
                     <p>
-                        {{ formation.description }}
+                        {{ formation.description | raw}}
                     </p>
                 </div>
                 <div class="col-lg-4">
