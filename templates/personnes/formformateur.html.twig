@@ -1,6 +1,8 @@
 
-<h1>Modifier un Formateur</h1>
+<h1 style="text-align:center">Modifier un Formateur</h1>
+<br>
 {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+<div class="container">
 <table  style="width:100%;margin-right:40%">
     <tr class="group">
         <td class="label"> {{form_label(form.role)}}</td>
@@ -43,7 +45,18 @@
         <td> {{form_widget(form.domaine,{'attr': {'class': 'form-control'}})}}</td>
 
     </tr>
+    <tr class="group">
+        <td class="label"> {{form_label(form.etat)}}</td>
+        <td> {{form_widget(form.etat,{'attr': {'class': 'form-control'}})}}</td>
+
+    </tr>
+    <tr class="group">
+        <td class="label"> {{form_label(form.captchaCode)}}</td>
+        <td> {{form_widget(form.captchaCode)}}</td>
+
+    </tr>
 </table>
+</div>
 <button  class="btn btn-success btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-check"></i>

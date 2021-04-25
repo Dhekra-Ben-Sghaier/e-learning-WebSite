@@ -55,6 +55,12 @@ class FormateurType extends AbstractType
                     ]),
                 ],
             ))
+            ->add('etat',choiceType::class ,[
+                'choices'=> [
+                    'Activé'=>'1',
+                    'Désactivé'=>'0',
+                ],'label'=>'Etat'
+            ])
 
         ;
     }

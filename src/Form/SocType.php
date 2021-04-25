@@ -3,19 +3,18 @@
 namespace App\Form;
 
 use App\Entity\Personnes;
+use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptcha;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
-use Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptcha;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
-class SocieteType extends AbstractType
+class SocType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -25,9 +24,8 @@ class SocieteType extends AbstractType
 
                     'societe' => 'societe'
                 ],])
-            ->add('cin', TextType::class)
 
-
+            ->add('nomsociete',TextType::class)
             ->add('email')
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -46,8 +44,6 @@ class SocieteType extends AbstractType
                 ],
             ])
             ->add('nomutilisateur',TextType::class)
-
-            ->add('nomsociete',TextType::class)
             ->add('captchaCode', CaptchaType::class, array(
                 'captchaConfig' => 'ExampleCaptchaUserRegistration',
                 'constraints' => [

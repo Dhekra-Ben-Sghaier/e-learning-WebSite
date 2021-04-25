@@ -32,11 +32,7 @@ class Personnes implements userInterface
      *
      * @ORM\Column(name="cin", type="string", length=30, nullable=true, options={"default"="NULL"})
      * @Assert\NotBlank(message="Cette valeur ne doit pas être vide.")
-     *  @Assert\Length(
-     *      min = 8,
-     *      max = 8,
-     *      minMessage = "votre cin doit être  {{ limit }} caractéres"
-     * )
+     *
      */
     private $cin = 'NULL';
     /**
@@ -147,6 +143,7 @@ class Personnes implements userInterface
     {
 
         $this->etat = true ;
+        $this->cin="null";
 
     }
     public function getIdUser(): ?int

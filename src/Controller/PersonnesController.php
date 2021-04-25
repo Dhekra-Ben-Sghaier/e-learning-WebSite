@@ -150,6 +150,7 @@ class PersonnesController extends AbstractController
     {
         $form = $this->createForm(ApprenantType::class, $personne);
         $form->remove('plainPassword');
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -169,8 +170,9 @@ class PersonnesController extends AbstractController
     public function editForm(Request $request, Personnes $personne): Response
     {
         $form = $this->createForm(FormateurType::class, $personne);
-        $form->handleRequest($request);
         $form->remove('plainPassword');
+        $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 

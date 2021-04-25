@@ -53,15 +53,16 @@
     <fieldset>
         <legend><span class="number">2</span> Mot de passe </legend>
         <label>
-            <span> {{form_label(formpwd.password)}}</span>
-            {{form_widget(formpwd.password,{'attr': {'class': 'form-control'}})}}
-            {{ form_errors( formpwd.password) }}
+            <span> {{form_label(formpwd.password.first)}}</span>
+            {{form_widget(formpwd.password.first,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( formpwd.password.first) }}
         </label>
         <label>
-            <span> {{form_label(formpwd.nouvPassword)}}</span>
-            {{form_widget(formpwd.nouvPassword,{'attr': {'class': 'form-control'}})}}
-            {{ form_errors( formpwd.nouvPassword) }}
+            <span> {{form_label(formpwd.password.second)}}</span>
+            {{form_widget(formpwd.password.second,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( formpwd.password.second) }}
         </label>
+
 
         <button  class="submit">
                     <span class="icon text-white-50">

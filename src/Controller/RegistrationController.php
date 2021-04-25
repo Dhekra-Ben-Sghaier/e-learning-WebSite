@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Personnes;
 use App\Form\ApprenantType;
 use App\Form\FormateurType;
-use App\Form\SocieteType;
+use App\Form\SocType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -117,9 +117,11 @@ class RegistrationController extends AbstractController
         $form ->add('domaine',TextType::class, [
             'data' => ' '
         ]);
+        $form->remove('etat');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $personne->setEtat(1);
+            $personne->setPhoto('profil.png');
             $var=$personne->getRole();
             //dd($personne->getPassword());
 
@@ -150,18 +152,31 @@ class RegistrationController extends AbstractController
 
     }
     /**
-     * @Route("/socregister", name="socregister")
+     * @Route("/inscrisoc", name="societeinscri", methods={"GET","POST"})
+     * @param Request $request
+     * @param $passwordEncoder
+     * @return Response
      */
-    public function inscriresoc(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function socsociete(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+
         $personne = new Personnes();
-        $form = $this->createForm(SocieteType::class, $personne);
+        $form = $this->createForm(SocType::class, $personne);
+
+
+        $form->add('nomsociete',TextType::class, [
+            'data' => ' '
+        ]);
+
+        $form->add('nomutilisateur',TextType::class, [
+            'data' => ' '
+        ]);
+
+        $form->remove('etat');
         $form->handleRequest($request);
-
-
-
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $personne->setEtat(1);
+            $personne->setPhoto('profil.png');
             $var=$personne->getRole();
             //dd($personne->getPassword());
 
@@ -173,7 +188,6 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-           // dd($personne);
             $entityManager = $this->getDoctrine()->getManager();
 
 
@@ -184,10 +198,13 @@ class RegistrationController extends AbstractController
 
 
         }
+
+
         return $this->render('registration/socregister.html.twig', [
             'personne' => $personne,
             'form' => $form->createView()
         ]);
+
     }
 
 
