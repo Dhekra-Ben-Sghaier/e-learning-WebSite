@@ -46,7 +46,26 @@
             {{form_widget(form.domaine,{'attr': {'class': 'form-control'}})}}
 
         </label>
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <label for="exampleFormControlInput1">Etes-vous un robot ?</label>
+                <label>
 
+                    {{form_widget(form.captchaCode,{'attr': {'class': 'form-control'}})}}
+
+                </label>
+            </div>
+        </div>
+        {% set formErrors=form.vars.errors.form.getErrors(true) %}
+        {% if formErrors|length %}
+            <div class="alert alert-danger" >
+                <ul>
+                    {% for error in formErrors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
         <button type="submit" class="submit" >S'inscrire</button>
 
@@ -73,7 +92,7 @@
     </div>
 
 
-
+</div>
     {% endblock %}
 
     {% block script %}

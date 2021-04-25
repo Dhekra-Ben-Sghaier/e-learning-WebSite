@@ -163,7 +163,13 @@ a{color:inherit;text-decoration:none}
     color:#416d50;
 }
 
-
+input{
+    height:35px;
+    padding: 5px 5px;
+    margin: 10px 0px;
+    background-color:#e0dada;
+    border:none;
+}
 button{
     height:40px;
     padding: 5px 5px;

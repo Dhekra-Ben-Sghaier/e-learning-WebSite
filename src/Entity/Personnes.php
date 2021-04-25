@@ -7,6 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 
+
+
 /**
  * Personnes
  *
@@ -124,8 +126,21 @@ class Personnes implements userInterface
      *
      * @ORM\Column(name="nomSociete", type="string", length=100, nullable=true, options={"default"="NULL"})
      */
-    private $nomsociete = 'NULL';
+    private $nomsociete='NULL' ;
 
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true, options={"default"="NULL"})
+     * @Assert\NotBlank(message="Veuillez charger une image")
+     *
+     */
+    private $photo='NULL';
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
+    protected $captchaCode;
     public function getIdUser(): ?int
     {
         return $this->idUser;
@@ -325,5 +340,38 @@ class Personnes implements userInterface
     {
         // TODO: Implement eraseCredentials() method.
     }
+
+    /**
+     * @return string|null
+     */
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param string|null $photo
+     */
+    public function setPhoto(?string $photo): void
+    {
+        $this->photo = $photo;
+    }
+  public function getCaptchaCode(){
+        return $this->captchaCode;
+  }
+    public function setCaptchaCode($captchaCode){
+        $this->captchaCode=$captchaCode;
+    }
+
+    public function getEnabled()
+    {
+        return $this->etat;
+    }
+
+    public function setEnabled($enabled): void
+    {
+        $this->etat = $enabled;
+    }
+
 }
 

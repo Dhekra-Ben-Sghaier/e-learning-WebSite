@@ -10081,6 +10081,7 @@ a:focus {
 
 .dropdown .dropdown-menu {
   font-size: 0.85rem;
+  width: 600px;
 }
 
 .dropdown .dropdown-menu .dropdown-header {
@@ -10128,6 +10129,7 @@ a:focus {
 .topbar .nav-item .nav-link .img-profile {
   height: 2rem;
   width: 2rem;
+
 }
 
 .topbar {
@@ -10205,6 +10207,7 @@ a:focus {
   white-space: normal;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+
   border-left: 1px solid #e3e6f0;
   border-right: 1px solid #e3e6f0;
   border-bottom: 1px solid #e3e6f0;

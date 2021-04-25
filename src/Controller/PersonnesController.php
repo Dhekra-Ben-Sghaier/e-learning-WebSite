@@ -3,20 +3,28 @@
 namespace App\Controller;
 
 use App\Entity\Personnes;
+use App\Form\ChangePwdType;
+use App\Form\PictureFormType;
+use App\Form\ProfilType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Form\PersonnesType;
 use App\Form\ApprenantType;
 use App\Form\FormateurType;
+
+
 use App\Form\RoleType;
 use App\Repository\PersonnesRepository;
-
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\DomCrawler\Image;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+
 
 /**
  * @Route("/personnes")
@@ -35,6 +43,13 @@ class PersonnesController extends AbstractController
         return $this->render('personnes/index.html.twig', [
             'personnes' => $personnes,
         ]);
+    }
+    /**
+     * @Route("/profil", name="profil")
+     */
+    public function indexprofil(): Response
+    {
+        return $this->render('personnes/profil.html.twig');
     }
     /**
      * @Route("/", name="index", methods={"GET"})
@@ -194,4 +209,84 @@ class PersonnesController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/{idUser}/profiluser", name="profiluser", methods={"GET","POST"})
+     */
+    public function modifierProfil(Request $request,UserPasswordEncoderInterface $passwordEncoder, Personnes $personne,Personnes $personn): Response
+    {
+        $form = $this->createForm(ProfilType::class, $personne);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Informations sauvegardés !');
+
+        }
+        $formpwd = $this->createForm(ChangePwdType::class, $personn);
+        $formpwd->handleRequest($request);
+        if ($formpwd->isSubmitted() && $formpwd->isValid()) {
+            $personne->setPassword(
+                $passwordEncoder->encodePassword(
+                    $personn,
+                    $formpwd->get('password')->getData()
+                )
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($personn);
+            $entityManager->flush();
+            $this->addFlash('notice', 'Votre mot de passe à bien été changé !');
+        }
+
+
+        return $this->render('personnes/profil.html.twig', [
+            'personne' => $personne,'personn'=>$personn,'formpwd'=>$formpwd->createView(),
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{idUser}/modifphoto", name="modifphoto", methods={"GET","POST"})
+     */
+    public function modifierPhoto(Request $request,Personnes $personne): Response
+    {
+
+
+        $form = $this->createForm(PictureFormType::class, $personne);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+          $images = $form->get('photo')->getData();
+            foreach ($images as $image) {
+
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+            }
+                // On crée l'image dans la base de données
+
+
+            $personne->setPhoto($fichier);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($personne);
+            $entityManager->flush();
+
+            $this->addFlash('notice', 'Votre photo a été sauvegardée avec succés !');
+        }
+        return $this->render('personnes/photo.html.twig', [
+            'personne' => $personne,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
 }

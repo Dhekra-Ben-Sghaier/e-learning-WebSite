@@ -1,0 +1,93 @@
+{% extends 'personnes/indexuser.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <link href="{{ asset("css/form.css") }}" rel="stylesheet">
+    <link href="{{ asset("css/inscrit.css") }}" rel="stylesheet">
+
+
+
+<div class="container">
+<div class="form-style-5">
+    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+    <fieldset>
+        <legend><span class="number">1</span> Informations de base</legend>
+        <label>
+            <span> {{form_label(form.nom)}}</span>
+            {{form_widget(form.nom,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( form.nom) }}
+        </label>
+        <label>
+            <span> {{form_label(form.prenom)}}</span>
+            {{form_widget(form.prenom,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( form.prenom) }}
+        </label>
+        <label>
+            <span> {{form_label(form.email)}}</span>
+            {{form_widget(form.email,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( form.email) }}
+        </label>
+        <label>
+            <span> {{form_label(form.nomutilisateur)}}</span>
+            {{form_widget(form.nomutilisateur,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( form.nomutilisateur) }}
+        </label>
+        <button  class="submit">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+
+                    </span>
+            <span class="text">{{ button_label|default('Sauvegarder') }}</span>
+
+        </button>
+    </fieldset>
+    {{ form_end(form) }}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <hr>
+    {{ form_start(formpwd,{'attr': {'novalidate': 'novalidate'}} ) }}
+    <fieldset>
+        <legend><span class="number">2</span> Mot de passe </legend>
+        <label>
+            <span> {{form_label(formpwd.password)}}</span>
+            {{form_widget(formpwd.password,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( formpwd.password) }}
+        </label>
+        <label>
+            <span> {{form_label(formpwd.nouvPassword)}}</span>
+            {{form_widget(formpwd.nouvPassword,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( formpwd.nouvPassword) }}
+        </label>
+
+        <button  class="submit">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+
+                    </span>
+            <span class="text">{{ button_label|default('Sauvegarder') }}</span>
+
+        </button>
+    </fieldset>
+
+    {{ form_end(formpwd) }}
+</div>
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}
+

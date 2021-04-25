@@ -11,7 +11,11 @@
             {{form_widget(form.role,{'attr': {'class': 'form-control'}})}}
 
         </label>
-
+        <label>
+            <span> {{form_label(form.cin)}}</span>
+            {{form_widget(form.cin,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( form.cin) }}
+        </label>
 
         <label>
             <span> {{form_label(form.email)}}</span>
@@ -19,22 +23,40 @@
             {{ form_errors( form.email) }}
         </label>
         <label>
+            <span> {{form_label(form.nomutilisateur)}}</span>
+            {{form_widget(form.nomutilisateur,{'attr': {'class': 'form-control'}})}}
+
+        </label>
+        <label>
             <span> {{form_label(form.plainPassword,'Mot de passe')}}</span>
             {{form_widget(form.plainPassword,{'attr': {'class': 'form-control'}})}}
 
         </label>
         <label>
-            <span> {{form_label(form.nomutilisateur)}}</span>
-            {{form_widget(form.nomutilisateur,{'attr': {'class': 'form-control'}})}}
-
-        </label>
-
-        <label>
             <span> {{form_label(form.nomsociete)}}</span>
             {{form_widget(form.nomsociete,{'attr': {'class': 'form-control'}})}}
-            {{ form_errors( form.nomsociete) }}
-        </label>
 
+        </label>
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <label for="exampleFormControlInput1">Etes-vous un robot ?</label>
+                <label>
+
+                    {{form_widget(form.captchaCode,{'attr': {'class': 'form-control'}})}}
+
+                </label>
+            </div>
+        </div>
+        {% set formErrors=form.vars.errors.form.getErrors(true) %}
+        {% if formErrors|length %}
+            <div class="alert alert-danger" >
+                <ul>
+                    {% for error in formErrors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
         <button type="submit" class="submit" >S'inscrire</button>
 
@@ -42,7 +64,7 @@
     </div>
     {{ form_end(form) }}
     <div class="sub-cont">
-        <div class="imgs">
+        <div class="imgf">
             <div class="img__text m--up">
                 <h2></h2>
 
@@ -53,14 +75,14 @@
             </div>
 
             <div class="img__btn">
-                <a href="{{ path('inscription') }}" class="get-started-btn">Apprenant/Formateur</a>
+                <a href="{{ path('inscription') }}" class="get-started-btn">Apprenant/Société</a>
 
             </div>
         </div>
 
     </div>
 
-
+</div>
 
     {% endblock %}
 

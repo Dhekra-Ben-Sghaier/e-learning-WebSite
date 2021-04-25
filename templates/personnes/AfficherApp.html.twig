@@ -9,7 +9,8 @@
         #customers {
             font-family: Arial, Helvetica, sans-serif;
             border-collapse: collapse;
-            width: 100%;
+            width: 900px;
+            overflow: hidden;
         }
 
         #customers td, #customers th {
@@ -22,8 +23,8 @@
         #customers tr:hover {background-color: #ddd;}
 
         #customers th {
-            padding-top: 12px;
-            padding-bottom: 12px;
+            padding-top: 9px;
+            padding-bottom: 9px;
             text-align: left;
             background-color: #4c7aaf;
             color: white;
@@ -39,6 +40,7 @@
             <th>NomUtilisateur</th>
             <th>Email</th>
             <th>Centre interet</th>
+            <th> Etat </th>
             <th>  </th>
 
 
@@ -54,7 +56,13 @@
                 <td>{{ user.email }}</td>
 
                 <td>{{ user.centreInteret}}</td>
-
+                <td>
+                    <input type="radio" id="active" name="active" value="active"
+                           checked>
+                    <label for="huey">Activé</label>
+                    <input type="radio" id="desactive" name="desactive" value="desactive">
+                    <label for="desactive">Desactivé</label>
+                </td>
 
                 <td>
 
@@ -70,6 +78,8 @@
                     </a>
 
                 </td>
+
+
             </tr>
 
 

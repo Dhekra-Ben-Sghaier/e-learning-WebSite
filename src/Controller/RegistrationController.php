@@ -24,6 +24,7 @@ class RegistrationController extends AbstractController
             'controller_name' => 'RegistrationController',
         ]);
     }
+
     /**
      * @Route("/register", name="register")
      */
@@ -85,86 +86,7 @@ class RegistrationController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    /**
-     * @Route("/inscri", name="inscrit", methods={"GET","POST"})
-     * @param Request $request
-     * @param $passwordEncoder
-     * @return Response
-     */
-    public function inscrire(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
-        $personne = new Personnes();
-        $form = $this->createForm(ApprenantType::class, $personne);
-        $form->handleRequest($request);
 
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $var=$personne->getRole();
-            //dd($personne->getPassword());
-            if($var=="apprenant"){
-
-                //$apprenant = new Personnes();
-                $personne->setPassword(
-                    $passwordEncoder->encodePassword(
-                        $personne,
-                        $form->get('plainPassword')->getData()
-                    )
-                );
-                $entityManager = $this->getDoctrine()->getManager();
-
-
-                $entityManager->persist($personne);
-
-                $entityManager->flush();
-                return $this->render('registration/index.html.twig', [
-                    'controller_name' => 'RegistrationController',
-                ]);
-
-
-            }
-
-        }
-        $personnefo = new Personnes();
-        $formfo = $this->createForm(FormateurType::class, $personnefo);
-
-
-
-        $formfo->handleRequest($request);
-        if ($formfo->isSubmitted() && $formfo->isValid()) {
-
-            $var=$personnefo->getRole();
-            //dd($personne->getPassword());
-            if($var=="formateur"){
-
-                //$apprenant = new Personnes();
-                $personnefo->setPassword(
-                    $passwordEncoder->encodePassword(
-                        $personnefo,
-                        $form->get('plainPassword')->getData()
-                    )
-                );
-                $entityManager = $this->getDoctrine()->getManager();
-
-
-                $entityManager->persist($personnefo);
-
-                $entityManager->flush();
-                return $this->render('registration/index.html.twig', [
-                    'controller_name' => 'RegistrationController',
-                ]);
-
-
-            }
-
-        }
-        return $this->render('registration/register.html.twig', [
-            'personne' => $personne,
-
-            'form' => $form->createView(),'formuser' => $formfo->createView()
-        ]);
-
-    }
 
     /**
      * @Route("/inscriform", name="inscritform", methods={"GET","POST"})
@@ -232,9 +154,9 @@ class RegistrationController extends AbstractController
     {
         $personne = new Personnes();
         $form = $this->createForm(SocieteType::class, $personne);
-
         $form->handleRequest($request);
-        //dd($personne);
+
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -249,6 +171,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+           // dd($personne);
             $entityManager = $this->getDoctrine()->getManager();
 
 
@@ -264,4 +187,6 @@ class RegistrationController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+
 }

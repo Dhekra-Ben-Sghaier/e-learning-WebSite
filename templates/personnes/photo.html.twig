@@ -1,0 +1,58 @@
+{% extends 'personnes/indexuser.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<link href="{{ asset("css/form.css") }}" rel="stylesheet">
+<link href="{{ asset("css/inscrit.css") }}" rel="stylesheet">
+
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+<div class="container">
+    <div class="form-style-5">
+
+        <fieldset>
+            <legend><span class="number"></span> Photo de profil</legend>
+            <div class="projectThumb">
+
+                <div class="overlayim">
+                    <img class="photoprofil" src="{{ asset('uploads/' ~  app.user.photo) }}" alt="" width="200">
+
+                    <!-- <img src="{{ asset('img/formateur.jpg') }}">-->
+                </div>
+
+            </div>
+            <label>
+
+  {{form_label(form.photo)}}
+                    {{form_widget(form.photo,{'attr': {'class': 'form-control'}})}}
+                    {{ form_errors( form.photo) }}
+            </label>
+
+
+
+            <button  class="submit">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+
+                    </span>
+                <span class="text">{{ button_label|default('Sauvegarder') }}</span>
+
+            </button>
+        </fieldset>
+
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+
+</div>
+</div>
+
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
