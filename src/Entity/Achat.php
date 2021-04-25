@@ -7,19 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Achat
  *
- * @ORM\Table(name="achat", indexes={@ORM\Index(name="id_user_fk", columns={"id_users"}), @ORM\Index(name="id_form_fk", columns={"id"})})
+ * @ORM\Table(name="achat", indexes={@ORM\Index(name="id_user_fk", columns={"id_user"}), @ORM\Index(name="id_fk", columns={"id"})})
  * @ORM\Entity
  */
 class Achat
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_users", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     */
-    private $idUsers;
+
 
     /**
      * @var int
@@ -30,15 +23,45 @@ class Achat
      */
     private $id;
 
-    public function getIdUsers(): ?int
-    {
-        return $this->idUsers;
-    }
+    /**
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Personnes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
+     * })
+     */
+    private $idUser;
+
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getIdUser(): ?Personnes
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(?Personnes $idUser): self
+    {
+        $this->idUser = $idUser;
+
+        return $this;
+    }
+
 
 
 }

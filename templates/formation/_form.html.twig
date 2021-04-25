@@ -1,0 +1,24 @@
+{{ form_start(form,{'attr':{ 'novalidate':'novalidate' }}) }}
+{{ form_widget(form) }}
+
+
+
+    {# Si la route est "annonces_edit on affiche les images #}
+	{% if app.request.attributes.get('_route') == 'formation_edit' %}
+        {# <h2>Images</h2>
+
+            <h2>Imageeees</h2>
+            <div>
+                <img src="{{ asset('C:\xampp\htdocs\img'~formation.image) }}" alt="" width="150">
+
+                On ajoute un lien permettant de supprimer une image (sera géré en Ajax)
+                <a href="{{ path('formation_delete_image', {id: formation.image})}}" data-delete data-token="{{ csrf_token('delete' ~ formation.id )}}">Supprimeeeer</a>
+            </div>
+        #}
+    {% endif %}
+
+
+
+<button class="btn btn-success btn-icon-split"><span class="text" style="color: white">{{ button_label|default('Valider') }}</span></button>
+{{ form_end(form) }}
+

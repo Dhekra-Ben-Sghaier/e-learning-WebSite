@@ -1,0 +1,58 @@
+ /**
+     * @Route("/new", name="formation_new", methods={"GET","POST"})
+     */
+    public function new(Request $request): Response
+    {
+        $formation = new Formation();
+        $form = $this->createForm(FormationType::class, $formation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $coursFile = $form->get('cours')->getData();
+            if ($coursFile) {
+                $originalFilename = pathinfo($coursFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$coursFile->guessExtension();
+                try {
+                    $coursFile->move(
+                        $this->getParameter('cours_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $formation->setCours($newFilename);
+            }
+                // On récupère les images transmises
+                $images = $form->get('image')->getData();
+
+                // On boucle sur les images
+                foreach ($images as $image) {
+                    // On génère un nouveau nom de fichier
+                    $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                    // On copie le fichier dans le dossier uploads
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $fichier
+                    );
+
+                    // On crée l'image dans la base de données
+
+                    $formation->setImage($fichier);
+                }
+
+
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($formation);
+            $entityManager->flush();
+            }
+
+
+
+            return $this->render('formation/new.html.twig', [
+                'formation' => $formation,
+                'form' => $form->createView(),
+            ]);
+
+    }

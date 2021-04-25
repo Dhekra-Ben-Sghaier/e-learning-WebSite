@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Formation
@@ -18,6 +21,7 @@ class Formation
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -25,6 +29,8 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=30, nullable=false)
+     * @Assert\NotBlank(message="champs obligatoire")
+     * @Groups("post:read")
      */
     private $titre;
 
@@ -32,6 +38,8 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=500, nullable=false)
+     * @Assert\NotBlank(message="champs obligatoire")
+     * @Groups("post:read")
      */
     private $description;
 
@@ -39,6 +47,7 @@ class Formation
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     * @Groups("post:read")
      */
     private $prix;
 
@@ -46,20 +55,23 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="difficulte", type="string", length=30, nullable=false)
+     * @Groups("post:read")
      */
     private $difficulte;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="cours", type="blob", length=0, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="cours", type="blob", length=0, nullable=true)
+     * @Groups("post:read")
      */
-    private $cours = 'NULL';
+    private $cours;
 
     /**
      * @var string
      *
      * @ORM\Column(name="Image", type="string", length=200, nullable=false)
+     * @Groups("post:read")
      */
     private $image;
 
@@ -133,7 +145,7 @@ class Formation
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 

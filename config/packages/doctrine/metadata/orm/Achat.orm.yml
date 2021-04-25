@@ -4,18 +4,18 @@ Achat:
     indexes:
         id_user_fk:
             columns:
-                - id_users
-        id_form_fk:
+                - id_user
+        id_fk:
             columns:
                 - id
     id:
-        idUsers:
+        idUser:
             type: integer
             nullable: false
             options:
                 unsigned: false
             id: true
-            column: id_users
+            column: id_user
         id:
             type: integer
             nullable: false

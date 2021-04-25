@@ -1,0 +1,20 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Formation{% endblock %}
+
+{% block body %}
+    <h1>Modifier formation</h1>
+
+    {{ include('formation/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <br>
+{{ include('formation/_delete_form.html.twig') }}
+    <a href="{{ path('formation_index') }}">Retourner à la liste des formations</a>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/images.js') }}"></script>
+    {% endblock %}
+
+
+
+
+{% endblock %}

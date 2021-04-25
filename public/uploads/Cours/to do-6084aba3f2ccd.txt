@@ -1,0 +1,28 @@
+to do :
+ckeditor
+https://www.youtube.com/watch?v=HdpPClXVvfU
+
+
+===========================================================
+
+
+ENVOYER MAIL
+https://nouvelle-techno.fr/actualites/envoyer-des-e-mails-avec-symfony-4
+
+GÉRER L'AFFICHAGE DES IMAGES AVEC SYMFONY 4 (AVEC LIIPIMAGINE)
+https://nouvelle-techno.fr/actualites/gerer-laffichage-des-images-avec-symfony-4-avec-liipimagine
+
+LIVE CODING : UTILISER LES NOTIFICATIONS E-MAIL AVEC SYMFONY 4
+https://nouvelle-techno.fr/actualites/live-coding-utiliser-les-notifications-e-mail-avec-symfony-4
+
+GÉRER L'AFFICHAGE DES IMAGES AVEC SYMFONY 4 (AVEC LIIPIMAGINE)
+https://nouvelle-techno.fr/actualites/gerer-laffichage-des-images-avec-symfony-4-avec-liipimagine
+
+LIVE CODING : UTILISATION DE STRIPE
+https://nouvelle-techno.fr/actualites/live-coding-utilisation-de-stripe
+
+LIVE CODING : CRÉER UN THÈME SOMBRE POUR SON SITE WEB
+https://nouvelle-techno.fr/actualites/live-coding-creer-un-theme-sombre-pour-son-site-web
+
+les-relations-entre-les-tables
+https://nouvelle-techno.fr/actualites/symfony-4-creer-un-blog-pas-a-pas-les-relations-entre-les-tables

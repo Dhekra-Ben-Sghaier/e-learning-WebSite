@@ -59,16 +59,16 @@ class Publicite
     /**
      * @var string|null
      *
-     * @ORM\Column(name="image", type="blob", length=0, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="image", type="blob", length=0, nullable=true)
      */
-    private $image = 'NULL';
+    private $image;
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="Prix", type="integer", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="Prix", type="integer", nullable=true)
      */
-    private $prix = NULL;
+    private $prix;
 
     /**
      * @var string|null
