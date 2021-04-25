@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Role\Role;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 /**
  * @Route("/publicite")
  */
@@ -39,11 +41,13 @@ class PubliciteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+
+
+             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($publicite);
             $entityManager->flush();
 
-            return $this->redirectToRoute('publicite_index');
+
         }
 
         return $this->render('publicite/new.html.twig', [
@@ -61,11 +65,19 @@ class PubliciteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+           /* $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($publicite);
-            $entityManager->flush();
+            $entityManager->flush();*/
+            $aff=$publicite->getAffichage();
+            $prix = 2000 * $aff;
+            $publicite->setPrix($prix);
 
-            return $this->redirectToRoute('publicite_index');
+            return $this->render('publicite/prix.html.twig', [
+                'prix' => $prix,
+                'publicite' => $publicite,
+                'form' => $form->createView(),
+            ]);
+
         }
 
         return $this->render('publicite/new_front.html.twig', [
@@ -75,17 +87,36 @@ class PubliciteController extends AbstractController
     }
 
     /**
-     * @Route("/pub_prix/{id}", name="publicite_prix")
+     * @Route("/pub_prix/{nom}/{prenom}/{prix}/{affichage}/{email}/{lien}/{domaine}", name="publicite_prix" ,methods={"GET","POST"})
+     *@ParamConverter("nom",class="Publicite", options={"nom": "nom"})
      */
     public function pub_prix(Publicite $pub): Response
+    { $pub->setPrix(prix);
+    $pub->setNom(nom);
+    $pub->setPrenom(prenom);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($pub);
+        $entityManager->flush();
+    }
+    /**
+     * @Route("/pubprix/{nom}/{prenom}/{prix}", name="pubprix")
+     */
+    public function pubinsert(Request $request, Publicite $publicite): Response
     {
-        $prix = $pub->getPrix() * $pub->getAffichage();
+        $form = $this->createForm(PubliciteType::class, $publicite);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+
+        }
+
         return $this->render('publicite/prix.html.twig', [
-            'prix' => $prix,
-            'publicite' => $pub
+            'publicite' => $publicite,
+            'form' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/pub_carousel/{id}", name="publicite_carousel")
      */

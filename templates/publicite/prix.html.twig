@@ -1,46 +1,43 @@
-{% extends "base_admin.html.twig" %}
+{% extends "base.html.twig" %}
 
-{% block content %}
+{% block body %}
 
      <h1>Publicite</h1>
 
     <table class="table">
         <tbody>
+
             <tr>
-                <th>Id</th>
-                <td>{{ publicite.id }}</td>
+                <th> {{form_label(form.nom)}}</th>
+                <td>{{form_widget(form.nom,{'attr': {'class': 'form-control'}})}}</td>
             </tr>
             <tr>
-                <th>Nom</th>
-                <td>{{ publicite.nom }}</td>
+                <th> {{form_label(form.prenom)}}</th>
+                <td>{{form_widget(form.prenom,{'attr': {'class': 'form-control'}})}}</td>
             </tr>
             <tr>
-                <th>Prenom</th>
-                <td>{{ publicite.prenom }}</td>
+                <th> {{form_label(form.email)}}</th>
+                <td>{{form_widget(form.email,{'attr': {'class': 'form-control'}})}}</td>
             </tr>
             <tr>
-                <th>Email</th>
-                <td>{{ publicite.email }}</td>
+                <th> {{form_label(form.domaine)}}</th>
+                <td>{{form_widget(form.domaine,{'attr': {'class': 'form-control'}})}}</td>
             </tr>
             <tr>
-                <th>Domaine</th>
-                <td>{{ publicite.domaine }}</td>
+                <th> {{form_label(form.affichage)}}</th>
+                <td>{{form_widget(form.affichage,{'attr': {'class': 'form-control'}})}}</td>
             </tr>
             <tr>
-                <th>Affichage</th>
-                <td>{{ publicite.affichage }}</td>
+                <th> {{form_label(form.image)}}</th>
+                <td>{{form_widget(form.image,{'attr': {'class': 'form-control'}})}}</td>
             </tr>
             <tr>
-                <th>Image</th>
-                <td>{{ publicite.image }}</td>
+                <th> {{form_label(form.prix)}}</th>
+                <td>{{form_widget(form.prix,{'attr': {'class': 'form-control'}})}}</td>
             </tr>
             <tr>
-                <th>Prix</th>
-                <td>{{ publicite.prix }}</td>
-            </tr>
-            <tr>
-                <th>Lien</th>
-                <td>{{ publicite.lien }}</td>
+                <th> {{form_label(form.lien)}}</th>
+                <td>{{form_widget(form.lien,{'attr': {'class': 'form-control'}})}}</td>
             </tr>
         </tbody>
     </table>
@@ -48,5 +45,5 @@
 	<h1>Le prix de la publicité est
 		{{ prix }} TND
 	</h1>
-    <a href="{{ path('publicite_index') }}" class="btn btn-primary">Retour à liste</a><br>
+    <a href="{{ path('publicite_prix', {'nom': publicite.nom,'prenom': publicite.prenom,'prix': publicite.prix,'affichage': publicite.affichage , 'email': publicite.email,'lien': publicite.lien ,'domaine': publicite.domaine }) }}" class="btn btn-primary">Retour à liste</a><br>
 {% endblock %}
