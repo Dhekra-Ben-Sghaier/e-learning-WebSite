@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\InscriCertif;
 use App\Form\InscriCertifType;
+use Dompdf\Options;
 
 
 class AjouterQuizController extends AbstractController
@@ -118,80 +119,96 @@ class AjouterQuizController extends AbstractController
     public function res($id , Request $request){
         $res=$request->request->get('res');
         $qts = $this->getDoctrine()->getRepository(Questionn::class)->findBy(['idquiz' =>$id]);
-        $dompdf = new Dompdf();
         $this->render("quizz/res.html.twig",[
-            'res' => $res/count($qts)* 100 
+            'res' => $res
         ]);
-        $html = "
-        <body>
-        <div id='1'>
-        </div>
-        
-        <h1>
-        <center> 
-        
-        <br>
-        <br>       
-        Félicitations, 
-        
-        <br>
-        <br> 
-        Vous avez passez le quiz de 
-        
-        <br>
-        <br>             
-        
-        Votre nombre de bonnes réponses est :  <h1> $res </h1>   
-        
+        $qt= count($qts);
+        $p=$res/count($qts)* 100;
 
-       
-        
-       <style>
-        body {
-          background-color: #E6E6FA;
-        }
-        #1 {
-             border-style : solid;
-             display : inline-block;
-             height : 0;
-             width : 0;
-             border-top : 80px solid #ff0000;
-             border-right : 180px solid transparent;
-             border-left : 180px solid transparent;
-        }
-        </style>
-        </center>
-        </h1>      
-        </body>
-        ";
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape');
-        $dompdf->render();
-        $dompdf->stream("codexworld",array("Attachment"=>0));
+
+
+
+
+
         return $this->render("quizz/res.html.twig",[
             'res' => $res/count($qts)* 100
         ]);
 
+
+
     }
     /**
      * @Route("/pdf", name="p_df", methods={"GET","POST"})
-     * @param Request $request
-     * @return Response
+
      */
-    public function pf(Request $request): Response
+    public function pf(Request $request)
     {
+        $res=$request->request->get('res');
+        $this->render("quizz/res.html.twig",[
+            'res' => $res
+        ]);
 
-        $dompdf = new Dompdf();
-        $html = "5555
-        "
-        ;
+
+
+
+        $html = "
+        <body>
+            <div id='1'/>        
+            <h1>
+                 <center> 
+                     <br><br>     
+                     Félicitations,
+                     <br><br>
+                     Vous avez passez le quiz avec un pourcentage de 100%                    
+                     <br><br>            
+                     Votre nombre de bonnes réponses est :  <h1> 2  sur  2 </h1> 
+                     <img src='https://www.pngrepo.com/png/285618/512/award-trophy.png', class='maissa'>
+                 </center>
+                     
+            </h1>             
+       <style>
+            body {
+            	background-color: #FFFFE0;
+              
+            }
+            #1{
+                 border-style : solid;
+                 display : inline-block;
+                 height : 0;
+                 width : 0;
+                 border-top : 80px solid brown;
+                 border-right : 180px solid transparent;
+                 border-left : 180px solid transparent;
+            }
+                .maissa{                
+                max-width: 200px;
+                height: 83px;
+                alignment:left; 
+                }
+            </style>
+        </body>
         
-
+        ";
+        $options = new Options();
+        $options->setIsRemoteEnabled(true);
+        $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
         $dompdf->stream("codexworld",array("Attachment"=>0));
 
     }
+    /**
+     * @Route("/retour", name="retour", )
+
+     */
+    public function retour(FlashyNotifier $flashy){
+        $flashy->success('Event created!', 'http://your-awesome-link.com');
+        return $this->render("quizz/index_front.html.twig");
+
+
+    }
+
+
 
 }

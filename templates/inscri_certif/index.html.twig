@@ -3,14 +3,14 @@
 {% block title %}InscriCertif index{% endblock %}
 
 {% block content %}
-    <h1>InscriCertif index</h1>
+    <center><h1>Personnes inscrites aux certificats</h1></center>
 
-    <table class="table">
+    <table class="table" border="0.5px solid #ddd">
         <thead>
-            <tr>
-                <th>IdInscri</th>
-                <th>NomUtilisateur</th>
-                <th>NomCertificat</th>
+            <tr style ="background-color: royalblue">
+                <th style ="color: white">IdInscri</th>
+                <th style ="color: white">NomUtilisateur</th>
+                <th style ="color: white">NomCertificat</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,8 +21,8 @@
                 <td>{{ inscri_certif.nomUtilisateur }}</td>
                 <td>{{ inscri_certif.nomCertificat }}</td>
                 <td>
-                    <a href="{{ path('inscri_certif_show', {'idInscri': inscri_certif.idInscri}) }}">show</a>
-                    <a href="{{ path('inscri_certif_edit', {'idInscri': inscri_certif.idInscri}) }}">edit</a>
+                    <a class="btn", href="{{ path('inscri_certif_show', {'idInscri': inscri_certif.idInscri}) }}">show</a>
+                    <a class="btn", href="{{ path('inscri_certif_edit', {'idInscri': inscri_certif.idInscri}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -32,6 +32,17 @@
         {% endfor %}
         </tbody>
     </table>
+    <center>
+        <a class="btn", href="{{ path('inscri_certif_new') }}">Create new</a>
+    </center>
 
-    <a href="{{ path('inscri_certif_new') }}">Create new</a>
+    <style>
+        .btn{
+
+            background:  #E66207;
+            color: #fff;
+            cursor: pointer;
+
+        }
+    </style>
 {% endblock %}

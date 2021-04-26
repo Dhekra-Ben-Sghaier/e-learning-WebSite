@@ -7,5 +7,14 @@
 
     {{ include('inscri_certif/_form.html.twig') }}
 
-    <a href="{{ path('inscri_certif_index') }}">back to list</a>
+    <a class="btn", href="{{ path('inscri_certif_index') }}">back to list</a>
+    <style>
+        .btn{
+
+            background:  #E66207;
+            color: #fff;
+            cursor: pointer;
+
+        }
+    </style>
 {% endblock %}

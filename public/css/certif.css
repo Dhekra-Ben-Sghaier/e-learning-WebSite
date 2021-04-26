@@ -1,0 +1,51 @@
+.imgpub {
+    overflow: hidden;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 260px;
+    height: 100%;
+    padding-top: 360px;
+    background-image: url("https://mingmandarin.com/wp-content/uploads/2020/10/Lets-learn-how-to-say-OOPS-in-Mandarin-Chinese.jpg");
+
+}
+.imgpub:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 900px;
+    height: 100%;
+    background-image: url("https://mingmandarin.com/wp-content/uploads/2020/10/Lets-learn-how-to-say-OOPS-in-Mandarin-Chinese.jpg");
+    background-size:cover;
+    transition: transform 1.2s ease-in-out;
+}
+.imgpub:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+.img__text {
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 100%;
+    padding: 0 20px;
+    text-align: center;
+    color: #fff;
+    transition: transform 1.2s ease-in-out;
+}
+.img__text h2 {
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+.img__text p {
+    font-size: 14px;
+    line-height: 1.5;
+}

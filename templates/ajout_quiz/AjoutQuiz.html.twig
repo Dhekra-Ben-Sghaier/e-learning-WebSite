@@ -6,7 +6,7 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <center><h2 class="card-title">Ajouter un nouveau Quiz</h2></center>
+                <center><h2 class="card-title"> Ajouter un Quiz</h2></center>
                 <p class="card-description">
                 </p>
                 <div class="form-group">
@@ -37,8 +37,28 @@
                     <label for="exampleInputName1">Reponse</label>
                     {{ form_widget(form.reponse, { 'attr': {'class': 'form-control'} }) }}
                 </div>
+                <br>
+                <center>
+                    <input type="submit" value="Valider" class="submit"/>
+                </center>
+                <style>
+                    .submit {
+                        margin-top: 40px;
+                        margin-bottom: 20px;
+                        background:  #E66207;
+                        text-transform: uppercase;
+                        display: block;
+                        margin: 0 auto;
+                        width: 200px;
+                        height: 36px;
+                        border-radius: 30px;
+                        color: #fff;
+                        font-size: 15px;
+                        cursor: pointer;
+                    }
 
-                <input type="submit" value="Valider" class=" btn btn-primary mr-2"/>
+
+                </style>
 
                 {{ form_end(form) }}
 
