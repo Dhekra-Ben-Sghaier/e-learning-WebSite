@@ -40,9 +40,9 @@ class OffreStageController extends AbstractController
         ]);
     }
     /**
-     * @Route("/offre/stage/add", name="add")
+     * @Route("/offre/stage/add/{id}", name="add",methods={"GET","POST"})
      */
-    public function addOffreStage( Request $request):Response{
+    public function addOffreStage(Request $request ,$id):Response{
         $Offre = new OffreStage();
 
 
@@ -69,7 +69,7 @@ class OffreStageController extends AbstractController
             $Offre->setDuree($interval->m);
             $Offre->setLogo($fichier);
             $Offre->setDatePub(new \DateTime());
-            $Offre->setIdSociete(1);
+            $Offre->setIdSociete($id);
             $Offre->setValide(0);
             $x=$this->getDoctrine()->getManager();
             $x->persist($Offre);
@@ -164,7 +164,7 @@ class OffreStageController extends AbstractController
                 $product->setLogo($fichier);
             }
             $entityManager->flush();
-            return $this->redirectToRoute("MyOffreStages");
+
         }
 
         return $this->render("offre_stage/add.html.twig", [
@@ -173,7 +173,7 @@ class OffreStageController extends AbstractController
         ]);
     }
     /**
-     * @Route("/offre/stage/deleteOffre/{id}", name="deleteOffre")
+     * @Route("/offre/stage/deleteOffre/{id}", name="deleteOffre",methods={"GET"})
      */
     public function DeleteOffre(int $id): Response
     {
@@ -182,7 +182,7 @@ class OffreStageController extends AbstractController
         $entityManager->remove($product);
         $entityManager->flush();
 
-        return $this->redirectToRoute("MyOffreStages");
+        return $this->redirectToRoute("OffreStages");
     }
     /**
      * @Route("/offre/stage/OffreStages", name="OffreStages")
@@ -205,9 +205,9 @@ class OffreStageController extends AbstractController
            ]);
    }
     /**
-     * @Route("/offre/stage/MyOffreStages/{id}", name="MyOffreStages")
+     * @Route("/offre/stage/MyOffreStages/{id}", name="MyOffreStages",methods={"GET"})
      */
-    public function ShowMyOffre(int $id =1, PaginatorInterface $paginator, Request $request): Response
+    public function ShowMyOffre($id , PaginatorInterface $paginator, Request $request): Response
     {
         $Offre = $this->getDoctrine()->getRepository(OffreStage::class)->GetOSById($id);
         $ListOffres = $paginator->paginate(
@@ -221,7 +221,7 @@ class OffreStageController extends AbstractController
         ]);
     }
     /**
-     * @Route("/offre/stage/Modify/{id}", name="Modify")
+     * @Route("/offre/stage/Modify/{id}", name="Modify",methods={"GET"})
      */
     public function Modify($id): Response
     {
@@ -235,7 +235,7 @@ class OffreStageController extends AbstractController
     public function sendEmail( $mailer, $objet, $to, $msg)
     {
         $message = (new \Swift_Message($objet))
-            ->setFrom('pidevbrainovation@gmail.com')
+            ->setFrom('brainovation21@gmail.com')
             ->setTo($to)
             ->setBody($msg)
         ;

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'personnes/indexuser.html.twig' %}
 {% block title %}Devworks{% endblock %}
 {% block body %}
 
@@ -49,7 +49,7 @@
                         <a href="{{ path('modifyOffreTravail', {'id': OffreTravail.idTravail}) }}" class="btn btn-primary btn-icon-split">
                             <span class="text">Modifier</span>
                         </a>
-                        <a href="{{ path('deleteOffreTR', {'id': OffreTravail.idTravail}) }}" class="btn btn-danger btn-icon-split">
+                        <a href="{{ path('deleteOffreTR', {'id': OffreTravail.idTravail,'iduser':app.user.idUser}) }}" class="btn btn-danger btn-icon-split">
                             <span class="text">Supprimer</span>
                         </a>
                     </div>

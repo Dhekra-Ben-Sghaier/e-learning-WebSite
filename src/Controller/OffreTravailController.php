@@ -34,9 +34,9 @@ class OffreTravailController extends AbstractController
     }
 
     /**
-     * @Route("/offre/travail/addOT", name="addOT")
+     * @Route("/offre/travail/addOT/{id}", name="addOT",methods={"GET","POST"})
      */
-    public function addOffreStage(Request $request): Response
+    public function addOffreStage(Request $request,$id): Response
     {
         $Offre = new OffreTravail();
 
@@ -63,7 +63,7 @@ class OffreTravailController extends AbstractController
             $Offre->setLogo($fichier);
 
             $Offre->setDatePub(new \DateTime());
-            $Offre->setIdSociete(1);
+            $Offre->setIdSociete($id);
             $Offre->setValide(0);
             $x = $this->getDoctrine()->getManager();
             $x->persist($Offre);
@@ -84,9 +84,9 @@ class OffreTravailController extends AbstractController
     }
 
     /**
-     * @Route("/offre/travail/MyOffreTravails/{id}", name="MyOffreTravails")
+     * @Route("/offre/travail/MyOffreTravails/{id}", name="MyOffreTravails",methods={"GET"})
      */
-    public function ShowMyOffre(int $id = 1): Response
+    public function ShowMyOffre($id ): Response
     {
         $ListOffres = $this->getDoctrine()->getRepository(OffreTravail::class)->GetOTById($id);
 
@@ -139,7 +139,7 @@ class OffreTravailController extends AbstractController
     }
 
     /**
-     * @Route("/offre/travail/deleteOffreTBack/{id}", name="deleteOffreTBack")
+     * @Route("/offre/travail/deleteOffreTBack/{id}", name="deleteOffreTBack",methods={"GET","POST"})
      */
     public function DeleteOffreTBack(int $id): Response
     {
@@ -195,7 +195,7 @@ class OffreTravailController extends AbstractController
                 $product->setLogo($fichier);
             }
             $entityManager->flush();
-            return $this->redirectToRoute("MyOffreTravails");
+
         }
 
         return $this->render("offre_travail/addOT.html.twig", [
@@ -205,16 +205,16 @@ class OffreTravailController extends AbstractController
     }
 
     /**
-     * @Route("/offre/travail/deleteOffreTR/{id}", name="deleteOffreTR")
+     * @Route("/offre/travail/deleteOffreTR/{id}/{iduser}", name="deleteOffreTR",methods={"GET","POST"})
      */
-    public function DeleteOffreTR(int $id): Response
+    public function DeleteOffreTR(int $id,$iduser): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $product = $entityManager->getRepository(OffreTravail::class)->find($id);
         $entityManager->remove($product);
         $entityManager->flush();
 
-        return $this->redirectToRoute("MyOffreTravails");
+        return $this->redirectToRoute("OffreTravails");
     }
 
     /**
@@ -284,7 +284,7 @@ class OffreTravailController extends AbstractController
     public function sendEmail( $mailer, $objet, $to, $msg)
     {
         $message = (new \Swift_Message($objet))
-            ->setFrom('pidevbrainovation@gmail.com')
+            ->setFrom('brainovation21@gmail.com')
             ->setTo($to)
             ->setBody($msg)
         ;

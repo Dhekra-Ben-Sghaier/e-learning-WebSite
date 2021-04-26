@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a5e618f0a75f0071abbcd67298cd9a36",
+    "content-hash": "14e0e5295ced9137f09a32c853cfa6cb",
     "packages": [
         {
             "name": "captcha-com/captcha",
@@ -1820,8 +1820,9 @@
                 "source": "https://github.com/avalanche123/Imagine/tree/1.2.4"
             },
             "time": "2020-11-03T22:35:03+00:00"
-        }, 
-        {   "name": "knplabs/knp-components",
+        },
+        {
+            "name": "knplabs/knp-components",
             "version": "v3.0.2",
             "source": {
                 "type": "git",
@@ -1861,23 +1862,23 @@
                 "symfony/property-access": "To allow sorting arrays"
             },
             "type": "library",
-             "extra": {
+            "extra": {
                 "branch-alias": {
                     "dev-master": "3.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                 "Knp\\Component\\": "src/Knp/Component"
-
-            }
+                    "Knp\\Component\\": "src/Knp/Component"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
-                { "name": "KnpLabs Team",
+                {
+                    "name": "KnpLabs Team",
                     "homepage": "https://knplabs.com"
                 },
                 {
@@ -1899,7 +1900,8 @@
                 "source": "https://github.com/KnpLabs/knp-components/tree/v3.0.2"
             },
             "time": "2021-03-16T13:52:01+00:00"
-        },{
+        },
+        {
             "name": "knplabs/knp-paginator-bundle",
             "version": "v5.4.2",
             "source": {
@@ -1934,19 +1936,20 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "5.x-dev"
- }
+                }
             },
             "autoload": {
                 "psr-4": {
- "Knp\\Bundle\\PaginatorBundle\\": "src"
- }
+                    "Knp\\Bundle\\PaginatorBundle\\": "src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
-                { "name": "KnpLabs Team",
+                {
+                    "name": "KnpLabs Team",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -1970,8 +1973,7 @@
                 "source": "https://github.com/KnpLabs/KnpPaginatorBundle/tree/v5.4.2"
             },
             "time": "2020-12-17T08:19:16+00:00"
-},
-
+        },
         {
             "name": "laminas/laminas-code",
             "version": "4.1.0",

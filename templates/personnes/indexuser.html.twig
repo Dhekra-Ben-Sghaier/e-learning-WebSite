@@ -37,6 +37,7 @@
         {#{{ encore_entry_script_tags('app') }}#}
     {% endblock %}
 </head>
+
 <body>
 <link href="{{ asset("css/form.css") }}" rel="stylesheet">
 {% block navBar %}
@@ -63,8 +64,8 @@
 
                     <li class="dropdown"><a href="#"><span>Offres</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a href="#">Stages</a></li>
-                            <li><a href="#">Travails</a></li>
+                            <li><a href="{{ path('OffreStages') }}">Stages</a></li>
+                            <li><a href="{{ path('OffreTravails') }}">Travails</a></li>
                         </ul>
                     </li>
                     <li class="dropdown"><a href="#"><span>Reclamations</span> <i class="bi bi-chevron-down"></i></a>
@@ -84,7 +85,11 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% if(app.user.role=="societe") %}
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ app.user.nomSociete }} </span>
+                        {% else %}
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ app.user.prenom }}  {{ app.user.nom }}</span>
+                        {% endif %}
                         <div class="overlayy">
                             <img  class="img-profile rounded-circle" src="{{ asset('uploads/' ~  app.user.photo) }}" alt="" >
 
@@ -107,6 +112,25 @@
                             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                             Formations
                         </a>
+                        {% if (app.user.role=="societe") %}
+
+                            <a class="dropdown-item" href="{{ path('MyOffreStages',{'id': app.user.idUser}) }}" >
+                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                             Offres de stages
+                            </a>
+                            <a class="dropdown-item" href="{{ path('MyOffreTravails' ,{'id': app.user.idUser}) }}" >
+                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                               Offres de travails
+                            </a>
+                            <a class="dropdown-item" href="{{ path('add', {'id': app.user.idUser}) }}" >
+                                <i class="fas fa-add fa-sm fa-fw mr-2 text-gray-400"></i>
+                               Ajouter Stage
+                            </a>
+                            <a class="dropdown-item" href="{{ path('addOT', {'id': app.user.idUser}) }}" >
+                                <i class="fas fa-add fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Ajouter Travail
+                            </a>
+                        {% endif %}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ path('app_logout') }}" >
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -123,8 +147,7 @@
     </header><!-- End Header -->
     <br>
     <br>
-    <br>
-    <br>
+
 {% endblock %}
 {% block body %}{% endblock %}
 {% block footer %}
