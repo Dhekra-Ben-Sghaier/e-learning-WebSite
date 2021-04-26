@@ -30,5 +30,15 @@ class PostulerStage
      */
     private $idSociete;
 
+    public function getIdStage(): ?int
+    {
+        return $this->idStage;
+    }
+
+    public function getIdSociete(): ?int
+    {
+        return $this->idSociete;
+    }
+
 
 }

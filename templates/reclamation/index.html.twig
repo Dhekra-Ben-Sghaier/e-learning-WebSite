@@ -1,20 +1,60 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
-{% block title %}Hello ReclamationController!{% endblock %}
+{% block title %}Reclamation index{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block content %}
+    <h1>Reclamation index</h1>
+<form method="post" action="{{ path ('recherche') }}">
+    <label>Rechercher</label>
+    <input type="text" name="search"><input type="submit" value="Recherche">
+</form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdReclamation</th>
+                <th>Adressem</th>
+                <th>Examen</th>
+                <th>Date</th>
+                <th>NomFormateur</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.idReclamation }}</td>
+                <td>{{ reclamation.adressem }}</td>
+                <td>{{ reclamation.examen }}</td>
+                <td>{{ reclamation.date }}</td>
+                <td>{{ reclamation.nomFormateur }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>
+                    <a href="{{ path('reclamation_show', {'idReclamation': reclamation.idReclamation}) }}">show</a>
+                    <a href="{{ path('reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            </tr>
+        {% endfor %}
+        </tbody>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/benha/Desktop/PidevBrainovationweb/PidevWeb/src/Controller/ReclamationController.php'|file_link(0) }}">src/Controller/ReclamationController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/benha/Desktop/PidevBrainovationweb/PidevWeb/templates/reclamation/index.html.twig'|file_link(0) }}">templates/reclamation/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <tr>
+
+        </tr>
+
+    </table>
+
+
+    {{ knp_pagination_render(reclamations) }}
 {% endblock %}
+
+
+
+
+
+
+
+

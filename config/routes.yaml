@@ -1,3 +1,7 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+recherche:
+  path: /recherche
+  # the controller value has the format 'controller_class::method_name'
+  controller: App\Controller\ReclamationController::Rec
