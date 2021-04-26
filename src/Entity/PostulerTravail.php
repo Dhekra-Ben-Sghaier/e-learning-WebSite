@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * PostulerTravail
  *
  * @ORM\Table(name="postuler_travail")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PostulerTravailRepository")
  */
 class PostulerTravail
 {
@@ -30,15 +30,38 @@ class PostulerTravail
      */
     private $idSociete;
 
-    public function getIdTravail(): ?int
+    /**
+     * @return int
+     */
+    public function getIdTravail(): int
     {
         return $this->idTravail;
     }
 
-    public function getIdSociete(): ?int
+    /**
+     * @param int $idTravail
+     */
+    public function setIdTravail(int $idTravail): void
+    {
+        $this->idTravail = $idTravail;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdSociete(): int
     {
         return $this->idSociete;
     }
+
+    /**
+     * @param int $idSociete
+     */
+    public function setIdSociete(int $idSociete): void
+    {
+        $this->idSociete = $idSociete;
+    }
+
 
 
 }

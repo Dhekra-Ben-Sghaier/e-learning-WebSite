@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block title %}Devworks{% endblock %}
+{% block body %}
+
+    <div class="breadcrumbs" >
+        <div class="container">
+            <h2>Details offre</h2>
+        </div>
+    </div>
+    <section id="course-details" class="course-details">
+        <div class="container" >
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <img src="/uploads/{{ OffreTravail.logo }}" class="img-fluid" alt="Image">
+                    <h3>Titre : {{ OffreTravail.titre }}</h3>
+                    <h5>Description :<br>{{ OffreTravail.description}}</h5>
+                </div>
+                <div class="col-lg-4">
+
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Nom société</h5>
+                        <p>{{ OffreTravail.nomSoc }}</p>
+                    </div>
+
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Adresse mail</h5>
+                        <p>{{ OffreTravail.adrSoc }}</p>
+                    </div>
+
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Date publication</h5>
+                        <p>{{ OffreTravail.datePub|date("d/m/Y") }}</p>
+                    </div>
+
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Niveau d'étude</h5>
+                        <p>{{ OffreTravail.nivEtude }}</p>
+                    </div>
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Certificat demandé </h5>
+                        <p>{{ OffreTravail.certificat }}</p>
+                    </div>
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Type contrat</h5>
+                        <p>{{ OffreTravail.typeContrat }}</p>
+                    </div>
+                    {{ form(form) }}
+
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}

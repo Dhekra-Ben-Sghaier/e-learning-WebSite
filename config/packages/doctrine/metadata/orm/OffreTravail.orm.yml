@@ -86,4 +86,11 @@ OffreTravail:
             nullable: false
             options:
                 unsigned: false
+        logo:
+            type: blob
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+            column: Logo
     lifecycleCallbacks: {  }
