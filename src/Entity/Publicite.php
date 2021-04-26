@@ -62,7 +62,14 @@ class Publicite
      * @ORM\Column(name="image", type="blob", length=0, nullable=true, options={"default"="NULL"})
      */
     private $image = 'NULL';
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imagee", type="string", length=50, nullable=true)
+     */
+    private $imagee;
 
+    /**
     /**
      * @var int|null
      *
@@ -108,6 +115,7 @@ class Publicite
     {
         $this->nom = $nom;
     }
+
 
     /**
      * @return string
@@ -217,6 +225,22 @@ class Publicite
     public function setLien(?string $lien): void
     {
         $this->lien = $lien;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImagee(): string
+    {
+        return $this->imagee;
+    }
+
+    /**
+     * @param string $imagee
+     */
+    public function setImagee(string $imagee): void
+    {
+        $this->imagee = $imagee;
     }
 
 

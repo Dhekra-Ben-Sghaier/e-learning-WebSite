@@ -65,17 +65,50 @@ class PubliciteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           /* $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($publicite);
-            $entityManager->flush();*/
+            $file = $publicite->getImage();
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $images = $form->get('image')->getData();
+
+            // On boucle sur les images
+            foreach ($images as $image) {
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+
+                // On crée l'image dans la base de données
+
+                $publicite->setImagee($fichier);
+            }
             $aff=$publicite->getAffichage();
             $prix = 2000 * $aff;
             $publicite->setPrix($prix);
+            $entityManager->persist($publicite);
+            $entityManager->flush();
+            $CH = str_replace('.','-',$publicite->getEmail());
+$path='PIC/'.$CH.'/';
+$File=scandir($path);
+$i=0;
+if (sizeof($File)>2)
+{
+    for ($j=2;$j<sizeof($File);$j++)
+    {
+        $Fichier[$i]='/PIC/'.$CH.'/'.$File[$j];
+    }
+}
 
             return $this->render('publicite/prix.html.twig', [
                 'prix' => $prix,
                 'publicite' => $publicite,
                 'form' => $form->createView(),
+                'email'=>$publicite->getEmail()
             ]);
 
         }
@@ -87,8 +120,8 @@ class PubliciteController extends AbstractController
     }
 
     /**
-     * @Route("/pub_prix/{nom}/{prenom}/{prix}/{affichage}/{email}/{lien}/{domaine}", name="publicite_prix" ,methods={"GET","POST"})
-     *@ParamConverter("nom",class="Publicite", options={"nom": "nom"})
+     * @Route("/pub_prix/{nom}/{prenom}/{prix}/{affichage}/{email}/{lien}/{domaine}", name="publicite_prix" ,methods={"GET","POST"},requirements={"nom"="[a-zA-Z]+"})
+     *
      */
     public function pub_prix(Publicite $pub): Response
     { $pub->setPrix(prix);
@@ -120,13 +153,53 @@ class PubliciteController extends AbstractController
     /**
      * @Route("/pub_carousel/{id}", name="publicite_carousel")
      */
-    public function pub_carousel(Publicite $pub)
+    public function pub_carousel($id)
     {
-        $image = base64_encode(stream_get_contents($pub->getImage()));
+        $CH = str_replace('.','-',$id);
+        $path='PIC/'.$CH.'/';
+        $File=scandir($path);
+        $i=0;
+        if (sizeof($File)>2)
+        {
+            for ($j=2;$j<sizeof($File);$j++)
+            {
+                $Fichier[$i]='/PIC/'.$CH.'/'.$File[$j];
+                $i++;
+            }
+        }
+
+        /*$image = base64_encode(stream_get_contents($pub->getImage()));*/
         return $this->render('publicite/carousel.html.twig',[
-            'image' => $image
+            'fichier' => $Fichier
         ]);
     }
+
+    /**
+     * @Route ("/Folder",name="Folder")
+     */
+    function makedir(Request $request)
+    {
+$CH = str_replace('.','-',$_POST['id']);
+        mkdir('PIC\\'.$CH);
+        $response = true;
+        return new Response(json_encode($response));
+    }
+
+    /**
+     * @Route ("/UpFileToFolder",name="UpFileToFolder")
+     */
+    function Upload(Request $request)
+    {
+        $CH = str_replace('.','-',$_POST['id']);
+        if (0 < $_FILES['file']['error']) {
+            echo 'Error: ' . $_FILES['file']['error'] . '<br>';
+        } else {
+            move_uploaded_file($_FILES['file']['tmp_name'], 'PIC\\'.$CH.'\\'. $_FILES['file']['name']);
+        }
+        $response = true;
+        return new Response(json_encode($response));
+    }
+
     /**
      * @Route("/{id}", name="publicite_show", methods={"GET"})
      */

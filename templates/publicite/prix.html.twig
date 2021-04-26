@@ -2,11 +2,10 @@
 
 {% block body %}
 
-     <h1>Publicite</h1>
+     <h1 align="center"><span style='color: #E66207'>"La nouvelle annonce de publicité"</span></h1>
 
     <table class="table">
         <tbody>
-
             <tr>
                 <th> {{form_label(form.nom)}}</th>
                 <td>{{form_widget(form.nom,{'attr': {'class': 'form-control'}})}}</td>
@@ -45,5 +44,9 @@
 	<h1>Le prix de la publicité est
 		{{ prix }} TND
 	</h1>
+   <a href="{{ path('export',{'nom': publicite.nom,'prenom': publicite.prenom, 'email': publicite.email,'affichage': publicite.affichage}) }}"><button  class="btn btn-success">Exporter</button></a>
+
+
     <a href="{{ path('publicite_prix', {'nom': publicite.nom,'prenom': publicite.prenom,'prix': publicite.prix,'affichage': publicite.affichage , 'email': publicite.email,'lien': publicite.lien ,'domaine': publicite.domaine }) }}" class="btn btn-primary">Retour à liste</a><br>
+    <a href="{{ path('publicite_carousel',{'id': publicite.email}) }}"><button class="btn btn-outline-info">ShowMe</button></a>
 {% endblock %}
