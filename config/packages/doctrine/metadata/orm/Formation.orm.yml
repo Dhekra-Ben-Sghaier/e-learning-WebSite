@@ -41,6 +41,9 @@ Formation:
             options:
                 fixed: false
                 default: 'NULL'
+        certificat:
+            type: boolean
+            nullable: true
         image:
             type: string
             nullable: false

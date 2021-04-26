@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Devworks{% endblock %}
+
+{% block body %}
+    <div class="breadcrumbs" >
+    <div class="container">
+        <h2>{{ form_title }}</h2>
+    </div>
+</div>
+    <div class="site-wrap">
+    <div class="site-section">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+        <div class="row">
+
+                {{ form(form)}}
+
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+{% endblock %}

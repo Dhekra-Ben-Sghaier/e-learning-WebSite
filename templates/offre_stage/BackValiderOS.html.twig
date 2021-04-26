@@ -1,0 +1,83 @@
+{% extends 'base_admin.html.twig' %}
+{% block title %}Devworks{% endblock %}
+{% block content %}
+
+<html lang="en">
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Liste des offres à valider</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Nom société</th>
+                                            <th>Adresse</th>
+                                            <th>Adresse mail</th>
+                                            <th>Date debut</th>
+                                            <th>Date fin</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Nom société</th>
+                                            <th>Adresse</th>
+                                            <th>Adresse mail</th>
+                                            <th>Date debut</th>
+                                            <th>Date fin</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    {% for OffreStage in Offres %}
+                                        <tr>
+                                            <td><a href="{{ path('BackShowOffre', {'id': OffreStage.idStage}) }}"> {{OffreStage.titre }}</a></td>
+                                            <td>{{OffreStage.nomSoc }}</td>
+                                            <td>{{OffreStage.adrSoc }}</td>
+                                            <td>{{OffreStage.adrMailSoc }}</td>
+                                            <td>{{ OffreStage.dateDebut|date("d/m/Y") }}</td>
+                                            <td>{{ OffreStage.dateFin|date("d/m/Y") }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+
+
+
+         </div>
+
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>
+
+
+
+{% endblock %}
