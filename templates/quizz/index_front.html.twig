@@ -2,20 +2,20 @@
 
 {% block body %}
     <h1><center>Passer Quiz</center></h1>
-<div class="form-control">
-    <center>
-    <form action="{{ path('question') }}" method="post" class="form-group">
-        <select name="quiz" id="quiz">
-            <option value="1">Addition</option>
-            <option value="2">Soustraction</option>
-            <option value="3">Multiplication</option>
-        </select>
-        <br>
-        <br>
-    <input type="submit" value="Passer" class="submit">
-    </form>
-    </center>
-</div>
+    <div class="form-control">
+        <center>
+            <form action="{{ path('question') }}" method="post" class="form-group">
+                <select name="quiz" id="quiz">
+                    <option value="1">Addition</option>
+                    <option value="2">Soustraction</option>
+                    <option value="3">Multiplication</option>
+                </select>
+                <br>
+                <br>
+                <input type="submit" value="Passer" class="submit">
+            </form>
+        </center>
+    </div>
     <style>
         .submit {
             margin-top: 40px;
@@ -33,5 +33,5 @@
         }
     </style>
 
-    
+
 {% endblock %}

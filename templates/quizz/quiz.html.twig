@@ -2,25 +2,25 @@
 
 {% block body %}
     <center>
-<form action="{{ path('res', {'id' : idquiz}) }}" method="post">
+        <form action="{{ path('res', {'id' : idquiz}) }}" method="post">
 
-    {% for question in questions %}
-        <p class="normal">
-        {{question.question}} :</p> <br>
+            {% for question in questions %}
+                <p class="normal">
+                    {{question.question}} :</p> <br>
 
-        <input type="radio" name="rep{{i}}" value={{question.option1}}>{{question.option1}} <br>
-        <input type="radio" name="rep{{i}}" value={{question.option2}}>{{question.option2}} <br>
-        <input type="radio" name="rep{{i}}" value={{question.option3}}>{{question.option3}} <br>
-        <input type="radio" name="rep{{i}}" value={{question.option4}}>{{question.option4}} <br>
+                <input type="radio" name="rep{{i}}" value={{question.option1}}>{{question.option1}} <br>
+                <input type="radio" name="rep{{i}}" value={{question.option2}}>{{question.option2}} <br>
+                <input type="radio" name="rep{{i}}" value={{question.option3}}>{{question.option3}} <br>
+                <input type="radio" name="rep{{i}}" value={{question.option4}}>{{question.option4}} <br>
 
-        <input type="radio" name="rep{{i}}" value={{question.reponse}} hidden> <br>
-        <hr class="dashed">
+                <input type="radio" name="rep{{i}}" value={{question.reponse}} hidden> <br>
+                <hr class="dashed">
 
-        {% set i = i + 1 %}
-    {% endfor %}
-    <input type="text" name="res" id="res" hidden>
-    <input type="submit" value="Résultat" onclick="f({{n}})" class="submit">
-    </form>
+                {% set i = i + 1 %}
+            {% endfor %}
+            <input type="text" name="res" id="res" hidden>
+            <input type="submit" value="Résultat" onclick="f({{n}})" class="submit">
+        </form>
     </center>
 
     <script>

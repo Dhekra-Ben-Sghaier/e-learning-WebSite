@@ -3,11 +3,18 @@
 {% block body %}
 
     <center>
+
         {% if res >= 80  %}
-        <h1>Félicitations votre score est {{ res }} %</h1>
+            <h1>Félicitations votre score est {{ res }} %</h1>
+            <a href="{{ path('p_df') }}"> imprimer</a>
+            <h1> {{ res }} </h1>
+
+
         {% else %}
             <h1>Malheuresement , vous avez echoué ,  votre score est {{ res }} %</h1>
+
         {% endif %}
+
 
     </center>
 

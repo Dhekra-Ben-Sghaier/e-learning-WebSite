@@ -7,7 +7,7 @@ use App\Entity\Quizz;
 use App\Form\QuestionnType;
 use App\Form\QuizType;
 use Dompdf\Dompdf;
-use Dompdf\Options;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,6 +44,7 @@ class AjouterQuizController extends AbstractController
             $entityManager->persist($question);
             $entityManager->flush();
 
+            return $this->redirectToRoute('inscri_certif_index');
         }
 
         return $this->render('ajout_quiz/AjoutQuiz.html.twig', [
@@ -62,6 +63,7 @@ class AjouterQuizController extends AbstractController
             $entityManager->persist($quiz);
             $entityManager->flush();
 
+            return $this->redirectToRoute('inscri_certif_index');
         }
 
         return $this->render('ajout_quiz/AjoutQuiz.html.twig', [
@@ -116,17 +118,79 @@ class AjouterQuizController extends AbstractController
     public function res($id , Request $request){
         $res=$request->request->get('res');
         $qts = $this->getDoctrine()->getRepository(Questionn::class)->findBy(['idquiz' =>$id]);
-
-        return $this->render("quizz/res.html.twig",[
+        $dompdf = new Dompdf();
+        $this->render("quizz/res.html.twig",[
             'res' => $res/count($qts)* 100 
+        ]);
+        $html = "
+        <body>
+        <div id='1'>
+        </div>
+        
+        <h1>
+        <center> 
+        
+        <br>
+        <br>       
+        Félicitations, 
+        
+        <br>
+        <br> 
+        Vous avez passez le quiz de 
+        
+        <br>
+        <br>             
+        
+        Votre nombre de bonnes réponses est :  <h1> $res </h1>   
+        
+
+       
+        
+       <style>
+        body {
+          background-color: #E6E6FA;
+        }
+        #1 {
+             border-style : solid;
+             display : inline-block;
+             height : 0;
+             width : 0;
+             border-top : 80px solid #ff0000;
+             border-right : 180px solid transparent;
+             border-left : 180px solid transparent;
+        }
+        </style>
+        </center>
+        </h1>      
+        </body>
+        ";
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("codexworld",array("Attachment"=>0));
+        return $this->render("quizz/res.html.twig",[
+            'res' => $res/count($qts)* 100
         ]);
 
     }
     /**
      * @Route("/pdf", name="p_df", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function pf(Request $request): Response
     {
+
+        $dompdf = new Dompdf();
+        $html = "5555
+        "
+        ;
+        
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("codexworld",array("Attachment"=>0));
 
     }
 
