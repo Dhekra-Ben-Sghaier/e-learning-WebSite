@@ -1,12 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 {% block title %}Devworks{% endblock %}
-{% block body %}
-
-    <div class="breadcrumbs" >
-        <div class="container">
-            <h2>Details offre</h2>
-        </div>
-    </div>
+{% block content %}
     <section id="course-details" class="course-details">
         <div class="container" >
 
@@ -49,7 +43,14 @@
                         <h5>Date debut</h5>
                         <p>{{ OffreStage.dateDebut|date("d/m/Y") }}</p>
                     </div>
-                    {{ form(form) }}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ path('validerOffre', {'id': OffreStage.idStage}) }}" class="btn btn-primary btn-icon-split">
+                            <span class="text">Valider</span>
+                        </a>
+                        <a href="{{ path('deleteOffreBack', {'id': OffreStage.idStage}) }}" class="btn btn-danger btn-icon-split">
+                            <span class="text">Supprimer</span>
+                        </a>
+                    </div>
 
 
                 </div>

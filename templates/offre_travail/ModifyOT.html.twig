@@ -12,44 +12,47 @@
 
             <div class="row">
                 <div class="col-lg-8">
-                    <img src="/uploads/{{ OffreStage.logo }}" class="img-fluid" alt="Image">
-                    <h3>Titre : {{ OffreStage.titre }}</h3>
-                    <h5>Description :<br>{{ OffreStage.description}}</h5>
+                    <img src="/uploads/{{ OffreTravail.logo }}" class="img-fluid" alt="Image">
+                    <h3>Titre : {{ OffreTravail.titre }}</h3>
+                    <h5>Description :<br>{{ OffreTravail.description}}</h5>
                 </div>
                 <div class="col-lg-4">
 
                     <div class="course-info d-flex justify-content-between align-items-center">
                         <h5>Nom société</h5>
-                        <p>{{ OffreStage.nomSoc }}</p>
+                        <p>{{ OffreTravail.nomSoc }}</p>
                     </div>
 
                     <div class="course-info d-flex justify-content-between align-items-center">
                         <h5>Adresse mail</h5>
-                        <p>{{ OffreStage.adrSoc }}</p>
+                        <p>{{ OffreTravail.adrSoc }}</p>
                     </div>
 
                     <div class="course-info d-flex justify-content-between align-items-center">
                         <h5>Date publication</h5>
-                        <p>{{ OffreStage.datePub|date("d/m/Y") }}</p>
+                        <p>{{OffreTravail.datePub|date("d/m/Y") }}</p>
                     </div>
 
                     <div class="course-info d-flex justify-content-between align-items-center">
                         <h5>Niveau d'étude</h5>
-                        <p>{{ OffreStage.nivEtude }}</p>
+                        <p>{{ OffreTravail.nivEtude }}</p>
                     </div>
                     <div class="course-info d-flex justify-content-between align-items-center">
                         <h5>Certificat demandé </h5>
-                        <p>{{ OffreStage.certificat }}</p>
+                        <p>{{ OffreTravail.certificat }}</p>
                     </div>
                     <div class="course-info d-flex justify-content-between align-items-center">
-                        <h5>Durée de stage</h5>
-                        <p>{{ OffreStage.duree }} mois</p>
+                        <h5>Type contrat</h5>
+                        <p>{{ OffreTravail.typeContrat }} </p>
                     </div>
-                    <div class="course-info d-flex justify-content-between align-items-center">
-                        <h5>Date debut</h5>
-                        <p>{{ OffreStage.dateDebut|date("d/m/Y") }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ path('modifyOffreTravail', {'id': OffreTravail.idTravail}) }}" class="btn btn-primary btn-icon-split">
+                            <span class="text">Modifier</span>
+                        </a>
+                        <a href="{{ path('deleteOffreTR', {'id': OffreTravail.idTravail}) }}" class="btn btn-danger btn-icon-split">
+                            <span class="text">Supprimer</span>
+                        </a>
                     </div>
-                    {{ form(form) }}
 
 
                 </div>

@@ -51,7 +51,6 @@ class OffreStageType extends AbstractType
                 ]])
             ->add('dateDebut')
             ->add('dateFin')
-            ->add('duree', NumberType::class, ['attr'=>['class'=>'form-control form-control-lg']])
             ->add('logo', Filetype::class,[
                 'label' => false,
                 'multiple' => true,

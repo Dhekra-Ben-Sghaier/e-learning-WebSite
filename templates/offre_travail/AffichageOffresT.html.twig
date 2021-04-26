@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block title %}Devworks{% endblock %}
+
+{% block body %}
+
+    <div class="breadcrumbs">
+        <div class="container" >
+            <h2>Listes des offres de travails</h2>
+        </div>
+    </div>
+    <div class="container" >
+        <div class="section">
+            <a href="{{ path('addOT') }}" class="btn btn-primary btn-icon-split">
+                <span class="text">Ajouter une offre</span>
+            </a>
+            <a href="{{ path('MyOffreTravails') }}" class="btn btn-primary btn-icon-split">
+                <span class="text">Modifier mes offres</span>
+            </a>
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+
+                    <div class="row">
+
+                        {{ form(search_form)}}
+                    </div>
+                </div>
+            </div>
+            {% if app.request.method == 'POST' %}
+
+
+                {% if Offres |length == 0 %}
+                    <h1>Aucune offre disponible</h1>
+                {% else %}
+                    <h1>Resultat de la recherche</h1>
+                    <section id="courses" class="courses">
+                        <div class="container"  >
+                            <div class="row"  data-aos-delay="100">
+
+
+                                {% for OffreTravail in Offres %}
+                                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                                        <div class="course-item">
+                                            <img src="/uploads/{{ OffreTravail.logo }}" class="img-fluid" alt="Image">
+                                            <div class="course-content">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <h4>{{OffreTravail.titre }}</h4>
+                                                    <p class="price">Date:{{ OffreTravail.datePub|date("d/m/Y")  }}</p>
+                                                </div>
+
+                                                <h3><a href="{{ path('OffreTravail', {'id': OffreTravail.idTravail}) }}"> {{OffreTravail.nomSoc }}</a></h3>
+                                                <p>Description :{{ OffreTravail.description}}</p>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+
+
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block Javascrippt %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function (){
+            $('select').formSelect();
+        });
+    </script>
+{% endblock %}

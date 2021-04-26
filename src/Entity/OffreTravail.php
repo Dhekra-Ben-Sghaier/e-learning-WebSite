@@ -50,9 +50,9 @@ class OffreTravail
     private $description;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="Date_pub", type="string", length=500, nullable=false)
+     * @ORM\Column(name="Date_pub", type="date", length=500, nullable=false)
      */
     private $datePub;
 
@@ -101,158 +101,220 @@ class OffreTravail
     /**
      * @var string
      *
-     * @ORM\Column(name="Logo", type="blob", length=65535, nullable=false)
+     * @ORM\Column(name="Logo", type="string", length=65535, nullable=false)
      */
     private $logo;
 
+    /**
+     * @return int
+     */
     public function getIdTravail(): ?int
     {
         return $this->idTravail;
     }
 
+    /**
+     * @param int $idTravail
+     */
+    public function setIdTravail(int $idTravail): void
+    {
+        $this->idTravail = $idTravail;
+    }
+
+    /**
+     * @return string
+     */
     public function getNomSoc(): ?string
     {
         return $this->nomSoc;
     }
 
-    public function setNomSoc(string $nomSoc): self
+    /**
+     * @param string $nomSoc
+     */
+    public function setNomSoc(string $nomSoc): void
     {
         $this->nomSoc = $nomSoc;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getAdrMailSoc(): ?string
     {
         return $this->adrMailSoc;
     }
 
-    public function setAdrMailSoc(string $adrMailSoc): self
+    /**
+     * @param string $adrMailSoc
+     */
+    public function setAdrMailSoc(string $adrMailSoc): void
     {
         $this->adrMailSoc = $adrMailSoc;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getAdrSoc(): ?string
     {
         return $this->adrSoc;
     }
 
-    public function setAdrSoc(string $adrSoc): self
+    /**
+     * @param string $adrSoc
+     */
+    public function setAdrSoc(string $adrSoc): void
     {
         $this->adrSoc = $adrSoc;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
-    public function getDatePub(): ?string
+    /**
+     * @return \DateTime
+     */
+    public function getDatePub(): \DateTime
     {
         return $this->datePub;
     }
 
-    public function setDatePub(string $datePub): self
+    /**
+     * @param \DateTime $datePub
+     */
+    public function setDatePub(\DateTime $datePub): void
     {
         $this->datePub = $datePub;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getNivEtude(): ?string
     {
         return $this->nivEtude;
     }
 
-    public function setNivEtude(string $nivEtude): self
+    /**
+     * @param string $nivEtude
+     */
+    public function setNivEtude(string $nivEtude): void
     {
         $this->nivEtude = $nivEtude;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getCertificat(): ?string
     {
         return $this->certificat;
     }
 
-    public function setCertificat(string $certificat): self
+    /**
+     * @param string $certificat
+     */
+    public function setCertificat(string $certificat): void
     {
         $this->certificat = $certificat;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getTypeContrat(): ?string
     {
         return $this->typeContrat;
     }
 
-    public function setTypeContrat(string $typeContrat): self
+    /**
+     * @param string $typeContrat
+     */
+    public function setTypeContrat(string $typeContrat): void
     {
         $this->typeContrat = $typeContrat;
-
-        return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getIdSociete(): ?int
     {
         return $this->idSociete;
     }
 
-    public function setIdSociete(int $idSociete): self
+    /**
+     * @param int $idSociete
+     */
+    public function setIdSociete(int $idSociete): void
     {
         $this->idSociete = $idSociete;
-
-        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getTitre(): ?string
     {
         return $this->titre;
     }
 
-    public function setTitre(string $titre): self
+    /**
+     * @param string $titre
+     */
+    public function setTitre(string $titre): void
     {
         $this->titre = $titre;
-
-        return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getValide(): ?int
     {
         return $this->valide;
     }
 
-    public function setValide(int $valide): self
+    /**
+     * @param int $valide
+     */
+    public function setValide(int $valide): void
     {
         $this->valide = $valide;
-
-        return $this;
     }
 
-    public function getLogo()
+    /**
+     * @return string
+     */
+    public function getLogo(): ?string
     {
         return $this->logo;
     }
 
-    public function setLogo($logo): self
+    /**
+     * @param string $logo
+     */
+    public function setLogo( ?string $logo ): self
     {
         $this->logo = $logo;
-
         return $this;
     }
+
+
 
 
 }

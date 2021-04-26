@@ -29,6 +29,8 @@ class OffreStageeRepository extends ServiceEntityRepository
             ->andWhere('off.dateDebut <= :d and off.dateDebut >= :no')
             ->setParameter('d', $criteria['dateDebut'])
             ->setParameter('no', $now)
+            ->andWhere('off.valide = :a')
+            ->setParameter('a', 1)
             ->getQuery()
             ->getResult();
 

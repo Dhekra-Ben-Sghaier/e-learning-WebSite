@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * PostulerStage
  *
  * @ORM\Table(name="postuler_stage")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PostulerStageRepository")
  */
 class PostulerStage
 {
@@ -38,6 +38,22 @@ class PostulerStage
     public function getIdSociete(): ?int
     {
         return $this->idSociete;
+    }
+
+    /**
+     * @param int $idStage
+     */
+    public function setIdStage(int $idStage): void
+    {
+        $this->idStage = $idStage;
+    }
+
+    /**
+     * @param int $idSociete
+     */
+    public function setIdSociete(int $idSociete): void
+    {
+        $this->idSociete = $idSociete;
     }
 
 

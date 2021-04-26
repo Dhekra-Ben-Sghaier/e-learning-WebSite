@@ -18,7 +18,6 @@ class SearchOSType extends AbstractType{
         'attr'=>['class'=>'btn btn-light dropdown-toggle'],
         'label' => 'Niveau d etude : ',
         'choices' => [
-            'Null' => null,
         'Secondaire' => 'Secondaire',
         'Bac' => 'Bac',
         'Bac+1' => 'Bac+1',
@@ -31,7 +30,6 @@ class SearchOSType extends AbstractType{
         'attr'=>['class'=>'btn btn-light dropdown-toggle'],
         'label' => 'Certificat : ',
     'choices' => [
-        'Null' => null,
         'Anglais' => 'Anglais',
         'Français' => 'Français',
         'Mecanique' => 'Mecanique',
@@ -43,7 +41,6 @@ class SearchOSType extends AbstractType{
         'attr'=>['class'=>'btn btn-light dropdown-toggle'],
         'label' => 'Date debut : ',
         'choices' => [
-            'Null' => null,
             'Dans une semaine' => new \DateTime('today + 7day'),
             'Dans un mois' => new \DateTime('today + 30day'),
             'Dans une Année' => new \DateTime('today + 365day'),

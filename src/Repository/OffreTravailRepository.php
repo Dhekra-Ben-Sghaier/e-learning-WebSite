@@ -19,32 +19,27 @@ class OffreTravailRepository extends ServiceEntityRepository
         parent::__construct($registry, OffreTravail::class);
     }
 
-    // /**
-    //  * @return OffreTravail[] Returns an array of OffreTravail objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
+    public function GetOTById($id){
+        return $this->createQueryBuilder('off')
+            ->andWhere('off.idSociete = :i')
+            ->setParameter('i', $id)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+    public function FindOT($criteria){
+        $now= new \DateTime('today');
+        return $this->createQueryBuilder('off')
+            ->andWhere('off.nivEtude = :n')
+            ->setParameter('n', $criteria['nivEtude'])
+            ->andWhere('off.certificat = :c')
+            ->setParameter('c', $criteria['certificat'])
+            ->andWhere('off.datePub >= :d and off.datePub <= :no')
+            ->setParameter('d', $criteria['datePub'])
+            ->setParameter('no', $now)
+            ->andWhere('off.valide = :a')
+            ->setParameter('a', 1)
+            ->getQuery()
+            ->getResult();
 
-    /*
-    public function findOneBySomeField($value): ?OffreTravail
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
     }
-    */
 }
