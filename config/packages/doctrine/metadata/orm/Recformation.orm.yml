@@ -18,7 +18,6 @@ Recformation:
             length: 50
             options:
                 fixed: false
-                default: 'NULL'
         formation:
             type: string
             nullable: false

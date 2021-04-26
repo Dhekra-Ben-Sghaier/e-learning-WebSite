@@ -1,0 +1,42 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Recformation index{% endblock %}
+
+{% block content %}
+    <h1>Recformation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdFormation</th>
+                <th>Adressemail</th>
+                <th>Formation</th>
+                <th>NomFormateur</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for recformation in recformations %}
+            <tr>
+                <td>{{ recformation.idFormation }}</td>
+                <td>{{ recformation.adressemail }}</td>
+                <td>{{ recformation.formation }}</td>
+                <td>{{ recformation.nomFormateur }}</td>
+                <td>{{ recformation.description }}</td>
+                <td>
+                    <a href="{{ path('recformation_show', {'idFormation': recformation.idFormation}) }}">show</a>
+                    <a href="{{ path('recformation_edit', {'idFormation': recformation.idFormation}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(recformations) }}
+
+
+{% endblock %}

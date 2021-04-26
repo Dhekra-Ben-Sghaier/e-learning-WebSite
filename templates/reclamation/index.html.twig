@@ -1,0 +1,60 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block content %}
+    <h1>Reclamation index</h1>
+<form method="post" action="{{ path ('recherche') }}">
+    <label>Rechercher</label>
+    <input type="text" name="search"><input type="submit" value="Recherche">
+</form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdReclamation</th>
+                <th>Adressem</th>
+                <th>Examen</th>
+                <th>Date</th>
+                <th>NomFormateur</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.idReclamation }}</td>
+                <td>{{ reclamation.adressem }}</td>
+                <td>{{ reclamation.examen }}</td>
+                <td>{{ reclamation.date }}</td>
+                <td>{{ reclamation.nomFormateur }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>
+                    <a href="{{ path('reclamation_show', {'idReclamation': reclamation.idReclamation}) }}">show</a>
+                    <a href="{{ path('reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+
+        <tr>
+
+        </tr>
+
+    </table>
+
+
+    {{ knp_pagination_render(reclamations) }}
+{% endblock %}
+
+
+
+
+
+
+
+

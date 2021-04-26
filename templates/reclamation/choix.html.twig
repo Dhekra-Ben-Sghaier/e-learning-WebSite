@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <link href="{{ asset("css/form.css") }}" rel="stylesheet">
+    <div class="body">
+        <div class="projectThumb">
+            <div class="projectCopy">
+                <a href="{{ path('recformation_new') }}"> Reclamation formation </a>
+            </div>
+            <div class="overlay">
+                <img class="imgapp" src="{{ asset('img/formateur.jpg') }}">
+                <!--<img src="{{ asset('img/formateur.jpg') }}">-->
+            </div>
+        </div>
+
+        <div class="projectThumb">
+            <div class="projectCopy">
+                <a href="{{ path('reclamation_new') }}"> Reclamation notes</a>
+            </div>
+            <div class="overlay">
+                <img src="{{ asset('img/notes.jpg') }}">
+
+                <!--<img src="{{ asset('img/notes.jpg') }}">-->
+            </div>
+        </div>
+
+
+
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="">
+        document.querySelector('.overlay').onmousemove = (e) => {
+
+            const x = e.pageX - e.target.offsetLeft
+            const y = e.pageY - e.target.offsetTop
+
+            e.target.style.setProperty('--x', `${ x }px`)
+            e.target.style.setProperty('--y', `${ y }px`)
+
+        }
+
+    </script>
+{% endblock %}
