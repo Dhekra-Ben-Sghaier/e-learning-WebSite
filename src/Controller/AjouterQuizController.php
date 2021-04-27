@@ -45,7 +45,7 @@ class AjouterQuizController extends AbstractController
             $entityManager->persist($question);
             $entityManager->flush();
 
-            return $this->redirectToRoute('inscri_certif_index');
+
         }
 
         return $this->render('ajout_quiz/AjoutQuiz.html.twig', [
@@ -138,10 +138,10 @@ class AjouterQuizController extends AbstractController
 
     }
     /**
-     * @Route("/pdf", name="p_df", methods={"GET","POST"})
+     * @Route("/pdf/{nom}/{prenom}", name="p_df", methods={"GET","POST"})
 
      */
-    public function pf(Request $request)
+    public function pf(Request $request,$nom,$prenom)
     {
         $res=$request->request->get('res');
         $this->render("quizz/res.html.twig",[
@@ -157,7 +157,7 @@ class AjouterQuizController extends AbstractController
             <h1>
                  <center> 
                      <br><br>     
-                     Félicitations,
+                     Félicitations,$nom $prenom
                      <br><br>
                      Vous avez passez le quiz avec un pourcentage de 100%                    
                      <br><br>            

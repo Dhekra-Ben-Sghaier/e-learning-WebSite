@@ -1,12 +1,15 @@
-{% extends "base.html.twig" %}
+{% extends 'personnes/indexuser.html.twig' %}
 
 {% block body %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br><br><br><br><br>
     <div class="imgpub">
 
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-    <div class="form-control">
+    <br><br><br><br><br><br><br><br><br><br>
         <center>
 
             <form action="{{ path('question') }}" method="post" class="form-group">
@@ -20,7 +23,7 @@
                 <input type="submit" value="Passer" class="submit">
             </form>
         </center>
-    </div>
+
     <style>
         .submit {
             margin-top: 40px;
@@ -42,30 +45,26 @@
             position: absolute;
             left: 0   ;
             top: 0;
-
-
             padding-top: 200px;
             background-repeat: no-repeat;
             background-position: center;
+
         }
         .imgpub:before {
             content: "";
             position: absolute;
             right: 0;
-            top: 10%;
-            left: 10%;
-            width:80%;
-            height: 60%;
+            top: 5%;
+            background-repeat: no-repeat;
+            width:90%;
+            height: 40%;
             background-position: center;
 
-
-            background-size:cover;
             transition: transform 1.2s ease-in-out;
             background-image: url("https://www.optimisterre.fr/wp-content/uploads/2019/06/quiz.jpg");
 
         }
 
     </style>
-
 
 {% endblock %}

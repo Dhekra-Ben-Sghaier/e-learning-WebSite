@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends 'personnes/indexuser.html.twig' %}
 {% block body %}
 
 
@@ -8,10 +8,11 @@
             <br><br>
 
             <div class="eya"></div>
-            <center>            <br><br><br><br><br><br><br><br><br><br>
-            <h1>Félicitations, votre score est {{ res }} %</h1>
             <br>
-            <a href="{{ path('p_df') }}  " class="submit"> imprimer</a>
+            <center>            <br><br><br><br><br><br><br><br><br><br>
+            <h1>Félicitations {{ app.user.nom }} {{ app.user.prenom }}, votre score est {{ res }} %</h1>
+            <br>
+            <a href="{{ path('p_df', {'nom': app.user.nom,'prenom':app.user.prenom}) }}  " class="submit"> imprimer</a>
             </center>
 
 
@@ -25,6 +26,7 @@
             <div class="imgpub">
 
             </div>
+            <br>
             <br>
             <br>
             <br><br><br><br><br><br><br><br>
