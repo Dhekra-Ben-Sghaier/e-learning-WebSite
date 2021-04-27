@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- CSS -->
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/plugins/jquery-steps/jquery.steps.css') }}">
+
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-30" dir="ltr" style="margin: auto">
+        <div class="card-box pd-30 height-100-p">
+            <div class="progress-box text-center">
+                <div style="opacity: 0.7">
+
+                    <input type="text" class="dial11" value="80" data-width="120" data-height="120" data-linecap="round" data-thickness="0.15" data-bgColor="#eee" data-fgColor="Red"  data-angleOffset="180" readonly>
+
+                </div>
+                <h5 class="text-blue padding-top-10 h5" style="opacity: 0.8;color: red">Pourcentage des nombres d'affichages supérieur à 200</h5>
+                <span class="d-block" style="padding-bottom: 15px">Nombre = {{ app.session.get('Number') }}</span>
+                <div style="opacity: 0.7">
+
+                    <input type="text" class="dial12" value="80" data-width="120" data-height="120" data-linecap="round" data-thickness="0.15" data-bgColor="#eee" data-fgColor="darkslateblue"  data-angleOffset="180" readonly>
+
+                </div>
+                <h5 class="text-blue padding-top-10 h5" style="opacity: 0.8;color: darkslateblue">Pourcentage des prix inférieur à 10000 TND</h5>
+                <span class="d-block">Nombre = {{ app.session.get('Number1') }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-30" dir="ltr">
+
+    </div>
+
+    <!-- js -->
+    <script src="{{ asset('src/scripts/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendors/scripts/core.js') }}"></script>
+    <script src="{{ asset('src/plugins/jQuery-Knob-master/jquery.knob.min.js') }}"></script>
+    <script src="{{ asset('vendors/scripts/knob-chart-setting.js') }}"></script>
+    <script>
+
+        $(".dial11").knob();
+        $({animatedVal: 0}).animate({animatedVal: {{ app.session.get('Total') }}}, {
+            duration: 1000,
+            easing: "swing",
+            step: function() {
+                $(".dial11").val(Math.ceil(this.animatedVal)).trigger("change");
+            }
+        });
+            $(".dial12").knob();
+            $({animatedVal: 0}).animate({animatedVal: {{ app.session.get('Total1') }}}, {
+                duration: 1000,
+                easing: "swing",
+                step: function() {
+                    $(".dial12").val(Math.ceil(this.animatedVal)).trigger("change");
+                }
+            });
+
+
+
+    </script>
+{% endblock %}

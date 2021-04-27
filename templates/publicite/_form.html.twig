@@ -1,0 +1,138 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<link href="{{ asset("css/pub.css") }}" rel="stylesheet">
+<div class="cont">
+    <div class="form sign-in">
+        {#<h2>Ajouter pub</h2>#}
+        {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+        <label>
+            <span> {{form_label(form.nom)}}</span>
+            {{form_widget(form.nom,{'attr': {'class': 'form-control'}},{'attr': { '" "' : 'default' } })}}
+            {{ form_errors( form.nom) }}
+        </label>
+        <label>
+            <span> {{form_label(form.prenom)}}</span>
+            {{form_widget(form.prenom,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( form.prenom) }}
+        </label>
+        <label>
+            <span> {{form_label(form.email)}}</span>
+            {{form_widget(form.email,{'attr': {'class': 'form-control'}})}}
+            {{ form_errors( form.email) }}
+        </label>
+        <label>
+            <span> {{form_label(form.domaine)}}</span>
+            {{form_widget(form.domaine,{'attr': {'class': 'form-control'}})}}
+
+        </label>
+        <label>
+            <span> {{form_label(form.image)}}</span>
+            {{form_widget(form.image,{'attr': {'class': 'form-control','onblur':'Upfiles()'}})}}
+
+        </label>
+        <label>
+            <span> {{form_label(form.prix)}}</span>
+            {{form_widget(form.prix,{'attr': {'class': 'form-control'}})}}
+
+        </label>
+        <label>
+            <span> {{form_label(form.lien)}}</span>
+            {{form_widget(form.lien,{'attr': {'class': 'form-control'}})}}
+
+        </label>
+
+        <label>
+            <span> {{form_label(form.affichage)}}</span>
+            {{form_widget(form.affichage,{'attr': {'class': 'form-control','onkeyup':'affiche(this.value)'}})}}
+            {{form_label(form.Save)}}</span>
+            {{form_widget(form.Save,{'attr': {'class ': 'form-control'}})}}
+
+        </label>
+
+
+       {# <button type="submit" class="submit" >Publicité</button>#}
+
+        <p id="parag">Loading...</p>
+    </div>
+    {{ form_end(form) }}
+
+    <div class="sub-cont">
+        <div class="imgpub">
+            <div class="img__text m--up">
+                <h2></h2>
+
+            </div>
+            <div class="img__text m--in">
+                <h2>One of us?</h2>
+                <p>If you already has an account, just sign in. We've missed you!</p>
+            </div>
+
+            <div class="img__btn">
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="{{ asset('src/scripts/jquery.min.js') }}"></script>
+<script>
+    function affiche(y)
+    {
+        let x = document.getElementById('parag');
+        if (isNaN(y))
+        {
+            document.getElementById('publicite_Save').disabled=true;
+        }
+        else
+        {
+            document.getElementById('publicite_Save').disabled=false;
+            x.innerText='Le prix de la publicité est '+2000*parseInt(y)+' TND';
+        }
+
+    }
+    function Upfiles()
+    {
+        let email = document.getElementById('publicite_email').value;
+        let file_data = $('#publicite_image').prop('files');
+        let form_data = new FormData();
+        form_data.append('id', email);
+        $.ajax({
+            url: '{{ path('Folder') }}', // point to server-side PHP script
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(php_script_response){
+                console.log('success');
+            }
+        });
+        for(let index=0;index<file_data.length;index++)
+        {
+            form_data.append('file', file_data[index]);
+            $.ajax({
+                url: '{{ path('UpFileToFolder') }}', // point to server-side PHP script
+                dataType: 'text',  // what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function(php_script_response){
+                    console.log('success');
+                }
+            });
+        }
+
+    }
+</script>
+    {% endblock %}
+
+    {% block script %}
+
+    {% endblock %}

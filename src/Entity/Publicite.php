@@ -59,306 +59,188 @@ class Publicite
     /**
      * @var string|null
      *
-     * @ORM\Column(name="image", type="blob", length=0, nullable=true)
+     * @ORM\Column(name="image", type="blob", length=0, nullable=true, options={"default"="NULL"})
      */
-    private $image;
+    private $image = 'NULL';
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imagee", type="string", length=50, nullable=true)
+     */
+    private $imagee;
 
+    /**
     /**
      * @var int|null
      *
-     * @ORM\Column(name="Prix", type="integer", nullable=true)
+     * @ORM\Column(name="Prix", type="integer", nullable=true, options={"default"="NULL"})
      */
-    private $prix;
+    private $prix = NULL;
 
-    public function getId(): ?int
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="lien", type="string", length=500, nullable=true, options={"default"="NULL"})
+     */
+    private $lien = 'NULL';
+
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNom():? string
     {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    /**
+     * @param string $nom
+     */
+    public function setNom(string $nom): void
     {
         $this->nom = $nom;
-
-        return $this;
     }
 
-    public function getPrenom(): ?string
+
+    /**
+     * @return string
+     */
+    public function getPrenom():? string
     {
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): self
+    /**
+     * @param string $prenom
+     */
+    public function setPrenom(string $prenom): void
     {
         $this->prenom = $prenom;
-
-        return $this;
     }
 
-    public function getEmail(): ?string
+    /**
+     * @return string
+     */
+    public function getEmail():? string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
     {
         $this->email = $email;
-
-        return $this;
     }
 
-    public function getDomaine(): ?string
+    /**
+     * @return string
+     */
+    public function getDomaine():? string
     {
         return $this->domaine;
     }
 
-    public function setDomaine(string $domaine): self
+    /**
+     * @param string $domaine
+     */
+    public function setDomaine(string $domaine): void
     {
         $this->domaine = $domaine;
-
-        return $this;
     }
 
-    public function getAffichage(): ?string
+    /**
+     * @return string
+     */
+    public function getAffichage():? string
     {
         return $this->affichage;
     }
 
-    public function setAffichage(string $affichage): self
+    /**
+     * @param string $affichage
+     */
+    public function setAffichage(string $affichage): void
     {
         $this->affichage = $affichage;
-
-        return $this;
     }
+
 
     public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage($image): self
+
+    public function setImage(string $image): self
     {
         $this->image = $image;
 
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getPrix(): ?int
     {
         return $this->prix;
     }
 
-    public function setPrix(?int $prix): self
+    /**
+     * @param int|null $prix
+     */
+    public function setPrix(?int $prix): void
     {
         $this->prix = $prix;
-
-        return $this;
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getDomaine(): ?string
-    {
-        return $this->domaine;
-    }
-
-    public function setDomaine(string $domaine): self
-    {
-        $this->domaine = $domaine;
-
-        return $this;
-    }
-
-    public function getAffichage(): ?string
-    {
-        return $this->affichage;
-    }
-
-    public function setAffichage(string $affichage): self
-    {
-        $this->affichage = $affichage;
-
-        return $this;
-    }
-
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    public function setImage($image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    public function getPrix(): ?int
-    {
-        return $this->prix;
-    }
-
-    public function setPrix(?int $prix): self
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
+    /**
+     * @return string|null
+     */
     public function getLien(): ?string
     {
         return $this->lien;
     }
 
-    public function setLien(?string $lien): self
+    /**
+     * @param string|null $lien
+     */
+    public function setLien(?string $lien): void
     {
         $this->lien = $lien;
-
-        return $this;
     }
 
-    public function getId(): ?int
+    /**
+     * @return string
+     */
+    public function getImagee(): string
     {
-        return $this->id;
+        return $this->imagee;
     }
 
-    public function getNom(): ?string
+    /**
+     * @param string $imagee
+     */
+    public function setImagee(string $imagee): void
     {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getDomaine(): ?string
-    {
-        return $this->domaine;
-    }
-
-    public function setDomaine(string $domaine): self
-    {
-        $this->domaine = $domaine;
-
-        return $this;
-    }
-
-    public function getAffichage(): ?string
-    {
-        return $this->affichage;
-    }
-
-    public function setAffichage(string $affichage): self
-    {
-        $this->affichage = $affichage;
-
-        return $this;
-    }
-
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    public function setImage($image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    public function getPrix(): ?int
-    {
-        return $this->prix;
-    }
-
-    public function setPrix(?int $prix): self
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    public function getLien(): ?string
-    {
-        return $this->lien;
-    }
-
-    public function setLien(?string $lien): self
-    {
-        $this->lien = $lien;
-
-        return $this;
+        $this->imagee = $imagee;
     }
 
 
