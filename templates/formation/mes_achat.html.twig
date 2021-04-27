@@ -58,7 +58,10 @@
                         <h5> <button class="btn"><a href="{{ path('apprenant_index') }}">Retourner à la liste des formations</a></button></h5>
 
                     </div>
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                    <h5> <button class="btn"><a href="{{ path('rating',{'idform': formation.id,'iduser': app.user.idUser}) }}">Avis</a></button></h5>
 
+                    </div>
                 </div>
             </div>
 

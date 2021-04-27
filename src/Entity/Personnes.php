@@ -361,9 +361,9 @@ class Personnes implements userInterface
     {
         $this->photo = $photo;
     }
-  public function getCaptchaCode(){
+    public function getCaptchaCode(){
         return $this->captchaCode;
-  }
+    }
     public function setCaptchaCode($captchaCode){
         $this->captchaCode=$captchaCode;
     }
