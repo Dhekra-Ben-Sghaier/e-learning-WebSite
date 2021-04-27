@@ -51,15 +51,10 @@ Questionn:
             length: 65535
             options:
                 fixed: false
-    manyToOne:
         idquiz:
-            targetEntity: Quizz
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                idQuiz:
-                    referencedColumnName: quizID
-            orphanRemoval: false
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: idQuiz
     lifecycleCallbacks: {  }

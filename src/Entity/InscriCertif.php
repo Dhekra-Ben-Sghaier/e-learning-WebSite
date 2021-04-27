@@ -35,5 +35,34 @@ class InscriCertif
      */
     private $nomCertificat;
 
+    public function getIdInscri(): ?int
+    {
+        return $this->idInscri;
+    }
+
+    public function getNomUtilisateur(): ?string
+    {
+        return $this->nomUtilisateur;
+    }
+
+    public function setNomUtilisateur(string $nomUtilisateur): self
+    {
+        $this->nomUtilisateur = $nomUtilisateur;
+
+        return $this;
+    }
+
+    public function getNomCertificat(): ?string
+    {
+        return $this->nomCertificat;
+    }
+
+    public function setNomCertificat(string $nomCertificat): self
+    {
+        $this->nomCertificat = $nomCertificat;
+
+        return $this;
+    }
+
 
 }

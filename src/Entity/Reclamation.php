@@ -56,5 +56,70 @@ class Reclamation
      */
     private $description;
 
+    public function getIdReclamation(): ?int
+    {
+        return $this->idReclamation;
+    }
+
+    public function getAdressem(): ?string
+    {
+        return $this->adressem;
+    }
+
+    public function setAdressem(?string $adressem): self
+    {
+        $this->adressem = $adressem;
+
+        return $this;
+    }
+
+    public function getExamen(): ?string
+    {
+        return $this->examen;
+    }
+
+    public function setExamen(string $examen): self
+    {
+        $this->examen = $examen;
+
+        return $this;
+    }
+
+    public function getDate(): ?string
+    {
+        return $this->date;
+    }
+
+    public function setDate(string $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getNomFormateur(): ?string
+    {
+        return $this->nomFormateur;
+    }
+
+    public function setNomFormateur(string $nomFormateur): self
+    {
+        $this->nomFormateur = $nomFormateur;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
 
 }
