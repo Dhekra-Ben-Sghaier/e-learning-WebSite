@@ -65,8 +65,8 @@ class AchatController extends AbstractController
         $entityManager->persist($achat);
         $this->getDoctrine()->getManager()->flush();
         $message = (new \Swift_Message('Formation'))
-            ->setFrom('pidevbrainovation@gmail.com')
-            ->setTo('dhekra.bensghaier@esprit.tn')
+            ->setFrom('brainovation21@gmail.com')
+            ->setTo('mariembenhassine98@gmail.com')
             ->setBody(
                 $this->renderView('formation/mail_Achat.html.twig'),
                 'text/html'

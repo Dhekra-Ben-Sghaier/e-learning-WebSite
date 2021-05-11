@@ -71,13 +71,14 @@ class RegistrationController extends AbstractController
                         $form->get('plainPassword')->getData()
                     )
                 );
-                $entityManager = $this->getDoctrine()->getManager();
+
+                    $entityManager = $this->getDoctrine()->getManager();
 
 
-                $entityManager->persist($personne);
+                    $entityManager->persist($personne);
 
-                $entityManager->flush();
-                return $this->render('registration/register.html.twig');
+                    $entityManager->flush();
+                    return $this->render('registration/register.html.twig');
 
 
             }

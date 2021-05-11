@@ -75,28 +75,173 @@ class Publicite
      *
      * @ORM\Column(name="Prix", type="integer", nullable=true, options={"default"="NULL"})
      */
-    private $prix;
+    private $prix = NULL;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="lien", type="string", length=500, nullable=true)
+     * @ORM\Column(name="lien", type="string", length=500, nullable=true, options={"default"="NULL"})
      */
-    private $lien;
+    private $lien = 'NULL';
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Personnes", mappedBy="idCtpub")
+     * @return int
      */
-    private $idCtuser;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function getId(): int
     {
-        $this->idCtuser = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->id;
     }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNom():? string
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param string $nom
+     */
+    public function setNom(string $nom): void
+    {
+        $this->nom = $nom;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getPrenom():? string
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * @param string $prenom
+     */
+    public function setPrenom(string $prenom): void
+    {
+        $this->prenom = $prenom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail():? string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDomaine():? string
+    {
+        return $this->domaine;
+    }
+
+    /**
+     * @param string $domaine
+     */
+    public function setDomaine(string $domaine): void
+    {
+        $this->domaine = $domaine;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAffichage():? string
+    {
+        return $this->affichage;
+    }
+
+    /**
+     * @param string $affichage
+     */
+    public function setAffichage(string $affichage): void
+    {
+        $this->affichage = $affichage;
+    }
+
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    /**
+     * @param int|null $prix
+     */
+    public function setPrix(?int $prix): void
+    {
+        $this->prix = $prix;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLien(): ?string
+    {
+        return $this->lien;
+    }
+
+    /**
+     * @param string|null $lien
+     */
+    public function setLien(?string $lien): void
+    {
+        $this->lien = $lien;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImagee(): string
+    {
+        return $this->imagee;
+    }
+
+    /**
+     * @param string $imagee
+     */
+    public function setImagee(string $imagee): void
+    {
+        $this->imagee = $imagee;
+    }
+
 
 }

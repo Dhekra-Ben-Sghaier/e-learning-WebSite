@@ -99,7 +99,8 @@ class OffreStageController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $result = $entityManager->getRepository(PostulerStage::class)->findOneBy(array('idStage'=>$id,'idSociete'=>1));
         $Affichages = $this->getDoctrine()->getRepository(OffreStage::class)->find($id);
-                if(!$result){
+        $Mail=$Affichages->getAdrMailSoc();
+        if(!$result){
                $defaultData = ['message' => 'Type your message here'];
                $form = $this->createFormBuilder($defaultData)
                    ->add('name', TextType::class, ['attr' => ['class' => 'form-control form-control-lg']])
@@ -112,7 +113,7 @@ class OffreStageController extends AbstractController
 
                if ($form->isSubmitted() && $form->isValid()) {
 
-                   $this->sendEmail($mailer, $form->get('objet')->getData(), $form->get('email')->getData(), $form->get('objet')->getData());
+                   $this->sendEmail($mailer, $form->get('objet')->getData(), $Mail, $form->get('objet')->getData());
                    $post->setIdStage($id);
                    $post->setIdSociete(1);
                    $x = $this->getDoctrine()->getManager();
@@ -164,6 +165,7 @@ class OffreStageController extends AbstractController
                 $product->setLogo($fichier);
             }
             $entityManager->flush();
+            return $this->redirectToRoute("OffreStages");
 
         }
 
@@ -213,7 +215,7 @@ class OffreStageController extends AbstractController
         $ListOffres = $paginator->paginate(
             $Offre,
             $request->query->getInt('page', 1),
-            6
+            3
         );
 
         return $this->render("offre_stage/AffichageMesOffres.html.twig", [

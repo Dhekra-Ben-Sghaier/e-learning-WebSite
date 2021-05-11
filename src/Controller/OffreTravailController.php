@@ -195,6 +195,7 @@ class OffreTravailController extends AbstractController
                 $product->setLogo($fichier);
             }
             $entityManager->flush();
+            return $this->redirectToRoute("OffreTravails");
 
         }
 
@@ -248,6 +249,7 @@ class OffreTravailController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $result = $entityManager->getRepository(PostulerTravail::class)->findOneBy(array('idTravail' => $id, 'idSociete' => 1));
         $Affichages = $this->getDoctrine()->getRepository(OffreTravail::class)->find($id);
+        $Mail=$Affichages->getAdrMailSoc();
         if (!$result) {
             $defaultData = ['message' => 'Type your message here'];
             $form = $this->createFormBuilder($defaultData)
@@ -261,7 +263,7 @@ class OffreTravailController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
 
-                $this->sendEmail($mailer, $form->get('objet')->getData(), $form->get('email')->getData(), $form->get('objet')->getData());
+                $this->sendEmail($mailer, $form->get('objet')->getData(),$Mail, $form->get('objet')->getData());
                 $post->setIdTravail($id);
                 $post->setIdSociete(1);
                 $x = $this->getDoctrine()->getManager();

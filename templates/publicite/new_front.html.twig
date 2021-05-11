@@ -1,8 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends "personnes/indexuser.html.twig" %}
 
 {% block title %}New Publicite{% endblock %}
 
 {% block body %}
+    <br>
+    <br>
     <h1 align="center"><span style='color: #E66207'>Ajouter une nouvelle publicité</span></h1>
 
     {{ include('publicite/_form.html.twig') }}

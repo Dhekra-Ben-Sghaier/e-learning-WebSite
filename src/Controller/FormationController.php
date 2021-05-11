@@ -191,8 +191,8 @@ class FormationController extends AbstractController
         }
         $pdfFile = stream_get_contents($item->getCours());
         //$pdfFile = $item->getCours(); //returns pdf file stored as mysql blob
-        $stream = new Stream("C:\\Users\\benha\\Desktop\\PidevWeb-PidevWebUser\\PidevWeb-PidevWebUser\\public\\uploads\\Cours\\".$pdfFile);
-
+        $stream = new Stream("C:\\Users\\benha\\Desktop\\PidevWebFinale\\PidevWeb\\public\\uploads\\Cours\\".$pdfFile);
+        
         //$response = new Response( readfile($pdfFile), 200, array('Content-Type' => 'application/pdf'));
 
         return new BinaryFileResponse($stream);

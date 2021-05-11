@@ -84,27 +84,5 @@ class Avis
         $this->avisuser = $avisuser;
     }
 
-    public function getIdUs(): ?int
-    {
-        return $this->idUs;
-    }
-
-    public function getIdForm(): ?int
-    {
-        return $this->idForm;
-    }
-
-    public function getAvisuser(): ?int
-    {
-        return $this->avisuser;
-    }
-
-    public function setAvisuser(int $avisuser): self
-    {
-        $this->avisuser = $avisuser;
-
-        return $this;
-    }
-
 
 }

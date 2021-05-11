@@ -43,7 +43,7 @@ class PubliciteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
 
-             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($publicite);
             $entityManager->flush();
 
@@ -93,16 +93,16 @@ class PubliciteController extends AbstractController
             $entityManager->persist($publicite);
             $entityManager->flush();
             $CH = str_replace('.','-',$publicite->getEmail());
-$path='PIC/'.$CH.'/';
-$File=scandir($path);
-$i=0;
-if (sizeof($File)>2)
-{
-    for ($j=2;$j<sizeof($File);$j++)
-    {
-        $Fichier[$i]='/PIC/'.$CH.'/'.$File[$j];
-    }
-}
+            $path='PIC/'.$CH.'/';
+            $File=scandir($path);
+            $i=0;
+            if (sizeof($File)>2)
+            {
+                for ($j=2;$j<sizeof($File);$j++)
+                {
+                    $Fichier[$i]='/PIC/'.$CH.'/'.$File[$j];
+                }
+            }
 
             return $this->render('publicite/prix.html.twig', [
                 'prix' => $prix,
@@ -125,8 +125,8 @@ if (sizeof($File)>2)
      */
     public function pub_prix(Publicite $pub): Response
     { $pub->setPrix(prix);
-    $pub->setNom(nom);
-    $pub->setPrenom(prenom);
+        $pub->setNom(nom);
+        $pub->setPrenom(prenom);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($pub);
         $entityManager->flush();
@@ -179,7 +179,7 @@ if (sizeof($File)>2)
      */
     function makedir(Request $request)
     {
-$CH = str_replace('.','-',$_POST['id']);
+        $CH = str_replace('.','-',$_POST['id']);
         mkdir('PIC\\'.$CH);
         $response = true;
         return new Response(json_encode($response));
