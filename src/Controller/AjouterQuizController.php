@@ -15,6 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\InscriCertif;
 use App\Form\InscriCertifType;
 use Dompdf\Options;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 class AjouterQuizController extends AbstractController
@@ -206,6 +209,29 @@ class AjouterQuizController extends AbstractController
         $flashy->success('Event created!', 'http://your-awesome-link.com');
         return $this->render("quizz/index_front.html.twig");
 
+
+    }
+     /**
+     * @Route("/List_quiz", name="List_quiz")
+     */
+    public function List_quiz( NormalizerInterface  $normalizer){
+        $quiz=$this->getDoctrine()->getRepository(Quizz::class)->findAll();
+        $json=$normalizer->normalize($quiz, 'json',['groups'=>'quiz']);
+
+        return new JsonResponse($json);
+
+    }
+
+    /**
+     * @Route("/List_ques/{id_quiz}", name="List_ques")
+     */
+    public function List_ques( $id_quiz,NormalizerInterface  $normalizer){
+
+        $quiz =$this->getDoctrine()->getRepository(Quizz::class)->find($id_quiz);
+        $ques=$this->getDoctrine()->getRepository(Questionn::class)->findBy(["idquiz"=>$quiz]);
+        $json=$normalizer->normalize($ques, 'json',['groups'=>'quest']);
+
+        return new JsonResponse($json);
 
     }
 
