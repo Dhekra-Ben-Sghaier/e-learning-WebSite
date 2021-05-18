@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/achat")
@@ -75,6 +77,63 @@ class AchatController extends AbstractController
         return $this->render('formation/succes_achat.html.twig');
 
     }
+    
+     /**
+     * @Route("/M", name="achat_indexM", methods={"GET"})
+     */
+    public function indexM(AchatRepository $achatRepository, NormalizerInterface $Normalizer): Response
+    {
+        $formations = $this->getDoctrine()
+            ->getRepository(Achat::class)
+            ->findAll();
+        $jsoncontent = $Normalizer->normalize($formations,'json',['groups'=>'post:read']);
+       
+        return new JsonResponse($jsoncontent);
+    }
+    
+    
+       /**
+     * @Route("/newM/{id}", name="achat_newM", methods={"GET","POST"})
+     * @param Request $request
+     * @param $entityManager
+     * @return Response
+     */
+    public function newM($id, \Swift_Mailer $mailer,NormalizerInterface $normalizer): Response
+    {
+
+        $verif=$this->getDoctrine()->getManager()->getRepository(Achat::class)->findById($id);
+
+        $allAchat = array();
+
+        foreach ($verif as $p){
+            array_push($allAchat,$p);
+        }
+
+
+        $achat = new Achat();
+        $achat->setIdUser($this->getDoctrine()->getManager()->getReference(Personnes::class, 1));
+        $achat->setId($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($achat);
+        $this->getDoctrine()->getManager()->flush();
+        $message = (new \Swift_Message('Formation'))
+            ->setFrom('pidevbrainovation@gmail.com')
+            ->setTo('dhekra.bensghaier@esprit.tn')
+            ->setBody(
+                $this->renderView('formation/mail_Achat.html.twig'),
+                'text/html'
+            );
+        $mailer->send($message);
+
+        $json = $normalizer->normalize($allAchat);
+
+
+
+
+        return new JsonResponse($json);
+
+    }
+    
 
     /**
      * @Route("/{id}/{iduser}", name="achat_show", methods={"GET"})
