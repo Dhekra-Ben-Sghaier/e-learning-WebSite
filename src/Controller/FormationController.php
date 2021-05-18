@@ -3,14 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Formation;
-use App\Entity\Personnes;
 use App\Form\FormationType;
 use App\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ErrorHandler\ErrorRenderer\SerializerErrorRenderer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\DomCrawler\Image;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -18,6 +18,10 @@ use App\Service\UploaderHelper;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Stream;
 use Knp\Component\Pager\PaginatorInterface;
+
+use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\SerializerInterface;
 /**
  * @Route("/formation")
  */
@@ -36,6 +40,22 @@ class FormationController extends AbstractController
             'formations' => $formations,
         ]);
     }
+    
+    
+        /**
+     * @Route("/M", name="formation_indexM", methods={"GET"})
+     */
+    public function indexM(NormalizerInterface $normalizer): Response
+    {
+        $formations = $this->getDoctrine()
+            ->getRepository(Formation::class)
+            ->findAll();
+        $jsoncontent = $normalizer->normalize($formations,'json',['groups'=>'post:read']);
+
+        return new JsonResponse($jsoncontent);
+    }
+    
+    
     /**
      * @Route("/indexApprenant", name="apprenant_index", methods={"GET"})
      */
@@ -49,6 +69,10 @@ class FormationController extends AbstractController
             'formations' => $formations,
         ]);
     }
+    
+    
+
+    
 
     /**
      * @Route("/mesFormationsAchats/{iduser}", name="mes_achats_formations", methods={"GET"})
@@ -82,6 +106,38 @@ class FormationController extends AbstractController
             'iduser' => $iduser
 
         ]);
+
+    }
+    
+    
+    /**
+     * @Route("/mesFormationsAchatsM/{iduser}", name="mes_achats_formationsM", methods={"GET"})
+     */
+    public function showAchatFormationM(NormalizerInterface $normalizer,$iduser): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT a from App\Entity\Achat a WHERE a.idUser = :id");
+
+        $query->setParameter('id',$iduser);
+        $achats = $query->getResult();
+        $formations = array();
+
+        foreach($achats as $a)
+        {
+            $queryformation = $em->createQuery("SELECT f from App\Entity\Formation f WHERE f.id = :id");
+            $queryformation->setParameter('id',$a->getId());
+
+            $formation = $queryformation->getResult();
+            foreach ($formation as $f){
+            array_push($formations,$f);
+        }
+
+        }
+       
+        $jsoncontent = $normalizer->normalize($formations,'json',['groups'=>'post:read']);
+
+        return new JsonResponse($jsoncontent);
+
 
     }
 
@@ -147,6 +203,42 @@ class FormationController extends AbstractController
         ]);
 
     }
+    
+    
+     /**
+     * @Route("/newM", name="formation_newM")
+     */
+    public function newM(Request $request,NormalizerInterface $normalizer): Response
+    {
+        $formation = new Formation();
+        //$form = $this->createForm(FormationType::class, $formation);
+        //$form->handleRequest($request);
+        $formation->setId($request->get('id'));
+        $formation->setTitre($request->get('titre'));
+        $formation->setDescription($request->get('description'));
+        $formation->setPrix($request->get('prix'));
+        $formation->setDifficulte($request->get('difficulte'));
+        $formation->setCours($request->get('cours'));
+        $formation->setImage($request->get('image'));
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($formation);
+
+            $entityManager->flush();
+
+
+
+
+
+        $jsoncontent = $normalizer->normalize($formation,'json',['groups'=>'post:read']);
+        return new JsonResponse($jsoncontent);
+
+
+    }
+    
+    
+    
 
     /**
      * @Route("/{id}", name="formation_show", methods={"GET"})
@@ -166,6 +258,19 @@ class FormationController extends AbstractController
             'formation' => $formation,
         ]);
     }
+    
+    
+       /**
+     * @Route("/detailsM/{id}", name="formation_detailsM", methods={"GET"})
+     */
+    public function showDetailsM(Formation $formation,NormalizerInterface $normalizer): Response
+    {
+        $formations = array();
+        array_push($formations,$formation);
+        $jsoncontent = $normalizer->normalize($formations,'json',['groups'=>'post:read']);
+        return new JsonResponse($jsoncontent);
+    }
+
 
     /**
      * @Route("/detailsMaFormation/{id}/{iduser}", name="ma_formation_details", methods={"GET"})
