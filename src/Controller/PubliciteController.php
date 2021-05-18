@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Publicite;
 use App\Form\PubliciteType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Role\Role;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @Route("/publicite")
@@ -30,7 +31,56 @@ class PubliciteController extends AbstractController
             'publicites' => $publicites,
         ]);
     }
+    /**
+     * @Route("/Mobile_Pub", name="Mobile_Pub", methods={"GET"})
+     */
+    public function Mobile_Pub( NormalizerInterface  $normalizer)
+    {
+        $publicites = $this->getDoctrine()
+            ->getRepository(Publicite::class)
+            ->findAll();
 
+        $json = $normalizer->normalize($publicites, "json", ['groups' => ['pub']]);
+
+        return new JsonResponse($json);
+    }
+/**
+     * @Route("/Add_Publicite", name="Add_Publicite", methods={"GET","POST"})
+     */
+    public function Add_Publicite(Request $request,NormalizerInterface  $normalizer)
+    {
+        $publicite = new Publicite();
+
+        $publicite->setImagee($request->get('image'));
+        $publicite->setLien($request->get('lien'));
+
+        $publicite->setAffichage($request->get('affichage'));
+        $aff=$publicite->getAffichage();
+        $prix = 2000 * $aff;
+        $publicite->setPrix($prix);
+        $publicite->setNom($request->get('nom'));
+        $publicite->setPrenom($request->get('prenom'));
+        $publicite->setEmail($request->get('mail'));
+        $publicite->setDomaine($request->get('domaine'));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($publicite);
+            $entityManager->flush();
+        $publicites = $this->getDoctrine()
+            ->getRepository(Publicite::class)
+            ->findAll();
+
+        $json = $normalizer->normalize($publicites, "json", ['groups' => ['pub']]);
+
+        return new JsonResponse($json);
+
+    }
+
+
+    
+    
+    
+    
+    
     /**
      * @Route("/new", name="publicite_new", methods={"GET","POST"})
      */
