@@ -9,15 +9,15 @@ use App\Form\QuizType;
 use Dompdf\Dompdf;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\InscriCertif;
 use App\Form\InscriCertifType;
 use Dompdf\Options;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
+
 
 
 class AjouterQuizController extends AbstractController
@@ -48,7 +48,7 @@ class AjouterQuizController extends AbstractController
             $entityManager->persist($question);
             $entityManager->flush();
 
-
+            return $this->redirectToRoute('inscri_certif_index');
         }
 
         return $this->render('ajout_quiz/AjoutQuiz.html.twig', [
@@ -141,10 +141,10 @@ class AjouterQuizController extends AbstractController
 
     }
     /**
-     * @Route("/pdf/{nom}/{prenom}", name="p_df", methods={"GET","POST"})
+     * @Route("/pdf", name="p_df", methods={"GET","POST"})
 
      */
-    public function pf(Request $request,$nom,$prenom)
+    public function pf(Request $request)
     {
         $res=$request->request->get('res');
         $this->render("quizz/res.html.twig",[
@@ -160,7 +160,7 @@ class AjouterQuizController extends AbstractController
             <h1>
                  <center> 
                      <br><br>     
-                     Félicitations,$nom $prenom
+                     Félicitations,
                      <br><br>
                      Vous avez passez le quiz avec un pourcentage de 100%                    
                      <br><br>            
@@ -208,10 +208,11 @@ class AjouterQuizController extends AbstractController
     public function retour(FlashyNotifier $flashy){
         $flashy->success('Event created!', 'http://your-awesome-link.com');
         return $this->render("quizz/index_front.html.twig");
-
-
     }
-     /**
+
+
+
+    /**
      * @Route("/List_quiz", name="List_quiz")
      */
     public function List_quiz( NormalizerInterface  $normalizer){
