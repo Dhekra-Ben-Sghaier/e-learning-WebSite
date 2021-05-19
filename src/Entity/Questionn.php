@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Questionn
@@ -18,6 +19,8 @@ class Questionn
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("quest")
+     *
      */
     private $id;
 
@@ -25,6 +28,7 @@ class Questionn
      * @var string
      *
      * @ORM\Column(name="question", type="text", length=65535, nullable=false)
+     * @Groups("quest")
      */
     private $question;
 
@@ -32,6 +36,7 @@ class Questionn
      * @var string
      *
      * @ORM\Column(name="option1", type="text", length=65535, nullable=false)
+     * @Groups("quest")
      */
     private $option1;
 
@@ -39,6 +44,7 @@ class Questionn
      * @var string
      *
      * @ORM\Column(name="option2", type="text", length=65535, nullable=false)
+     * @Groups("quest")
      */
     private $option2;
 
@@ -46,6 +52,7 @@ class Questionn
      * @var string
      *
      * @ORM\Column(name="option3", type="text", length=65535, nullable=false)
+     * @Groups("quest")
      */
     private $option3;
 
@@ -53,6 +60,7 @@ class Questionn
      * @var string
      *
      * @ORM\Column(name="option4", type="text", length=65535, nullable=false)
+     * @Groups("quest")
      */
     private $option4;
 
@@ -60,6 +68,7 @@ class Questionn
      * @var string
      *
      * @ORM\Column(name="reponse", type="text", length=65535, nullable=false)
+     * @Groups("quest")
      */
     private $reponse;
 
@@ -69,6 +78,7 @@ class Questionn
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idquiz", referencedColumnName="quizID",onDelete="CASCADE")
      * })
+     * @Groups("quest")
      */
     private $idquiz;
 
