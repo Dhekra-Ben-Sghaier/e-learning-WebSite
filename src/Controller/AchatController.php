@@ -29,6 +29,21 @@ class AchatController extends AbstractController
             'achats' => $achatRepository->findAll(),
         ]);
     }
+    
+    
+      /**
+     * @Route("/M", name="achat_indexM", methods={"GET"})
+     */
+    public function indexM(AchatRepository $achatRepository, NormalizerInterface $Normalizer): Response
+    {
+        $formations = $this->getDoctrine()
+            ->getRepository(Achat::class)
+            ->findAll();
+        $jsoncontent = $Normalizer->normalize($formations,'json',['groups'=>'post:read']);
+       
+        return new JsonResponse($jsoncontent);
+    }
+    
 
     /**
      * @Route("/new/{id}/{iduser}", name="achat_new", methods={"GET","POST"})
@@ -78,27 +93,15 @@ class AchatController extends AbstractController
 
     }
     
-     /**
-     * @Route("/M", name="achat_indexM", methods={"GET"})
-     */
-    public function indexM(AchatRepository $achatRepository, NormalizerInterface $Normalizer): Response
-    {
-        $formations = $this->getDoctrine()
-            ->getRepository(Achat::class)
-            ->findAll();
-        $jsoncontent = $Normalizer->normalize($formations,'json',['groups'=>'post:read']);
-       
-        return new JsonResponse($jsoncontent);
-    }
-    
+   
     
        /**
-     * @Route("/newM/{id}", name="achat_newM", methods={"GET","POST"})
+     * @Route("/newM/{id}/{iduser}", name="achat_newM", methods={"GET","POST"})
      * @param Request $request
      * @param $entityManager
      * @return Response
      */
-    public function newM($id, \Swift_Mailer $mailer,NormalizerInterface $normalizer): Response
+    public function newM($id,$iduser, \Swift_Mailer $mailer,NormalizerInterface $normalizer): Response
     {
 
         $verif=$this->getDoctrine()->getManager()->getRepository(Achat::class)->findById($id);
@@ -111,7 +114,7 @@ class AchatController extends AbstractController
 
 
         $achat = new Achat();
-        $achat->setIdUser($this->getDoctrine()->getManager()->getReference(Personnes::class, 1));
+        $achat->setIdUser($this->getDoctrine()->getManager()->getReference(Personnes::class, $iduser));
         $achat->setId($id);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($achat);
